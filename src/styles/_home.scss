@@ -1,0 +1,60 @@
+.flexDisplayColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexDisplayRow {
+  display: flex;
+}
+
+.flexFit {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.flexGrowOne {
+  flex-grow: 1;
+}
+
+// Different column widths for various screen sizes.
+@media screen
+and (min-width: 1450px) {
+  .navigationColumn {
+    width: 15%
+  }
+  .contentColumn {
+    width: 65%
+  }
+  .relatedColumn {
+    width: 20%
+  }
+}
+
+@media screen
+and (max-width: 1450px)
+and (min-width: 1150px) {
+  .navigationColumn {
+    width: 20%
+  }
+  .contentColumn {
+    width: 55%
+  }
+  .relatedColumn {
+    width: 25%
+  }
+}
+
+@media screen
+and (max-width: 1150px) {
+  .navigationColumn {
+    width: 25%
+  }
+  .contentColumn {
+    width: 45%
+  }
+  .relatedColumn {
+    width: 30%
+  }
+}

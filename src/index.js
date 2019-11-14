@@ -6,7 +6,6 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router' // react-router v4/v5
-import rootReducer from './reducers/index';
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './configureStore'
 
@@ -15,10 +14,11 @@ const store = configureStore()
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <Switch>
+        <Route path="/" component={App} />
+      </Switch>
     </ConnectedRouter>
-  </Provider>
-  ,
+  </Provider>,
   document.getElementById('root')
 );
 

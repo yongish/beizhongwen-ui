@@ -5,18 +5,18 @@ import {
   SELECT_TAB
 } from '../actions';
 
-const platform = (state = 'home', action : { type: string, tab: string }) => {
+const tab = (state = 'home', action : { type: string, tab: string }) => {
   switch (action.type) {
     case SELECT_TAB:
       return action.tab;
     default:
-    return state;
+      return state;
   }
 }
 
 const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
-  platform
+  tab
 });
 
 export default rootReducer;

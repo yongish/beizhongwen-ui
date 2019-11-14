@@ -7,25 +7,23 @@ import HeaderBar from './HeaderBar';
 import Home from './Home';
 import NavigationColumn from './NavigationColumn';
 import Related from './Related';
+
+import {
+  selectTab
+} from '../actions';
+
 import '../styles/App.css';
 import '../styles/_home.scss';
 
-// const mapStateToProps = state => {
-//   return {
-//     platform: state.platform
-//   };
-// };
 const mapStateToProps = state => {
   return {
     tab: state.tab
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  selectTab: tab => dispatch(selectTab(tab))
+})
 
 class App extends PureComponent {
   constructor(props) {
@@ -33,24 +31,26 @@ class App extends PureComponent {
   }
 
   render() {
+    const {
+      tab
+    } = this.props;
     return (
       <div className='flexGrowOne flexDisplayColumn' >
         <HeaderBar/>
         <div className='flexGrowOne flexDisplayRow'>
           <NavigationColumn />
-          {this.props.tab === 'question' &&
+          {tab === 'question' &&
             <div>
               <Content />
               <Related />
             </div>
           }
-          {this.props.tab === 'home' && <Home />}
-          {this.props.tab === 'about' && <About />}
+          {tab === 'about' && <About />}
+          {tab === 'home' && <Home />}
         </div>
       </div>
     );
   }
 }
 
-// export default App;
 export default connect(mapStateToProps, mapDispatchToProps)(App);

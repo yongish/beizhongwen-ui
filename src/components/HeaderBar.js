@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Form, Field } from 'react-final-form';
 import setFieldData from 'final-form-set-field-data';
+import { Avatar } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
 import '../styles/HeaderBar.css';
 
@@ -25,6 +28,23 @@ const validate = values => {
   return errors;
 };
 
+const useStyles = makeStyles({
+  avatar: {
+    margin: 10,
+  },
+  orangeAvatar: {
+    margin: 10,
+    color: '#fff',
+    backgroundColor: deepOrange[500],
+  },
+  purpleAvatar: {
+    margin: 10,
+    color: '#fff',
+    backgroundColor: deepPurple[500],
+  },
+});
+const classes = useStyles;
+
 class HeaderBar extends PureComponent {
   constructor(props) {
     super(props);
@@ -32,8 +52,8 @@ class HeaderBar extends PureComponent {
 
   render() {
     return (
-      <div className='flexDisplayRow' style={{border: '1px solid black'}}>
-        <div style={{padding: 10}}>
+      <div className='flexDisplayRow' style={{marginTop: 20, marginLeft: 20, border: '1px solid black'}}>
+        <div>
           <div>背中文</div>
           <div>Memorize Chinese creatively</div>
         </div>
@@ -50,7 +70,9 @@ class HeaderBar extends PureComponent {
             </form>
           )}
         />
-        <div>
+        <div className='flexDisplayRowAlign' style={{ marginLeft: 'auto', marginRight: 20 }}>
+          <Avatar className={classes.avatar}>H</Avatar>
+          <div style={{ marginLeft: 10 }}>SCORE</div>
         </div>
       </div>
     );

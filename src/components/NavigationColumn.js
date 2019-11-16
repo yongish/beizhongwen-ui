@@ -7,10 +7,9 @@ class NavigationColumn extends PureComponent {
 
   render() {
     return (
-      <div style={{border: '1px solid black'}} className='navigationColumn flexDisplayColumn'>
-        <ul>
-          <li></li>
-        </ul>
+      <div style={{border: '1px solid black', padding: 20}} className='navigationColumn flexDisplayColumn'>
+        <div>Home</div>
+        <div style={{marginTop: 10}}>About</div>
       </div>
     );
   }

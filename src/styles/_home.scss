@@ -1,3 +1,20 @@
+html {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+body {
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+
 .flexDisplayColumn {
   display: flex;
   flex-direction: column;
@@ -46,6 +63,20 @@ and (min-width: 1450px) {
   .relatedColumn {
     width: 20%
   }
+}
+.List {
+  border: 1px solid red;
+}
+
+.ListItemEven,
+.ListItemOdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ListItemEven {
+  background-color: #f8f8f0;
 }
 
 @media screen

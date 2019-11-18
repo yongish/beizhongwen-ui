@@ -8,6 +8,9 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import { FixedSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,10 +44,18 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
 }));
+
+const Row = ({ index, style }) => (
+  <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
+    Row {index}
+  </div>
+);
 
 export default function Home() {
   const classes = useStyles();
@@ -61,6 +72,7 @@ export default function Home() {
 
   return (
     <div className={classes.root}>
+
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Latest Words" {...a11yProps(0)} />
@@ -68,14 +80,13 @@ export default function Home() {
           <Tab label="Highest Voted" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        <div style={{ border: '1px solid black'}} className='flexDisplayColumn'>
+      <TabPanel value={value} index={0} style={{ border: '3px solid red', flex: 1 }}>
         <ToggleButtonGroup
           value={alignment}
           exclusive
           onChange={handleAlignment}
           aria-label="text alignment"
-          style={{ marginLeft: 'auto', marginRight: 0 }}
+          style={{ border: '3px solid green', marginLeft: 'auto', marginRight: 20, display: 'block', width: '20%' }}
         >
           <ToggleButton value="left" aria-label="left aligned">
             Week
@@ -87,7 +98,6 @@ export default function Home() {
             All time
           </ToggleButton>
         </ToggleButtonGroup>
-        </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Most Views

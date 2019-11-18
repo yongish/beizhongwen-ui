@@ -24,7 +24,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      <Box p={3}>{children}</Box>
+      <Box p={3} style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>{children}</Box>
     </Typography>
   );
 }
@@ -80,7 +80,7 @@ export default function Home() {
           <Tab label="Highest Voted" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0} style={{ border: '3px solid red', flex: 1 }}>
+      <TabPanel value={value} index={0} style={{ border: '3px solid red', flex: 1, display: 'flex' }}>
         <ToggleButtonGroup
           value={alignment}
           exclusive
@@ -98,6 +98,24 @@ export default function Home() {
             All time
           </ToggleButton>
         </ToggleButtonGroup>
+        <div
+        style={{border: '1px solid orange', display: 'flex', flex: 1}}
+        >
+        <AutoSizer>
+    {({ height, width }) => (
+      <List
+        className="List"
+        height={height}
+        itemCount={1000}
+        itemSize={35}
+        width={width}
+      >
+        {Row}
+      </List>
+    )}
+  </AutoSizer>
+  
+        </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Most Views

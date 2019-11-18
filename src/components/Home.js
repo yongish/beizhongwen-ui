@@ -87,7 +87,6 @@ export default function Home() {
             All time
           </ToggleButton>
         </ToggleButtonGroup>
-
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>

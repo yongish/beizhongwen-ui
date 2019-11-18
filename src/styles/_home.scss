@@ -23,6 +23,14 @@
   flex-grow: 1;
 }
 
+.leftBorder {
+  border-left: solid 1px lightgray;
+}
+
+.overflowHidden {
+  overflow: hidden
+}
+
 // Different column widths for various screen sizes.
 @media screen
 and (min-width: 1450px) {

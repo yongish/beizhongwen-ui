@@ -1,16 +1,31 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import { FixedSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
-class Content extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const Row = ({ index, style }) => (
+  <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
+    Row {index}
+  </div>
+);
 
-  render() {
-    return (
-      <div style={{border: '1px solid black'}} className='contentColumn flexDisplayColumn'>
-      </div>
-    );
-  }
+export default function Content() {
+  return (
+    <div className='contentColumn flexGrowOne'>
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            className="List"
+            height={height}
+            itemCount={1000}
+            itemSize={35}
+            width={width}
+          >
+            {Row}
+          </List>
+        )}
+      </AutoSizer>
+    </div>
+  );
 }
-
-export default Content;

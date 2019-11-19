@@ -21,7 +21,7 @@ const score = (state = 0, action : { type: string }) => {
   }
 }
 
-const tab = (state = 'home', action : { type: string, tab: string }) => {
+const tab = (state = 'term', action : { type: string, tab: string }) => {
   switch (action.type) {
     case SELECT_TAB:
       return action.tab;

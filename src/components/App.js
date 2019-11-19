@@ -39,8 +39,8 @@ class App extends PureComponent {
         <HeaderBar/>
         <div className='flexGrowOne flexDisplayRow'>
           <NavigationColumn />
-          {tab === 'question' &&
-            <div>
+          {tab === 'term' &&
+            <div className='flexGrowOne flexDisplayRow'>
               <Content />
               <Related />
             </div>

@@ -1,16 +1,9 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-class Related extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div style={{border: '1px solid black'}} className='relatedColumn flexDisplayColumn'>
-      </div>
-    );
-  }
+export default function Related() {
+  return (
+    <div style={{ padding: 20 }} className='relatedColumn flexGrowOne'>
+      <h2>Related</h2>
+    </div>
+  );
 }
-
-export default Related;

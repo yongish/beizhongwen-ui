@@ -71,7 +71,7 @@ export default function Home() {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={[classes.root, 'homeColumn'].join(' ')}>
 
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
@@ -102,19 +102,18 @@ export default function Home() {
         style={{border: '1px solid orange', display: 'flex', flex: 1}}
         >
         <AutoSizer>
-    {({ height, width }) => (
-      <List
-        className="List"
-        height={height}
-        itemCount={1000}
-        itemSize={35}
-        width={width}
-      >
-        {Row}
-      </List>
-    )}
-  </AutoSizer>
-  
+          {({ height, width }) => (
+            <List
+              className="List"
+              height={height}
+              itemCount={1000}
+              itemSize={35}
+              width={width}
+            >
+              {Row}
+            </List>
+          )}
+        </AutoSizer>
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>

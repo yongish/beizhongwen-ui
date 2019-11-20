@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 import setFieldData from 'final-form-set-field-data';
 import { Avatar } from '@material-ui/core';
@@ -70,10 +71,10 @@ class HeaderBar extends PureComponent {
             </form>
           )}
         />
-        <div className='flexDisplayRowAlign' style={{ marginLeft: 'auto', marginRight: 20 }}>
+        <Link to="/profile" className='flexDisplayRowAlign' style={{ textDecoration: "none", color: "black", marginLeft: 'auto', marginRight: 20 }}>
           <Avatar className={classes.avatar}>H</Avatar>
           <div style={{ marginLeft: 10 }}>SCORE</div>
-        </div>
+        </Link>
       </div>
     );
   }

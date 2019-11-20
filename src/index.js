@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './components/App';
+import Profile from './components/Profile'
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import * as serviceWorker from './serviceWorker';
@@ -17,6 +18,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
+        <Route path="/profile" component={Profile} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/" component={App} />

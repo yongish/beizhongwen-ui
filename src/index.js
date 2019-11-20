@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './components/App';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
@@ -15,6 +17,8 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
+        <Route path="/signin" component={SignIn} />
+        <Route path="/signup" component={SignUp} />
         <Route path="/" component={App} />
       </Switch>
     </ConnectedRouter>

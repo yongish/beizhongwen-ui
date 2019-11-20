@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 
+// todo: Clicking on Home and About should trigger actions.
 class NavigationColumn extends PureComponent {
   constructor(props) {
     super(props);

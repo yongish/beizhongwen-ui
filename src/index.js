@@ -1,5 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Route, Switch } from 'react-router' // react-router v4/v5
+import {
+  BrowserRouter as Router,
+  useHistory
+} from "react-router-dom";
+import { ConnectedRouter } from 'connected-react-router'
+
 import './styles/index.css';
 import App from './components/App';
 import Profile from './components/Profile'
@@ -7,22 +15,49 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import * as serviceWorker from './serviceWorker';
 
-import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router' // react-router v4/v5
-import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './configureStore'
 
 const store = configureStore()
 
+const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    fakeAuth.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    fakeAuth.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
+};
+
+function AuthButton() {
+  let history = useHistory();
+
+  return fakeAuth.isAuthenticated ? <App /> : <SignIn />;
+    // <p>
+    //   Welcome!{" "}
+    //   <button
+    //     onClick={() => {
+    //       fakeAuth.signout(() => history.push("/"));
+    //     }}
+    //   >
+    //     Sign out
+    //   </button>
+    // </p>
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Switch>
-        <Route path="/profile" component={Profile} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/" component={App} />
-      </Switch>
+      <Router>
+        <Switch>
+          <Route path="/profile" component={Profile} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/" component={App} />
+        </Switch>
+      </Router>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

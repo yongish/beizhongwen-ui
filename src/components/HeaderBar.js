@@ -71,10 +71,12 @@ class HeaderBar extends PureComponent {
             </form>
           )}
         />
+
         <Link to="/profile" className='flexDisplayRowAlign' style={{ textDecoration: "none", color: "black", marginLeft: 'auto', marginRight: 20 }}>
           <Avatar className={classes.avatar}>H</Avatar>
           <div style={{ marginLeft: 10 }}>SCORE</div>
         </Link>
+        
       </div>
     );
   }

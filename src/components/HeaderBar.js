@@ -85,7 +85,7 @@ export default function HeaderBar() {
       />
 
       <div style={{marginLeft: "auto", marginRight: 20}}>
-        {login === false && (
+        {login === true && (
           <div
             className="flexDisplayRowAlign"
             style={{
@@ -100,13 +100,14 @@ export default function HeaderBar() {
             <div style={{marginLeft: 10}}>SCORE</div>
           </div>
         )}
-        {login === true && (
+        {login === false && (
           <div className="flexDisplayRowAlign">
-            <Link href="/signin">Log in</Link>
+            <Link href="/login">Log in</Link>
             <Button
               variant="contained"
               color="primary"
               className={classes.button}
+              href="/signup"
             >
               Try free
             </Button>

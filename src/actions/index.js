@@ -41,9 +41,7 @@ export const getScore = (uid, token) => dispatch => {
   )
 }
 
-export const selectTab = tab => dispatch => {
-  dispatch({ type: SELECT_TAB, tab });
-}
+export const selectTab = tab => ({ type: SELECT_TAB, tab });
 
 export const LOGIN_REQUEST: string = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS: string = 'LOGIN_SUCCESS';

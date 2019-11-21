@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import setFieldData from 'final-form-set-field-data';
 import { Avatar } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
@@ -29,7 +30,10 @@ const validate = values => {
   return errors;
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+  },
   avatar: {
     margin: 10,
   },
@@ -43,43 +47,51 @@ const useStyles = makeStyles({
     color: '#fff',
     backgroundColor: deepPurple[500],
   },
-});
-const classes = useStyles;
+}));
 
-class HeaderBar extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+export default function HeaderBar() {
+  const login = useSelector(state => state.login);
+  const classes = useStyles();
 
-  render() {
-    return (
-      <div className='flexDisplayRow' style={{marginTop: 20, marginLeft: 20, border: '1px solid black'}}>
-        <div>
-          <div>背中文</div>
-          <div>Memorize Chinese creatively</div>
-        </div>
-        <Form
-          onSubmit={onSubmit}
-          initialValues={{ }}
-          validate={validate}
-          render={({ handleSubmit, form, values }) => (
-            <form onSubmit={handleSubmit}>
-              <div className="search">
-                <span className="fa fa-search"></span>
-                <Field name="search" component="input" type="text" placeholder="Search for words" />
-              </div>
-            </form>
-          )}
-        />
-
-        <Link to="/profile" className='flexDisplayRowAlign' style={{ textDecoration: "none", color: "black", marginLeft: 'auto', marginRight: 20 }}>
-          <Avatar className={classes.avatar}>H</Avatar>
-          <div style={{ marginLeft: 10 }}>SCORE</div>
-        </Link>
-        
+  return (
+    <div className='flexDisplayRow' style={{marginTop: 20, marginLeft: 20, border: '1px solid black'}}>
+      <div>
+        <div>背中文</div>
+        <div>Memorize Chinese creatively</div>
       </div>
-    );
-  }
-}
+      <Form
+        onSubmit={onSubmit}
+        initialValues={{ }}
+        validate={validate}
+        render={({ handleSubmit, form, values }) => (
+          <form onSubmit={handleSubmit}>
+            <div className="search">
+              <span className="fa fa-search"></span>
+              <Field name="search" component="input" type="text" placeholder="Search for words" />
+            </div>
+          </form>
+        )}
+      />
 
-export default HeaderBar;
+      <div style={{ marginLeft: 'auto', marginRight: 20 }}>
+        {login === false &&
+          <div className='flexDisplayRowAlign'
+          style={{ textDecoration: "none", color: "black", marginLeft: 'auto', marginRight: 20 }}
+          >
+            <Avatar className={classes.avatar}>H</Avatar>
+            <div style={{ marginLeft: 10 }}>SCORE</div>
+          </div>
+        }
+        {login === true &&
+          <div className='flexDisplayRowAlign'>
+            <Link href="/signin">Log in</Link>
+            <Button variant="contained" color="primary" className={classes.button}>
+              Try free
+            </Button>
+          </div>
+        }
+      </div>
+
+    </div>
+  );
+}

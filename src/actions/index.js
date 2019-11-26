@@ -3,29 +3,6 @@ import {useHistory} from "react-router-dom";
 
 const API_ROOT = "http://localhost:8080/";
 
-// export const selectTab = tab => ({type: SELECT_TAB, tab});
-export const login = (email, password) => ({type: LOGIN_SUCCESS});
-// export const login = (email, password) => {
-
-// const fullUrl = "LOGIN_URL";
-// console.log("AAAAAAAAAAAAAA");
-
-// return fetch(fullUrl, {
-//   headers: {
-//
-//   }
-// }).then (
-//   response => response.json().then (
-//     json => {
-//       dispatch({ type: LOGIN_SUCCESS, response: json });
-//     }
-//   ),
-//   error => {
-//     dispatch({ type: LOGIN_FAILURE, error: error });
-//   }
-// )
-// };
-
 // todo: refresh token if fail. in middleware
 export const getScore = (uid, token) => dispatch => {
   const fullUrl = API_ROOT + "score/" + uid;
@@ -45,7 +22,31 @@ export const getScore = (uid, token) => dispatch => {
   );
 };
 
-export const selectTab = tab => ({type: SELECT_TAB, tab});
+export const login = (email, password) => dispatch => {
+  dispatch({type: LOGIN_SUCCESS});
+};
+// const fullUrl = "LOGIN_URL";
+// console.log("AAAAAAAAAAAAAA");
+
+// return fetch(fullUrl, {
+//   headers: {
+//
+//   }
+// }).then (
+//   response => response.json().then (
+//     json => {
+//       dispatch({ type: LOGIN_SUCCESS, response: json });
+//     }
+//   ),
+//   error => {
+//     dispatch({ type: LOGIN_FAILURE, error: error });
+//   }
+// )
+// };
+
+export const selectTab = tab => dispatch => {
+  dispatch({type: SELECT_TAB, tab});
+};
 
 export const LOGIN_REQUEST: string = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS: string = "LOGIN_SUCCESS";

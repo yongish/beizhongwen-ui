@@ -25,6 +25,9 @@ export const getScore = (uid, token) => dispatch => {
 export const login = (email, password) => dispatch => {
   dispatch({type: LOGIN_SUCCESS});
 };
+export const logout = () => dispatch => {
+  dispatch({type: LOGOUT_SUCCESS});
+};
 // const fullUrl = "LOGIN_URL";
 // console.log("AAAAAAAAAAAAAA");
 
@@ -51,6 +54,9 @@ export const selectTab = tab => dispatch => {
 export const LOGIN_REQUEST: string = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS: string = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE: string = "LOGIN_FAILURE";
+export const LOGOUT_REQUEST: string = "LOGOUT_REQUEST";
+export const LOGOUT_SUCCESS: string = "LOGOUT_SUCCESS";
+export const LOGOUT_FAILURE: string = "LOGOUT_FAILURE";
 export const SCORE_REQUEST: string = "SCORE_REQUEST";
 export const SCORE_SUCCESS: string = "SCORE_SUCCESS";
 export const SCORE_FAILURE: string = "SCORE_FAILURE";

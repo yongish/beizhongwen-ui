@@ -7,6 +7,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
+import Settings from "./Settings";
+
 function TabPanel(props) {
   const {children, value, index, ...other} = props;
 
@@ -63,6 +65,7 @@ export default function Profile() {
           <Tab label="Recently viewed" {...a11yProps(0)} />
           <Tab label="Created terms" {...a11yProps(1)} />
           <Tab label="Answers" {...a11yProps(2)} />
+          <Tab label="Settings" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -73,6 +76,9 @@ export default function Profile() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <Settings />
       </TabPanel>
     </div>
   );

@@ -61,8 +61,8 @@ export default function HeaderBar() {
       className="flexDisplayRowAlign"
       style={{marginLeft: 20, border: "1px solid black"}}
     >
-      <div>
-        <div>背中文</div>
+      <div onClick={() => dispatch(selectTab("home"))}>
+        <div style={{fontSize: 20}}>背中文</div>
         <div>Memorize Chinese creatively</div>
       </div>
       <Form

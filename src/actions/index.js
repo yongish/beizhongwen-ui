@@ -1,5 +1,6 @@
 import store from "../index";
 import {useHistory} from "react-router-dom";
+import {Auth} from "aws-amplify";
 
 const API_ROOT = "http://localhost:8080/";
 
@@ -22,30 +23,20 @@ export const getScore = (uid, token) => dispatch => {
   );
 };
 
-export const login = (email, password) => dispatch => {
-  dispatch({type: LOGIN_SUCCESS});
+export const login = (email, password) => async dispatch => {
+  try {
+    const user = await Auth.signIn(email, password);
+    console.log(user);
+    dispatch({type: LOGIN_SUCCESS});
+  } catch (e) {
+    alert("Login failed. Invalid email or password.");
+    dispatch({type: LOGIN_FAILURE});
+  }
 };
+
 export const logout = () => dispatch => {
   dispatch({type: LOGOUT_SUCCESS});
 };
-// const fullUrl = "LOGIN_URL";
-// console.log("AAAAAAAAAAAAAA");
-
-// return fetch(fullUrl, {
-//   headers: {
-//
-//   }
-// }).then (
-//   response => response.json().then (
-//     json => {
-//       dispatch({ type: LOGIN_SUCCESS, response: json });
-//     }
-//   ),
-//   error => {
-//     dispatch({ type: LOGIN_FAILURE, error: error });
-//   }
-// )
-// };
 
 export const selectTab = tab => dispatch => {
   dispatch({type: SELECT_TAB, tab});

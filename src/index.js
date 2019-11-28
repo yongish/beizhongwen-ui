@@ -4,8 +4,10 @@ import {Provider} from "react-redux";
 import {Route, Switch} from "react-router"; // react-router v4/v5
 import {BrowserRouter as Router, useHistory} from "react-router-dom";
 import {ConnectedRouter} from "connected-react-router";
+import Amplify from "aws-amplify";
 
 import "./styles/index.css";
+import config from "./config";
 import App from "./components/App";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
@@ -51,6 +53,15 @@ const NoMatch = ({location}) => (
     </h3>
   </div>
 );
+
+Amplify.configure({
+  Auth: {
+    mandatorySignIn: true,
+    region: config.cognito.REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID
+  }
+});
 
 ReactDOM.render(
   <Provider store={store}>

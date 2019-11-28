@@ -17,6 +17,9 @@ import * as serviceWorker from "./serviceWorker";
 import configureStore, {history} from "./configureStore";
 
 const store = configureStore();
+store.subscribe(() => {
+  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
+});
 
 const fakeAuth = {
   isAuthenticated: false,

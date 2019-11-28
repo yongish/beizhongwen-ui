@@ -19,9 +19,16 @@ const composedEnhancers = composeWithDevTools(
 );
 
 export default function configureStore(preloadedState) {
+  const persistedState = localStorage.getItem("reduxState")
+    ? JSON.parse(localStorage.getItem("reduxState"))
+    : {};
+  const startState = (({login, tab}) => ({login, tab}))(persistedState);
+
   const store = createStore(
     createRootReducer(history), // root reducer with router state
-    preloadedState,
+    // preloadedState,
+    // persistedState,
+    startState,
     composedEnhancers
   );
 

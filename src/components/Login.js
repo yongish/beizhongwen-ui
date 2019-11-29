@@ -107,9 +107,9 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => {
-              dispatch(login(email, password));
-              history.push("/");
+            onClick={event => {
+              event.preventDefault();
+              dispatch(login(email, password, history));
             }}
           >
             Log In

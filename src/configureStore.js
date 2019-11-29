@@ -22,7 +22,13 @@ export default function configureStore(preloadedState) {
   const persistedState = localStorage.getItem("reduxState")
     ? JSON.parse(localStorage.getItem("reduxState"))
     : {};
-  const startState = (({login, tab}) => ({login, tab}))(persistedState);
+  const startState = (({login, tab, email, firstName, lastName}) => ({
+    login,
+    tab,
+    email,
+    firstName,
+    lastName
+  }))(persistedState);
 
   const store = createStore(
     createRootReducer(history), // root reducer with router state

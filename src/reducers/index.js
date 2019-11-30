@@ -2,6 +2,8 @@ import {combineReducers} from "redux";
 import {connectRouter} from "connected-react-router";
 
 import {
+  CONFIRM_RESET_SUCCESS,
+  CONFIRM_RESET_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -9,6 +11,8 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   SELECT_TAB,
+  SEND_CODE_SUCCESS,
+  SEND_CODE_FAILURE,
   SET_EMAIL,
   SET_FIRST_NAME,
   SET_LAST_NAME,
@@ -18,6 +22,17 @@ import {
   SCORE_SUCCESS,
   SCORE_FAILURE
 } from "../actions";
+
+const codeSent = (state = false, action: {type: string}) => {
+  switch (action.type) {
+    case SEND_CODE_SUCCESS:
+      return true;
+    case SEND_CODE_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
 
 const email = (state = "", action: {type: string, email: string}) => {
   switch (action.type) {
@@ -83,6 +98,17 @@ const login = (state = false, action: {type: string}) => {
   }
 };
 
+const resetConfirmed = (state = false, action: {type: string}) => {
+  switch (action.type) {
+    case CONFIRM_RESET_SUCCESS:
+      return true;
+    case CONFIRM_RESET_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
 const score = (state = 0, action: {type: string}) => {
   switch (action.type) {
     case SCORE_REQUEST:
@@ -108,6 +134,8 @@ const tab = (state = "term", action: {type: string, tab: string}) => {
 const rootReducer = history =>
   combineReducers({
     router: connectRouter(history),
+    codeSent,
+    resetConfirmed,
     email,
     password,
     firstName,

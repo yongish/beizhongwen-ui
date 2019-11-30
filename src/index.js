@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import {Route, Switch} from "react-router"; // react-router v4/v5
-import {BrowserRouter as Router, useHistory} from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 import {ConnectedRouter} from "connected-react-router";
 import Amplify from "aws-amplify";
 
@@ -11,6 +11,7 @@ import config from "./config";
 import App from "./components/App";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
+import ResetPassword from "./components/ResetPassword";
 import SignUp from "./components/SignUp";
 import * as serviceWorker from "./serviceWorker";
 
@@ -32,22 +33,6 @@ const fakeAuth = {
     setTimeout(cb, 100);
   }
 };
-
-function AuthButton() {
-  let history = useHistory();
-
-  return fakeAuth.isAuthenticated ? <App /> : <Login />;
-  // <p>
-  //   Welcome!{" "}
-  //   <button
-  //     onClick={() => {
-  //       fakeAuth.signout(() => history.push("/"));
-  //     }}
-  //   >
-  //     Sign out
-  //   </button>
-  // </p>
-}
 
 const NoMatch = ({location}) => (
   <div>
@@ -72,6 +57,7 @@ ReactDOM.render(
       <Router>
         <Switch>
           <Route path="/profile" component={Profile} />
+          <Route path="/login/reset" component={ResetPassword} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/" exact component={App} />

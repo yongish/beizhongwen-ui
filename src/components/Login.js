@@ -15,20 +15,9 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import {login} from "../actions";
+import Copyright from "./Copyright";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        背中文 Beizhongwen
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import {login} from "../actions";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -116,7 +105,7 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/login/reset" variant="body2">
                 Forgot password?
               </Link>
             </Grid>

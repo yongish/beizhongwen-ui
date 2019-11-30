@@ -1,10 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import { FixedSizeList as List } from "react-window";
+import React from "react";
+// import PropTypes from 'prop-types';
+// todo: May need to style list.
+// import {makeStyles} from "@material-ui/core/styles";
+import {FixedSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-const Row = ({ index, style }) => (
+const Row = ({index, style}) => (
   <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
     Row {index}
   </div>
@@ -12,9 +13,9 @@ const Row = ({ index, style }) => (
 
 export default function Content() {
   return (
-    <div className='contentColumn flexGrowOne'>
+    <div className="contentColumn flexGrowOne">
       <AutoSizer>
-        {({ height, width }) => (
+        {({height, width}) => (
           <List
             className="List"
             height={height}

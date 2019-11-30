@@ -1,5 +1,5 @@
 import React from "react";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 
 import About from "./About";
 import Content from "./Content";

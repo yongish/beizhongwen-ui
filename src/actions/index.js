@@ -1,5 +1,4 @@
-import store from "../index";
-import {useHistory} from "react-router-dom";
+// import store from "../index";
 import {Auth} from "aws-amplify";
 
 const API_ROOT = "http://localhost:8080/";
@@ -60,8 +59,9 @@ export const setNewUser = newUser => dispatch => {
 
 export const login = (email, password, history) => async dispatch => {
   try {
-    const user = await Auth.signIn(email, password);
-    console.log(user);
+    await Auth.signIn(email, password);
+    // todo: May need to record username rather than just a boolean.
+    // const user = await Auth.signIn(email, password);
     dispatch({type: LOGIN_SUCCESS});
     dispatch({type: SELECT_TAB, tab: "home"});
     history.push("/");
@@ -88,7 +88,7 @@ export const signup = (
   password
 ) => async dispatch => {
   try {
-    const newUser = await Auth.signUp({
+    await Auth.signUp({
       username: email,
       password: password,
       attributes: {
@@ -109,10 +109,32 @@ export const signup = (
   }
 };
 
+export const sendCode = email => async dispatch => {
+  try {
+    await Auth.forgotPassword(email);
+    dispatch({type: SEND_CODE_SUCCESS});
+  } catch (e) {
+    alert(e.message);
+    dispatch({type: SEND_CODE_FAILURE});
+  }
+};
+
+export const confirmReset = (email, code, password) => async dispatch => {
+  try {
+    await Auth.forgotPasswordSubmit(email, code, password);
+    dispatch({type: CONFIRM_RESET_SUCCESS});
+  } catch (e) {
+    alert(e.message);
+    dispatch({type: CONFIRM_RESET_FAILURE});
+  }
+};
+
 export const selectTab = tab => dispatch => {
   dispatch({type: SELECT_TAB, tab});
 };
 
+export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
+export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
 export const LOGIN_REQUEST: string = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS: string = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE: string = "LOGIN_FAILURE";
@@ -123,6 +145,8 @@ export const SCORE_REQUEST: string = "SCORE_REQUEST";
 export const SCORE_SUCCESS: string = "SCORE_SUCCESS";
 export const SCORE_FAILURE: string = "SCORE_FAILURE";
 export const SELECT_TAB: string = "SELECT_TAB";
+export const SEND_CODE_SUCCESS: string = "SEND_CODE_SUCCESS";
+export const SEND_CODE_FAILURE: string = "SEND_CODE_FAILURE";
 export const SET_EMAIL: string = "SET_EMAIL";
 export const SET_FIRST_NAME: string = "SET_FIRST_NAME";
 export const SET_LAST_NAME: string = "SET_LAST_NAME";

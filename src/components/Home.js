@@ -103,7 +103,7 @@ export default function Home() {
               marginLeft: "auto",
               marginRight: 10,
               display: "block",
-              width: "30%"
+              width: "42%"
             }}
           >
             <ToggleButton value="left" aria-label="left aligned">

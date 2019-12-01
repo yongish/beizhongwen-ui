@@ -52,9 +52,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// todo: Replace with API call.
+const sampleWords = ["一见钟情", "一无所知", "脚踏实地", "奶酪", "踊跃"];
+
 const Row = ({index, style}) => (
-  <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
-    Row {index}
+  <div className="ListItem" style={style}>
+    {sampleWords[index]}
   </div>
 );
 
@@ -98,9 +101,9 @@ export default function Home() {
             style={{
               border: "3px solid green",
               marginLeft: "auto",
-              marginRight: 20,
+              marginRight: 10,
               display: "block",
-              width: "20%"
+              width: "30%"
             }}
           >
             <ToggleButton value="left" aria-label="left aligned">
@@ -113,14 +116,20 @@ export default function Home() {
               All time
             </ToggleButton>
           </ToggleButtonGroup>
-          <div style={{border: "1px solid orange", display: "flex", flex: 1}}>
+          <div
+            style={{
+              border: "1px solid orange",
+              display: "flex",
+              flex: 1
+            }}
+          >
             <AutoSizer>
               {({height, width}) => (
                 <List
                   className="List"
                   height={height}
-                  itemCount={1000}
-                  itemSize={35}
+                  itemCount={sampleWords.length}
+                  itemSize={70}
                   width={width}
                 >
                   {Row}

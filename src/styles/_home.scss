@@ -52,48 +52,79 @@ body,
   border: 1px solid red;
 }
 
-.ListItemEven,
-.ListItemOdd {
+.ListItem {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: solid 1px lightgray;
+  font-size: 21px;
+  cursor: pointer;
+  &:hover {
+    background-color: azure
+  }
 }
 
-.ListItemEven {
-  background-color: #f8f8f0;
-}
+// .ListItemEven {
+//   background-color: #f8f8f0;
+// }
 
 // Different column widths for various screen sizes.
 @media screen
 and (min-width: 1450px) {
+  .blankLeftColumn{
+    width: 10%
+  }
+
   .navigationColumn {
     width: 10%
   }
+
   .homeColumn {
-    width: 90%
+    width: 55%
   }
   .contentColumn {
-    width: 75%
+    width: 55%
   }
+
   .relatedColumn {
     width: 15%
+  }
+  .homeRightColumn {
+    width: 15%
+  }
+
+  .blankRightColumn{
+    width: 10%
   }
 }
 
 @media screen
 and (max-width: 1450px)
 and (min-width: 1150px) {
+  .blankLeftColumn{
+    width: 10%
+  }
+
   .navigationColumn {
     width: 10%
   }
+
   .homeColumn {
-    width: 90%
+    width: 55%
   }
   .contentColumn {
-    width: 75%
+    width: 55%
   }
+
   .relatedColumn {
     width: 15%
+  }
+  .homeRightColumn {
+    width: 15%
+  }
+
+  .blankRightColumn{
+    width: 10%
   }
 }
 
@@ -103,7 +134,10 @@ and (max-width: 1150px) {
     width: 15%
   }
   .homeColumn {
-    width: 85%
+    width: 65%
+  }
+  .homeRightColumn {
+    width: 20%
   }
   .contentColumn {
     width: 55%

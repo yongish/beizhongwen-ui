@@ -5,6 +5,9 @@ import About from "./About";
 import Content from "./Content";
 import HeaderBar from "./HeaderBar";
 import Home from "./Home";
+import HomeRight from "./HomeRight";
+import BlankLeft from "./BlankLeft";
+import BlankRight from "./BlankRight";
 import NavigationColumn from "./NavigationColumn";
 import Profile from "./Profile";
 import Related from "./Related";
@@ -18,6 +21,7 @@ export default function App() {
     <div className="flexGrowOne flexDisplayColumn">
       <HeaderBar />
       <div className="flexGrowOne flexDisplayRow">
+        <BlankLeft />
         <NavigationColumn />
         {tab === "term" && (
           <div className="flexGrowOne flexDisplayRow">
@@ -26,8 +30,14 @@ export default function App() {
           </div>
         )}
         {tab === "about" && <About />}
-        {tab === "home" && <Home />}
+        {tab === "home" && (
+          <div className="flexGrowOne flexDisplayRow">
+            <Home />
+            <HomeRight />
+          </div>
+        )}
         {tab === "profile" && <Profile />}
+        <BlankRight />
       </div>
     </div>
   );

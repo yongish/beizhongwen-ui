@@ -12,10 +12,15 @@ export default function NavigationColumn() {
       style={{border: "1px solid black", padding: 20}}
       className="navigationColumn flexDisplayColumn"
     >
-      <Link onClick={() => dispatch(selectTab("home"))}>Home</Link>
+      <Link
+        onClick={() => dispatch(selectTab("home"))}
+        style={{cursor: "pointer"}}
+      >
+        Home
+      </Link>
       <Link
         onClick={() => dispatch(selectTab("about"))}
-        style={{marginTop: 10}}
+        style={{marginTop: 10, cursor: "pointer"}}
       >
         About
       </Link>

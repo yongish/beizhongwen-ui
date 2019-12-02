@@ -4,24 +4,16 @@ import {Form, Field} from "react-final-form";
 import {Avatar} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import SearchIcon from "@material-ui/icons/Search";
 import {makeStyles} from "@material-ui/core/styles";
 import {deepOrange, deepPurple} from "@material-ui/core/colors";
 
+import SearchBar from "./SearchBar";
+
 import {selectTab} from "../actions";
-
-import "../styles/HeaderBar.css";
-
-// const onSubmit = async values => {
-//   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-//   await sleep(300);
-//   window.alert(JSON.stringify(values, 0, 2));
-// };
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-const onSubmit = async values => {
-  await sleep(300);
-  window.alert(JSON.stringify(values, 0, 2));
-};
 
 const validate = values => {
   const errors = {};
@@ -57,32 +49,15 @@ export default function HeaderBar() {
   const classes = useStyles();
 
   return (
-    <div
-      className="flexDisplayRowAlign"
-      style={{marginLeft: 20, border: "1px solid black"}}
-    >
-      <div onClick={() => dispatch(selectTab("home"))}>
-        <div style={{fontSize: 20}}>背中文</div>
+    <div className="flexDisplayRowAlign" style={{marginLeft: 20}}>
+      <div
+        onClick={() => dispatch(selectTab("home"))}
+        style={{cursor: "pointer"}}
+      >
+        <div style={{fontSize: 21}}>背中文</div>
         <div>Memorize Chinese creatively</div>
       </div>
-      <Form
-        onSubmit={onSubmit}
-        initialValues={{}}
-        validate={validate}
-        render={({handleSubmit, form, values}) => (
-          <form onSubmit={handleSubmit}>
-            <div className="search">
-              <span className="fa fa-search"></span>
-              <Field
-                name="search"
-                component="input"
-                type="text"
-                placeholder="Search for words"
-              />
-            </div>
-          </form>
-        )}
-      />
+      <SearchBar />
 
       <div style={{marginLeft: "auto", marginRight: 20}}>
         {login === true && (

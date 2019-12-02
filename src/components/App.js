@@ -18,27 +18,29 @@ import "../styles/_home.scss";
 export default function App() {
   const tab = useSelector(state => state.tab);
   return (
-    <div className="flexGrowOne flexDisplayColumn">
-      <HeaderBar />
-      <div className="flexGrowOne flexDisplayRow">
-        <BlankLeft />
-        <NavigationColumn />
-        {tab === "term" && (
-          <div className="flexGrowOne flexDisplayRow">
-            <Content />
-            <Related />
-          </div>
-        )}
-        {tab === "about" && <About />}
-        {tab === "home" && (
-          <div className="flexGrowOne flexDisplayRow">
-            <Home />
-            <HomeRight />
-          </div>
-        )}
-        {tab === "profile" && <Profile />}
-        <BlankRight />
+    <div className="flexGrowOne flexDisplayRow">
+      <BlankLeft />
+      <div className="flexGrowOne flexDisplayColumn">
+        <HeaderBar />
+        <div className="flexGrowOne flexDisplayRow">
+          <NavigationColumn />
+          {tab === "term" && (
+            <div className="flexGrowOne flexDisplayRow">
+              <Content />
+              <Related />
+            </div>
+          )}
+          {tab === "about" && <About />}
+          {tab === "home" && (
+            <div className="flexGrowOne flexDisplayRow">
+              <Home />
+              <HomeRight />
+            </div>
+          )}
+          {tab === "profile" && <Profile />}
+        </div>
       </div>
+      <BlankRight />
     </div>
   );
 }

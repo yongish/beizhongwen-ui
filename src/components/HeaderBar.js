@@ -49,7 +49,7 @@ export default function HeaderBar() {
   const classes = useStyles();
 
   return (
-    <div className="flexDisplayRowAlign" style={{marginLeft: 20}}>
+    <div className="headerBar flexDisplayRowAlign" style={{marginLeft: 20}}>
       <div
         onClick={() => dispatch(selectTab("home"))}
         style={{cursor: "pointer"}}

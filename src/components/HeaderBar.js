@@ -1,13 +1,8 @@
 import React from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {Form, Field} from "react-final-form";
 import {Avatar} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
-import SearchIcon from "@material-ui/icons/Search";
 import {makeStyles} from "@material-ui/core/styles";
 import {deepOrange, deepPurple} from "@material-ui/core/colors";
 
@@ -57,7 +52,6 @@ export default function HeaderBar() {
         <div style={{fontSize: 21}}>背中文</div>
         <div>Memorize Chinese creatively</div>
       </div>
-      <SearchBar />
 
       <div style={{marginLeft: "auto", marginRight: 20}}>
         {login === true && (

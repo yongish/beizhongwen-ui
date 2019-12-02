@@ -1,26 +1,26 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import Link from "@material-ui/core/Link";
 
 import {selectTab} from "../actions";
 
 // todo: Clicking on Home and About should trigger actions.
 export default function NavigationColumn() {
+  const tab = useSelector(state => state.tab);
   const dispatch = useDispatch();
   return (
-    <div
-      style={{border: "1px solid black", padding: 20}}
-      className="navigationColumn flexDisplayColumn"
-    >
+    <div style={{padding: 20}} className="navigationColumn flexDisplayColumn">
       <Link
         onClick={() => dispatch(selectTab("home"))}
-        style={{cursor: "pointer"}}
+        className={tab === "home" ? "tileSelectedMarker" : ""}
+        style={{padding: 10, cursor: "pointer"}}
       >
         Home
       </Link>
       <Link
         onClick={() => dispatch(selectTab("about"))}
-        style={{marginTop: 10, cursor: "pointer"}}
+        className={tab === "about" ? "tileSelectedMarker" : ""}
+        style={{padding: 10, cursor: "pointer"}}
       >
         About
       </Link>

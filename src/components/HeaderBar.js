@@ -5,19 +5,9 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import {makeStyles} from "@material-ui/core/styles";
 import {deepOrange, deepPurple} from "@material-ui/core/colors";
-
 import SearchBar from "./SearchBar";
 
 import {selectTab} from "../actions";
-
-const validate = values => {
-  const errors = {};
-  if (!values.search) {
-    errors.search = "Required";
-  }
-  // todo: Validate that input is only Chinese characters.
-  return errors;
-};
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -52,6 +42,7 @@ export default function HeaderBar() {
         <div style={{fontSize: 21}}>背中文</div>
         <div>Memorize Chinese creatively</div>
       </div>
+      <SearchBar />
 
       <div style={{marginLeft: "auto", marginRight: 20}}>
         {login === true && (

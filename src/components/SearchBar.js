@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Select, {components} from "react-select";
+import {components} from "react-select";
 import SearchIcon from "@material-ui/icons/Search";
 import Creatable from "react-select/creatable";
 
@@ -63,13 +63,13 @@ const styles = {
 export default class SearchBar extends Component<*, State> {
   constructor() {
     super();
+    this.state = {
+      isLoading: false,
+      options: defaultOptions,
+      value: undefined
+    };
   }
 
-  state = {
-    isLoading: false,
-    options: defaultOptions,
-    value: undefined
-  };
   select: ElementRef<*>;
   handleChange = (newValue: any, actionMeta: any) => {
     this.setState({value: newValue});

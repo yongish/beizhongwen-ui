@@ -22,16 +22,9 @@ const createOption = (label: string) => ({
   value: label.toLowerCase().replace(/\W/g, "")
 });
 
-const defaultOptions = [
-  createOption("One"),
-  createOption("Two"),
-  createOption("Three")
-];
-const sampleWords = ["一见钟情", "一无所知", "脚踏实地", "奶酪", "踊跃"];
-const influencers = [
-  {value: "abc", label: "abc"},
-  {value: "def", label: "def"}
-];
+const defaultOptions = ["一见钟情", "一无所知", "脚踏实地", "奶酪", "踊跃"].map(
+  createOption
+);
 
 const ValueContainer = ({children, ...props}) => {
   return (
@@ -70,7 +63,6 @@ const styles = {
 export default class SearchBar extends Component<*, State> {
   constructor() {
     super();
-    this.handleInfluencerName = this.handleInfluencerName.bind(this);
   }
 
   state = {
@@ -108,10 +100,6 @@ export default class SearchBar extends Component<*, State> {
     this.select.blur();
   };
 
-  handleInfluencerName(event) {
-    console.log(event);
-  }
-
   render() {
     const {isLoading, options, value} = this.state;
 
@@ -122,21 +110,21 @@ export default class SearchBar extends Component<*, State> {
             ref={ref => {
               this.select = ref;
             }}
+            classNamePrefix="search"
             isClearable
-            blurInputOnSelect={true}
             isDisabled={isLoading}
             isLoading={isLoading}
+            isMulti={false}
+            isSearchable={true}
+            blurInputOnSelect={true}
+            components={{DropdownIndicator, ValueContainer}}
             onChange={this.handleChange}
             onCreateOption={this.handleCreate}
             onMenuClose={this.handleMenuClose}
             onFocus={this.handleFocus}
             options={options}
-            value={value}
-            isMulti={false}
-            isSearchable={true}
-            components={{DropdownIndicator, ValueContainer}}
-            classNamePrefix="search"
             styles={styles}
+            value={value}
           />
         </div>
       </div>

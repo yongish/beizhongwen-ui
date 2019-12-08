@@ -25,20 +25,23 @@ export default function Content() {
   const classes = useStyles();
 
   return (
-    <div className={[classes.root, "contentColumn"].join(" ")}>
-      <AutoSizer>
-        {({height, width}) => (
-          <List
-            className="List"
-            height={height}
-            itemCount={100}
-            itemSize={35}
-            width={width}
-          >
-            {Row}
-          </List>
-        )}
-      </AutoSizer>
+    <div style={{display: 'flex', flexDirection: 'column', flex: '1 1 700px'}}>
+      <div>dddddd</div>
+      <div style={{flexGrow: 1}}>
+        <AutoSizer>
+          {({height, width}) => (
+            <List
+              className="List"
+              height={height}
+              itemCount={100}
+              itemSize={35}
+              width={width}
+            >
+              {Row}
+            </List>
+          )}
+        </AutoSizer>
+      </div>
     </div>
   );
 }

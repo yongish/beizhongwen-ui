@@ -28,10 +28,7 @@ export default function App() {
           <NavigationColumn />
           {tab === "term" && (
             <div className="flexGrowOne flexDisplayRow">
-              <div style={{display: 'flex', flexDirection: 'column', flex: '1 1 700px'}}>
-                <div>dddddd</div>
-                <Content />
-              </div>
+              <Content />
               <Related />
             </div>
           )}

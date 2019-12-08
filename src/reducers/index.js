@@ -122,6 +122,7 @@ const score = (state = 0, action: {type: string}) => {
   }
 };
 
+// todo: state = "home" after Content.js is done.
 const tab = (state = "term", action: {type: string, tab: string}) => {
   switch (action.type) {
     case SELECT_TAB:

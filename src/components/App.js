@@ -22,11 +22,16 @@ export default function App() {
       <BlankLeft />
       <div className="flexGrowOne flexDisplayColumn">
         <HeaderBar />
+
+
         <div className="flexGrowOne flexDisplayRow">
           <NavigationColumn />
           {tab === "term" && (
             <div className="flexGrowOne flexDisplayRow">
-              <Content />
+              <div style={{display: 'flex', flexDirection: 'column', flex: '1 1 700px'}}>
+                <div>dddddd</div>
+                <Content />
+              </div>
               <Related />
             </div>
           )}
@@ -39,6 +44,8 @@ export default function App() {
           )}
           {tab === "profile" && <Profile />}
         </div>
+
+
       </div>
       <BlankRight />
     </div>

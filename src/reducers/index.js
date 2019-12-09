@@ -139,12 +139,12 @@ const score = (state = 0, action: {type: string}) => {
 const checked = (state = {}, action: {type: string, index: number}) => {
   switch (action.type) {
     case SET_CHECKED:
+      console.log(state);
       if (action.index in state) {
         state[action.index] = !state[action.index];
       } else {
         state[action.index] = true;
       }
-      console.log(state);
       return state;
     default:
       return state;

@@ -38,6 +38,7 @@ export const getScore = (uid, token) => dispatch => {
 };
 
 export const setChecked = index => dispatch => {
+  console.log(index);
   dispatch({type: SET_CHECKED, index});
 };
 

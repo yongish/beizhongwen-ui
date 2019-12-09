@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
+import TextField from "@material-ui/core/TextField";
 // import PropTypes from 'prop-types';
 import {VariableSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -101,6 +102,32 @@ export default function Content() {
       >
         Add a suggestion
       </Button>
+
+      <TextField
+        id="outlined-multiline-static"
+        label="Suggestion"
+        multiline
+        rows="4"
+        defaultValue="Default Value"
+        variant="outlined"
+      />
+      <div style={{display: "flex", justifyContent: "space-between"}}>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{alignSelf: "flex-start", margin: 5}}
+        >
+          Submit
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          style={{alignSelf: "flex-start", margin: 5}}
+        >
+          Cancel
+        </Button>
+      </div>
+
       <div style={{flexGrow: 1}}>
         <AutoSizer>
           {({height, width}) => (

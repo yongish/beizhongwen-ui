@@ -49,6 +49,7 @@ body,
 }
 
 .List {
+  background-color: lightgray
 }
 
 .ListItem {
@@ -70,6 +71,14 @@ body,
 // .ListItemEven {
 //   background-color: #f8f8f0;
 // }
+
+.navigationColumn {
+  background-color: lightgray;
+}
+.relatedColumn {
+  background-color: lightgray;
+
+}
 
 // Different column widths for various screen sizes.
 @media screen

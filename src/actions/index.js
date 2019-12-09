@@ -38,7 +38,6 @@ export const getScore = (uid, token) => dispatch => {
 };
 
 export const setChecked = index => dispatch => {
-  console.log(index);
   dispatch({type: SET_CHECKED, index});
 };
 
@@ -107,7 +106,6 @@ export const signup = (
     if (e.name.toLowerCase().includes("usernameexistsexception")) {
       dispatch({type: SET_NEW_USER, newUser: false});
     } else {
-      console.log(e);
       alert(e.message);
       dispatch({type: SIGNUP_FAILURE});
     }

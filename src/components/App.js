@@ -22,8 +22,6 @@ export default function App() {
       <BlankLeft />
       <div className="flexGrowOne flexDisplayColumn">
         <HeaderBar />
-
-
         <div className="flexGrowOne flexDisplayRow">
           <NavigationColumn />
           {tab === "term" && (
@@ -41,8 +39,6 @@ export default function App() {
           )}
           {tab === "profile" && <Profile />}
         </div>
-
-
       </div>
       <BlankRight />
     </div>

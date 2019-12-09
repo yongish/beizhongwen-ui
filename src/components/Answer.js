@@ -60,14 +60,14 @@ export default function Answer(props) {
       </Collapse>
       <Button
         variant="contained"
-        style={{marginLeft: 5, marginTop: 5}}
+        style={{marginTop: 5}}
         onClick={e => {
           setTempChecked(prev => !prev);
           console.log(index);
           dispatch(setChecked(index));
         }}
       >
-        Expand
+        Toggle
       </Button>
     </div>
   );

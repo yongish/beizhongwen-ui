@@ -1,29 +1,20 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
-import {makeStyles} from "@material-ui/core/styles";
 // import PropTypes from 'prop-types';
 import {VariableSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
-import Answer from "./Answer";
 
 import {setChecked} from "../actions";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    border: "1px solid yellow"
-  }
-}));
+const GUTTER_SIZE = 5;
 
 export default function Content() {
   const checked = useSelector(state => state.checked);
-  const classes = useStyles();
   const dispatch = useDispatch();
   const listRef = useRef(null);
 
@@ -48,33 +39,41 @@ export default function Content() {
   };
 
   const Row = ({index, style}) => (
-    <div style={style}>
-      <Collapse in={checked[index]} collapsedHeight={"50px"} timeout={0}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-        pharetra, lorem sit amet feugiat faucibus, ipsum lacus varius velit, nec
-        commodo mauris nisl non neque. Sed at neque egestas, interdum leo eget,
-        dictum dolor. Nam quis eleifend eros. Nulla id accumsan libero, et
-        bibendum arcu. Nunc sed sollicitudin diam, eget euismod felis. Class
-        aptent taciti sociosqu ad litora torquent per conubia nostra, per
-        inceptos himenaeos. Morbi eget pellentesque lorem, a egestas mi. Nunc
-        feugiat rutrum ultrices. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Donec ullamcorper vitae erat dictum pharetra. Morbi
-        dictum vehicula tellus id consectetur. Vestibulum ante ipsum primis in
-        faucibus orci luctus et ultrices posuere cubilia Curae; Donec placerat
-        euismod mi, vel gravida purus faucibus ac. Ut non volutpat metus, sed
-        rhoncus nulla. Pellentesque ullamcorper nibh nisi, eget iaculis massa
-        suscipit in. Maecenas quis hendrerit libero.
-      </Collapse>
-      <Button
-        variant="contained"
-        style={{marginLeft: 5, marginTop: 5}}
-        onClick={() => {
-          toggleSize(index);
-        }}
-      >
-        Expand
-      </Button>
-    </div>
+    <Card
+      style={{
+        ...style,
+        top: style.top + GUTTER_SIZE,
+        height: style.height - GUTTER_SIZE
+      }}
+    >
+      <CardContent>
+        <Collapse in={checked[index]} collapsedHeight={"50px"} timeout={0}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+          pharetra, lorem sit amet feugiat faucibus, ipsum lacus varius velit,
+          nec commodo mauris nisl non neque. Sed at neque egestas, interdum leo
+          eget, dictum dolor. Nam quis eleifend eros. Nulla id accumsan libero,
+          et bibendum arcu. Nunc sed sollicitudin diam, eget euismod felis.
+          Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+          per inceptos himenaeos. Morbi eget pellentesque lorem, a egestas mi.
+          Nunc feugiat rutrum ultrices. Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Donec ullamcorper vitae erat dictum pharetra. Morbi
+          dictum vehicula tellus id consectetur. Vestibulum ante ipsum primis in
+          faucibus orci luctus et ultrices posuere cubilia Curae; Donec placerat
+          euismod mi, vel gravida purus faucibus ac. Ut non volutpat metus, sed
+          rhoncus nulla. Pellentesque ullamcorper nibh nisi, eget iaculis massa
+          suscipit in. Maecenas quis hendrerit libero.
+        </Collapse>
+        <Button
+          variant="contained"
+          style={{marginTop: 5}}
+          onClick={() => {
+            toggleSize(index);
+          }}
+        >
+          Toggle
+        </Button>
+      </CardContent>
+    </Card>
   );
 
   return (

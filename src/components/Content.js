@@ -1,6 +1,9 @@
 import React, {useState, useEffect, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
 import {makeStyles} from "@material-ui/core/styles";
 // import PropTypes from 'prop-types';
@@ -26,14 +29,14 @@ export default function Content() {
 
   const [rowSizes, setRowSizes] = useState(
     new Array(50).fill(true).reduce((acc, item, i) => {
-      acc[i] = 100;
+      acc[i] = 120;
       return acc;
     }, {})
   );
 
   const toggleSize = i => {
     dispatch(setChecked(i));
-    rowSizes[i] = rowSizes[i] === 100 ? 300 : 100;
+    rowSizes[i] = rowSizes[i] === 120 ? 300 : 120;
     setRowSizes(rowSizes);
     if (listRef.current) {
       listRef.current.resetAfterIndex(i);
@@ -75,7 +78,13 @@ export default function Content() {
   );
 
   return (
-    <div style={{display: "flex", flexDirection: "column", flex: "1 1 700px"}}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flex: "1 1 700px"
+      }}
+    >
       <div
         style={{
           paddingLeft: 100,

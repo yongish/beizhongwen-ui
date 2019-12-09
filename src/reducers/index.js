@@ -13,6 +13,7 @@ import {
   SELECT_TAB,
   SEND_CODE_SUCCESS,
   SEND_CODE_FAILURE,
+  SET_CHECKED,
   SET_EMAIL,
   SET_FIRST_NAME,
   SET_LAST_NAME,
@@ -20,7 +21,8 @@ import {
   SET_NEW_USER,
   SCORE_REQUEST,
   SCORE_SUCCESS,
-  SCORE_FAILURE
+  SCORE_FAILURE,
+  TOGGLE_ANSWER
 } from "../actions";
 
 const codeSent = (state = false, action: {type: string}) => {
@@ -109,6 +111,18 @@ const resetConfirmed = (state = false, action: {type: string}) => {
   }
 };
 
+const rowHeight = (state = [], action: {type: string, index: number}) => {
+  switch (action.type) {
+    case TOGGLE_ANSWER:
+      if (state[action.index] === 100) {
+        state[action.index] = 200;
+      }
+      return state;
+    default:
+      return state;
+  }
+};
+
 const score = (state = 0, action: {type: string}) => {
   switch (action.type) {
     case SCORE_REQUEST:
@@ -116,6 +130,21 @@ const score = (state = 0, action: {type: string}) => {
     case SCORE_SUCCESS:
       return action.response;
     case SCORE_FAILURE:
+      return state;
+    default:
+      return state;
+  }
+};
+
+const checked = (state = {}, action: {type: string, index: number}) => {
+  switch (action.type) {
+    case SET_CHECKED:
+      if (action.index in state) {
+        state[action.index] = !state[action.index];
+      } else {
+        state[action.index] = true;
+      }
+      console.log(state);
       return state;
     default:
       return state;
@@ -135,6 +164,7 @@ const tab = (state = "term", action: {type: string, tab: string}) => {
 const rootReducer = history =>
   combineReducers({
     router: connectRouter(history),
+    checked,
     codeSent,
     resetConfirmed,
     email,
@@ -144,7 +174,8 @@ const rootReducer = history =>
     newUser,
     login,
     score,
-    tab
+    tab,
+    rowHeight
   });
 
 export default rootReducer;

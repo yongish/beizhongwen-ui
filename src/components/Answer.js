@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Collapse from "@material-ui/core/Collapse";
+
+import {setChecked, toggleAnswer} from "../actions";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -30,12 +33,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function Answer(props) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(false);
+  const [tempChecked, setTempChecked] = React.useState(false);
+  // const [checked, setChecked] = React.useState(false);
   const {index, style} = props;
+  const dispatch = useDispatch();
+  const ref = useRef(null);
+  const checked = useSelector(state => state.checked);
 
   return (
-    <div style={{...style, border: "1px solid black"}}>
-      <Collapse in={checked} collapsedHeight={"50px"}>
+    <div style={{...style, border: "1px solid black"}} ref={ref}>
+      <Collapse in={checked[index]} collapsedHeight={"50px"}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
         pharetra, lorem sit amet feugiat faucibus, ipsum lacus varius velit, nec
         commodo mauris nisl non neque. Sed at neque egestas, interdum leo eget,
@@ -55,8 +62,9 @@ export default function Answer(props) {
         variant="contained"
         style={{marginLeft: 5, marginTop: 5}}
         onClick={e => {
-          setChecked(prev => !prev);
-          console.log(checked);
+          setTempChecked(prev => !prev);
+          console.log(index);
+          dispatch(setChecked(index));
         }}
       >
         Expand

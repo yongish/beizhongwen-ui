@@ -37,6 +37,10 @@ export const getScore = (uid, token) => dispatch => {
   );
 };
 
+export const setChecked = index => dispatch => {
+  dispatch({type: SET_CHECKED, index});
+};
+
 export const setEmail = email => dispatch => {
   dispatch({type: SET_EMAIL, email});
 };
@@ -129,6 +133,10 @@ export const confirmReset = (email, code, password) => async dispatch => {
   }
 };
 
+export const toggleAnswer = index => dispatch => {
+  dispatch({type: TOGGLE_ANSWER, index});
+};
+
 export const selectTab = tab => dispatch => {
   dispatch({type: SELECT_TAB, tab});
 };
@@ -147,6 +155,7 @@ export const SCORE_FAILURE: string = "SCORE_FAILURE";
 export const SELECT_TAB: string = "SELECT_TAB";
 export const SEND_CODE_SUCCESS: string = "SEND_CODE_SUCCESS";
 export const SEND_CODE_FAILURE: string = "SEND_CODE_FAILURE";
+export const SET_CHECKED: string = "SET_CHECKED";
 export const SET_EMAIL: string = "SET_EMAIL";
 export const SET_FIRST_NAME: string = "SET_FIRST_NAME";
 export const SET_LAST_NAME: string = "SET_LAST_NAME";
@@ -155,3 +164,4 @@ export const SET_NEW_USER: string = "SET_NEW_USER";
 export const SIGNUP_REQUEST: string = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE: string = "SIGNUP_FAILURE";
+export const TOGGLE_ANSWER: string = "TOGGLE_ANSWER";

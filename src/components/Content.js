@@ -25,7 +25,7 @@ export default function Content() {
   const listRef = useRef(null);
 
   const [rowSizes, setRowSizes] = useState(
-    new Array(1000).fill(true).reduce((acc, item, i) => {
+    new Array(50).fill(true).reduce((acc, item, i) => {
       acc[i] = 100;
       return acc;
     }, {})
@@ -33,26 +33,20 @@ export default function Content() {
 
   const toggleSize = i => {
     dispatch(setChecked(i));
-    const newRowSizes = rowSizes;
-    newRowSizes[i] = rowSizes[i] === 100 ? 300 : 100;
-    setRowSizes(newRowSizes);
+    rowSizes[i] = rowSizes[i] === 100 ? 300 : 100;
+    setRowSizes(rowSizes);
     if (listRef.current) {
       listRef.current.resetAfterIndex(i);
     }
   };
 
   const getSize = i => {
-    if (i in checked) {
-      if (listRef.current) {
-        listRef.current.resetAfterIndex(i);
-      }
-    }
     return rowSizes[i];
   };
 
   const Row = ({index, style}) => (
-    <div style={{...style, border: "1px solid black"}}>
-      <Collapse in={checked[index]} collapsedHeight={"50px"}>
+    <div style={style}>
+      <Collapse in={checked[index]} collapsedHeight={"50px"} timeout={0}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
         pharetra, lorem sit amet feugiat faucibus, ipsum lacus varius velit, nec
         commodo mauris nisl non neque. Sed at neque egestas, interdum leo eget,

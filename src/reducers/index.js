@@ -21,8 +21,7 @@ import {
   SET_NEW_USER,
   SCORE_REQUEST,
   SCORE_SUCCESS,
-  SCORE_FAILURE,
-  TOGGLE_ANSWER
+  SCORE_FAILURE
 } from "../actions";
 
 const codeSent = (state = false, action: {type: string}) => {
@@ -111,18 +110,6 @@ const resetConfirmed = (state = false, action: {type: string}) => {
   }
 };
 
-const rowHeight = (state = [], action: {type: string, index: number}) => {
-  switch (action.type) {
-    case TOGGLE_ANSWER:
-      if (state[action.index] === 100) {
-        state[action.index] = 200;
-      }
-      return state;
-    default:
-      return state;
-  }
-};
-
 const score = (state = 0, action: {type: string}) => {
   switch (action.type) {
     case SCORE_REQUEST:
@@ -174,8 +161,7 @@ const rootReducer = history =>
     newUser,
     login,
     score,
-    tab,
-    rowHeight
+    tab
   });
 
 export default rootReducer;

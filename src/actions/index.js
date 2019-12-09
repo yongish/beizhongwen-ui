@@ -134,10 +134,6 @@ export const confirmReset = (email, code, password) => async dispatch => {
   }
 };
 
-export const toggleAnswer = index => dispatch => {
-  dispatch({type: TOGGLE_ANSWER, index});
-};
-
 export const selectTab = tab => dispatch => {
   dispatch({type: SELECT_TAB, tab});
 };
@@ -165,4 +161,3 @@ export const SET_NEW_USER: string = "SET_NEW_USER";
 export const SIGNUP_REQUEST: string = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE: string = "SIGNUP_FAILURE";
-export const TOGGLE_ANSWER: string = "TOGGLE_ANSWER";

@@ -5,17 +5,20 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
+import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 // import PropTypes from 'prop-types';
 import {VariableSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import {setChecked} from "../actions";
+import {setChecked, toggleSuggestionVisibilty} from "../actions";
 
 const GUTTER_SIZE = 5;
 
-export default function Content() {
+export default function Content(props) {
   const checked = useSelector(state => state.checked);
+  const suggestionVisible = useSelector(state => state.suggestionVisible);
+  const login = useSelector(state => state.login);
   const dispatch = useDispatch();
   const listRef = useRef(null);
 
@@ -95,38 +98,72 @@ export default function Content() {
       >
         脚踏实地
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{alignSelf: "flex-start", margin: 5}}
-      >
-        Add a suggestion
-      </Button>
-
-      <TextField
-        id="outlined-multiline-static"
-        label="Suggestion"
-        multiline
-        rows="4"
-        defaultValue="Default Value"
-        variant="outlined"
-      />
-      <div style={{display: "flex", justifyContent: "space-between"}}>
+      {!suggestionVisible && (
         <Button
           variant="contained"
           color="primary"
-          style={{alignSelf: "flex-start", margin: 5}}
+          style={{
+            alignSelf: "flex-start",
+            margin: 5
+          }}
+          display="none"
+          onClick={() => {
+            dispatch(toggleSuggestionVisibilty());
+          }}
         >
-          Submit
+          Add a suggestion
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{alignSelf: "flex-start", margin: 5}}
-        >
-          Cancel
-        </Button>
-      </div>
+      )}
+      {suggestionVisible && login && (
+        <div>
+          <TextField
+            id="outlined-multiline-static"
+            label="Suggestion"
+            multiline
+            rows="4"
+            defaultValue="How will you memorize this term?"
+            variant="outlined"
+            style={{marginTop: 5, display: "flex"}}
+          />
+          <div style={{display: "flex", justifyContent: "space-between"}}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{alignSelf: "flex-start", margin: 5}}
+            >
+              Submit
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{alignSelf: "flex-start", margin: 5}}
+              onClick={() => {
+                dispatch(toggleSuggestionVisibilty());
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      )}
+      {suggestionVisible && !login && (
+        <div>
+          <p style={{marginLeft: 10}}>
+            To add a suggestion, <Link href="/login">log in</Link> or{" "}
+            <Link href="/signup">sign up</Link>.
+          </p>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{alignSelf: "flex-start", margin: 10}}
+            onClick={() => {
+              dispatch(toggleSuggestionVisibilty());
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
+      )}
 
       <div style={{flexGrow: 1}}>
         <AutoSizer>

@@ -33,8 +33,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Answer(props) {
   const classes = useStyles();
-  const [tempChecked, setTempChecked] = React.useState(false);
-  // const [checked, setChecked] = React.useState(false);
   const {index, style} = props;
   const dispatch = useDispatch();
   const ref = useRef(null);
@@ -62,8 +60,6 @@ export default function Answer(props) {
         variant="contained"
         style={{marginTop: 5}}
         onClick={e => {
-          setTempChecked(prev => !prev);
-          console.log(index);
           dispatch(setChecked(index));
         }}
       >

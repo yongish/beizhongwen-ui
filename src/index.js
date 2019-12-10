@@ -9,7 +9,6 @@ import Amplify from "aws-amplify";
 import "./styles/index.css";
 import config from "./config";
 import App from "./components/App";
-import Profile from "./components/Profile";
 import Login from "./components/Login";
 import ResetPassword from "./components/ResetPassword";
 import SignUp from "./components/SignUp";
@@ -56,10 +55,10 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Router>
         <Switch>
-          <Route path="/profile" component={Profile} />
           <Route path="/login/reset" component={ResetPassword} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/term/:term" component={App} />
           <Route path="/" exact component={App} />
           <Route component={NoMatch} />
         </Switch>

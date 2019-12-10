@@ -15,8 +15,9 @@ import Related from "./Related";
 import "../styles/App.css";
 import "../styles/_home.scss";
 
-export default function App() {
+export default function App(props) {
   const tab = useSelector(state => state.tab);
+  console.log(props.match.params.term);
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />

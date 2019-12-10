@@ -136,6 +136,10 @@ export const selectTab = tab => dispatch => {
   dispatch({type: SELECT_TAB, tab});
 };
 
+export const toggleSuggestionVisibilty = () => dispatch => {
+  dispatch({type: TOGGLE_SUGGESTION_VISIBILITY});
+};
+
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
 export const LOGIN_REQUEST: string = "LOGIN_REQUEST";
@@ -159,3 +163,5 @@ export const SET_NEW_USER: string = "SET_NEW_USER";
 export const SIGNUP_REQUEST: string = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE: string = "SIGNUP_FAILURE";
+export const TOGGLE_SUGGESTION_VISIBILITY: string =
+  "TOGGLE_SUGGESTION_VISIBILITY";

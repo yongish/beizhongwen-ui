@@ -21,7 +21,8 @@ import {
   SET_NEW_USER,
   SCORE_REQUEST,
   SCORE_SUCCESS,
-  SCORE_FAILURE
+  SCORE_FAILURE,
+  TOGGLE_SUGGESTION_VISIBILITY
 } from "../actions";
 
 const codeSent = (state = false, action: {type: string}) => {
@@ -137,6 +138,14 @@ const checked = (state = {}, action: {type: string, index: number}) => {
   }
 };
 
+const suggestionVisible = (state = false, action: {type: string}) => {
+  switch (action.type) {
+    case TOGGLE_SUGGESTION_VISIBILITY:
+      return !state;
+    default:
+      return state;
+  }
+};
 // todo: state = "home" after Content.js is done.
 const tab = (state = "term", action: {type: string, tab: string}) => {
   switch (action.type) {
@@ -160,6 +169,7 @@ const rootReducer = history =>
     newUser,
     login,
     score,
+    suggestionVisible,
     tab
   });
 

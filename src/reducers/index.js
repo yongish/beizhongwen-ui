@@ -10,6 +10,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  SCORE_REQUEST,
+  SCORE_SUCCESS,
+  SCORE_FAILURE,
   SELECT_TAB,
   SEND_CODE_SUCCESS,
   SEND_CODE_FAILURE,
@@ -17,11 +20,9 @@ import {
   SET_EMAIL,
   SET_FIRST_NAME,
   SET_LAST_NAME,
-  SET_PASSWORD,
   SET_NEW_USER,
-  SCORE_REQUEST,
-  SCORE_SUCCESS,
-  SCORE_FAILURE,
+  SET_PASSWORD,
+  SET_TERM,
   TOGGLE_SUGGESTION_VISIBILITY
 } from "../actions";
 
@@ -146,11 +147,22 @@ const suggestionVisible = (state = false, action: {type: string}) => {
       return state;
   }
 };
-// todo: state = "home" after Content.js is done.
-const tab = (state = "term", action: {type: string, tab: string}) => {
+
+const tab = (state = "home", action: {type: string, tab: string}) => {
   switch (action.type) {
     case SELECT_TAB:
       return action.tab;
+    case SET_TERM:
+      return "term";
+    default:
+      return state;
+  }
+};
+
+const term = (state = null, action: {type: string, term: string}) => {
+  switch (action.type) {
+    case SET_TERM:
+      return action.term;
     default:
       return state;
   }
@@ -170,7 +182,8 @@ const rootReducer = history =>
     login,
     score,
     suggestionVisible,
-    tab
+    tab,
+    term
   });
 
 export default rootReducer;

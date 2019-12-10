@@ -17,7 +17,6 @@ import "../styles/_home.scss";
 
 export default function App(props) {
   const tab = useSelector(state => state.tab);
-  console.log(props.match.params.term);
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />
@@ -27,7 +26,7 @@ export default function App(props) {
           <NavigationColumn />
           {tab === "term" && (
             <div className="flexGrowOne flexDisplayRow">
-              <Content />
+              <Content term={props.match.params.term} />
               <Related />
             </div>
           )}

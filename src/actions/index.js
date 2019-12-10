@@ -136,6 +136,10 @@ export const selectTab = tab => dispatch => {
   dispatch({type: SELECT_TAB, tab});
 };
 
+export const setTerm = term => dispatch => {
+  dispatch({type: SET_TERM, term});
+};
+
 export const toggleSuggestionVisibilty = () => dispatch => {
   dispatch({type: TOGGLE_SUGGESTION_VISIBILITY});
 };
@@ -158,8 +162,9 @@ export const SET_CHECKED: string = "SET_CHECKED";
 export const SET_EMAIL: string = "SET_EMAIL";
 export const SET_FIRST_NAME: string = "SET_FIRST_NAME";
 export const SET_LAST_NAME: string = "SET_LAST_NAME";
-export const SET_PASSWORD: string = "SET_PASSWORD";
 export const SET_NEW_USER: string = "SET_NEW_USER";
+export const SET_PASSWORD: string = "SET_PASSWORD";
+export const SET_TERM: string = "SET_TERM";
 export const SIGNUP_REQUEST: string = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE: string = "SIGNUP_FAILURE";

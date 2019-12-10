@@ -1,7 +1,11 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {withRouter} from "react-router";
 import {components} from "react-select";
 import SearchIcon from "@material-ui/icons/Search";
 import Creatable from "react-select/creatable";
+
+import {setTerm} from "../actions";
 
 const validate = values => {
   const errors = {};
@@ -60,7 +64,19 @@ const styles = {
   })
 };
 
-export default class SearchBar extends Component<*, State> {
+const mapStateToProps = state => {
+  return {
+    term: state.term
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setTerm: term => dispatch(setTerm(term))
+  };
+};
+
+class SearchBar extends Component<*, State> {
   constructor() {
     super();
     this.state = {
@@ -72,9 +88,13 @@ export default class SearchBar extends Component<*, State> {
 
   select: ElementRef<*>;
   handleChange = (newValue: any, actionMeta: any) => {
+    if (newValue !== null) {
+      this.props.setTerm(newValue.label);
+      this.props.history.push("/term/" + newValue.label);
+    }
     this.setState({value: newValue});
   };
-  handleCreate = (inputValue: any) => {
+  handleCreate = (inputValue: string) => {
     this.setState({isLoading: true});
     console.log("Option created");
     console.log("Wait a moment...");
@@ -131,3 +151,8 @@ export default class SearchBar extends Component<*, State> {
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SearchBar));

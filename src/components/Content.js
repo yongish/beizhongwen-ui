@@ -96,7 +96,7 @@ export default function Content(props) {
           fontSize: 30
         }}
       >
-        脚踏实地
+        {props.term}
       </div>
       {!suggestionVisible && (
         <Button

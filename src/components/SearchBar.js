@@ -5,7 +5,7 @@ import {components} from "react-select";
 import SearchIcon from "@material-ui/icons/Search";
 import Creatable from "react-select/creatable";
 
-import {setTerm} from "../actions";
+import {getLatestTerms, setTerm} from "../actions";
 
 const validate = values => {
   const errors = {};
@@ -72,6 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    getLatestTerms: () => dispatch(getLatestTerms()),
     setTerm: term => dispatch(setTerm(term))
   };
 };
@@ -84,6 +85,11 @@ class SearchBar extends Component<*, State> {
       options: defaultOptions,
       value: undefined
     };
+  }
+
+  componentDidMount() {
+    const {getLatestTerms} = this.props;
+    getLatestTerms();
   }
 
   select: ElementRef<*>;

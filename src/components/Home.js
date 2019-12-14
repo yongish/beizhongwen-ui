@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import {FixedSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import {getLatestTerms} from "../actions";
+import {getLatestTerms, setTerm} from "../actions";
 
 function TabPanel(props) {
   const {children, value, index, ...other} = props;
@@ -67,14 +67,21 @@ export default function Home() {
   };
 
   const Row = ({index, style}) => (
-    <div className="ListItem" style={style}>
+    <div
+      className="ListItem"
+      style={style}
+      onClick={() => {
+        setTerm(sampleWords[index]);
+      }}
+    >
       {sampleWords[index]}
     </div>
   );
 
   useEffect(() => {
+    console.log("hi");
     dispatch(getLatestTerms());
-  });
+  }, []);
 
   return (
     <div className={[classes.root, "homeColumn"].join(" ")}>
@@ -86,7 +93,6 @@ export default function Home() {
         >
           <Tab label="Latest Words" {...a11yProps(0)} />
           <Tab label="Most Views" {...a11yProps(1)} />
-          <Tab label="Highest Voted" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       {value === 0 && (
@@ -121,11 +127,6 @@ export default function Home() {
       {value === 1 && (
         <TabPanel value={value} index={1}>
           Most Views
-        </TabPanel>
-      )}
-      {value === 2 && (
-        <TabPanel value={value} index={2}>
-          Highest Voted
         </TabPanel>
       )}
     </div>

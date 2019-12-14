@@ -172,6 +172,7 @@ export const LOGOUT_FAILURE: string = "LOGOUT_FAILURE";
 export const SCORE_REQUEST: string = "SCORE_REQUEST";
 export const SCORE_SUCCESS: string = "SCORE_SUCCESS";
 export const SCORE_FAILURE: string = "SCORE_FAILURE";
+export const SELECT_TERM: string = "SELECT_TERM";
 export const SELECT_TAB: string = "SELECT_TAB";
 export const SEND_CODE_SUCCESS: string = "SEND_CODE_SUCCESS";
 export const SEND_CODE_FAILURE: string = "SEND_CODE_FAILURE";

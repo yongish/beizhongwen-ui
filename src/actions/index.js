@@ -18,6 +18,20 @@ export const confirm = (
   }
 };
 
+export const getLatestTerms = () => dispatch => {
+  const fullUrl = API_ROOT + "term/latest";
+  dispatch({type: LATEST_TERM_REQUEST});
+  return fetch(fullUrl).then(
+    response =>
+      response.json().then(json => {
+        dispatch({type: LATEST_TERM_SUCCESS, response: json});
+      }),
+    error => {
+      dispatch({type: LATEST_TERM_FAILURE, error: error});
+    }
+  );
+};
+
 // todo: refresh token if fail. in middleware
 export const getScore = (uid, token) => dispatch => {
   const fullUrl = API_ROOT + "score/" + uid;
@@ -146,6 +160,9 @@ export const toggleSuggestionVisibilty = () => dispatch => {
 
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
+export const LATEST_TERM_REQUEST: string = "LATEST_TERM_REQUEST";
+export const LATEST_TERM_SUCCESS: string = "LATEST_TERM_SUCCESS";
+export const LATEST_TERM_FAILURE: string = "LATEST_TERM_FAILURE";
 export const LOGIN_REQUEST: string = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS: string = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE: string = "LOGIN_FAILURE";

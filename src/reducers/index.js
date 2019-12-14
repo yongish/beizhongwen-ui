@@ -4,6 +4,9 @@ import {connectRouter} from "connected-react-router";
 import {
   CONFIRM_RESET_SUCCESS,
   CONFIRM_RESET_FAILURE,
+  LATEST_TERM_REQUEST,
+  LATEST_TERM_SUCCESS,
+  LATEST_TERM_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -168,6 +171,19 @@ const term = (state = null, action: {type: string, term: string}) => {
   }
 };
 
+const latestTerms = (state = [], action: {type: string}) => {
+  switch (action.type) {
+    case LATEST_TERM_REQUEST:
+      return state;
+    case LATEST_TERM_SUCCESS:
+      return action.response;
+    case LATEST_TERM_FAILURE:
+      return state;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = history =>
   combineReducers({
     router: connectRouter(history),
@@ -183,7 +199,8 @@ const rootReducer = history =>
     score,
     suggestionVisible,
     tab,
-    term
+    term,
+    latestTerms
   });
 
 export default rootReducer;

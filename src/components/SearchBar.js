@@ -83,6 +83,7 @@ class SearchBar extends Component<*, State> {
     this.state = {
       isLoading: false,
       options: defaultOptions,
+      // openMenu: false, todo: Don't show all options by default.
       value: undefined
     };
   }
@@ -121,13 +122,34 @@ class SearchBar extends Component<*, State> {
       this.select.state.inputValue = this.state.value.label;
     }
   };
+  handleInputChange = (query, {action}) => {
+    if (action === "input-change") {
+      this.setState({openMenu: true});
+    }
+    // Without this, when query is empty,
+    // all queries will appear and be highlighted.
+    this.setState({value: query});
+  };
   handleMenuClose = () => {
     console.log(this.select);
     this.select.blur();
   };
+  // https://github.com/JedWatson/react-select/issues/2217
+  onInputKeyDown = event => {
+    switch (event.keyCode) {
+      case 13: // ENTER
+        event.preventDefault();
+        break;
+    }
+  };
 
   render() {
-    const {isLoading, options, value} = this.state;
+    const {
+      isLoading,
+      // openMenu,
+      options,
+      value
+    } = this.state;
 
     return (
       <div>
@@ -148,6 +170,8 @@ class SearchBar extends Component<*, State> {
             onCreateOption={this.handleCreate}
             onMenuClose={this.handleMenuClose}
             onFocus={this.handleFocus}
+            onInputChange={this.handleInputChange}
+            onInputKeyDown={this.onInputKeyDown}
             options={options}
             styles={styles}
             value={value}

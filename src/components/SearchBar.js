@@ -83,7 +83,7 @@ class SearchBar extends Component<*, State> {
     this.state = {
       isLoading: false,
       options: defaultOptions,
-      // openMenu: false, todo: Don't show all options by default.
+      // openMenu: false, todo before release: Don't show all options by default.
       value: undefined
     };
   }
@@ -173,6 +173,7 @@ class SearchBar extends Component<*, State> {
             onInputChange={this.handleInputChange}
             onInputKeyDown={this.onInputKeyDown}
             options={options}
+            placeholder={"Find or create..."}
             styles={styles}
             value={value}
           />

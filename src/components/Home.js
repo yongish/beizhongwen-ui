@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
 import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -56,6 +57,7 @@ const useStyles = makeStyles(theme => ({
 export default function Home() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const sampleWords = useSelector(state => state.latestTerms);
   const [value, setValue] = React.useState(0);
 
@@ -68,7 +70,8 @@ export default function Home() {
       className="ListItem"
       style={style}
       onClick={() => {
-        setTerm(sampleWords[index]);
+        dispatch(setTerm(sampleWords[index]));
+        history.push("/term/" + sampleWords[index]);
       }}
     >
       {sampleWords[index]}
@@ -88,18 +91,17 @@ export default function Home() {
           aria-label="simple tabs example"
         >
           <Tab label="Latest Words" {...a11yProps(0)} />
-          <Tab label="Most Views" {...a11yProps(1)} />
+          <Tab
+            label="Most Views (coming soon)"
+            disabled={true}
+            {...a11yProps(1)}
+          />
         </Tabs>
       </AppBar>
       {value === 0 && (
-        <TabPanel
-          value={value}
-          index={0}
-          style={{border: "3px solid red", flex: 1, display: "flex"}}
-        >
+        <TabPanel value={value} index={0} style={{flex: 1, display: "flex"}}>
           <div
             style={{
-              border: "1px solid orange",
               display: "flex",
               flex: 1
             }}

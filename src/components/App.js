@@ -12,11 +12,18 @@ import NavigationColumn from "./NavigationColumn";
 import Profile from "./Profile";
 import Related from "./Related";
 
+import {setTerm} from "../actions";
+
 import "../styles/App.css";
 import "../styles/_home.scss";
 
 export default function App(props) {
-  const tab = useSelector(state => state.tab);
+  const term = props.match.params.term;
+  if (term && term.length > 0) {
+    setTerm(term);
+  }
+  const selectorTab = useSelector(state => state.tab);
+  const tab = term && term.length > 0 ? "term" : selectorTab;
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />

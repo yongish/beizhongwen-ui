@@ -1,5 +1,6 @@
 import React from "react";
 import {useSelector, useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 import {Avatar} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
@@ -31,12 +32,16 @@ const useStyles = makeStyles(theme => ({
 export default function HeaderBar() {
   const login = useSelector(state => state.login);
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
 
   return (
     <div className="headerBar flexDisplayRowAlign" style={{marginLeft: 20}}>
       <div
-        onClick={() => dispatch(selectTab("home"))}
+        onClick={() => {
+          dispatch(selectTab("home"));
+          history.push("/");
+        }}
         style={{cursor: "pointer"}}
       >
         <div style={{fontSize: 21}}>背中文</div>

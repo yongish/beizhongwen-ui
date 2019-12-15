@@ -26,10 +26,6 @@ const createOption = (label: string) => ({
   value: label.toLowerCase().replace(/\W/g, "")
 });
 
-const defaultOptions = ["一见钟情", "一无所知", "脚踏实地", "奶酪", "踊跃"].map(
-  createOption
-);
-
 const ValueContainer = ({children, ...props}) => {
   return (
     components.ValueContainer && (
@@ -119,7 +115,9 @@ class SearchBar extends Component<*, State> {
     if (action === "input-change") {
       this.setState({openMenu: true});
     }
-    this.props.findTerms(query);
+    if (query.length > 0) {
+      this.props.findTerms(query);
+    }
     // Without this, when query is empty,
     // all queries will appear and be highlighted.
     this.setState({value: query});

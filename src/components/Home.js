@@ -53,12 +53,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// todo: Replace with API call.
-
 export default function Home() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // const sampleWords = ["一见钟情", "一无所知", "脚踏实地", "奶酪", "踊跃"];
   const sampleWords = useSelector(state => state.latestTerms);
   const [value, setValue] = React.useState(0);
 
@@ -79,7 +76,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    console.log("hi");
     dispatch(getLatestTerms());
   }, []);
 

@@ -118,10 +118,10 @@ export default function Content(props) {
         <div>
           <TextField
             id="outlined-multiline-static"
-            label="Suggestion"
+            label="Add a suggestion"
             multiline
             rows="4"
-            defaultValue="How will you memorize this term?"
+            placeholder="How will you memorize this term?"
             variant="outlined"
             style={{marginTop: 5, display: "flex"}}
           />

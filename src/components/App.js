@@ -22,8 +22,11 @@ export default function App(props) {
   if (term && term.length > 0) {
     setTerm(term);
   }
-  const selectorTab = useSelector(state => state.tab);
-  const tab = term && term.length > 0 ? "term" : selectorTab;
+  // const selectorTab = useSelector(state => state.tab);
+  const tab = useSelector(state => state.tab);
+  // const tab = term && term.length > 0 ? "term" : selectorTab;
+  // const tab = term && term.length > 0 ? "term" : selectorTab;
+  // console.log(tab);
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />

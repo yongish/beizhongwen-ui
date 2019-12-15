@@ -140,7 +140,6 @@ class SearchBar extends Component<*, State> {
     const {
       isLoading,
       // openMenu,
-      options,
       value
     } = this.state;
 

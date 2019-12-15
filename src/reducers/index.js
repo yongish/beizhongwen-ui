@@ -28,6 +28,7 @@ import {
   SET_LAST_NAME,
   SET_NEW_USER,
   SET_PASSWORD,
+  SET_SUGGESTION_CONTENT,
   SET_TERM,
   TOGGLE_SUGGESTION_VISIBILITY
 } from "../actions";
@@ -121,6 +122,25 @@ const login = (state = false, action: {type: string}) => {
   }
 };
 
+const user = (state = {}, action: {type: string}) => {
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      const attributes = action.user.attributes;
+      return {
+        givenName: attributes.given_name,
+        familyName: attributes.family_name
+      };
+    case LOGIN_FAILURE:
+      return state;
+    case LOGOUT_SUCCESS:
+      return {};
+    case LOGOUT_FAILURE:
+      return state;
+    default:
+      return state;
+  }
+};
+
 const resetConfirmed = (state = false, action: {type: string}) => {
   switch (action.type) {
     case CONFIRM_RESET_SUCCESS:
@@ -140,6 +160,18 @@ const score = (state = 0, action: {type: string}) => {
       return action.response;
     case SCORE_FAILURE:
       return state;
+    default:
+      return state;
+  }
+};
+
+const suggestionContent = (
+  state = "",
+  action: {type: string, suggestionContent: string}
+) => {
+  switch (action.type) {
+    case SET_SUGGESTION_CONTENT:
+      return action.suggestionContent;
     default:
       return state;
   }
@@ -217,11 +249,13 @@ const rootReducer = history =>
     newUser,
     login,
     score,
+    suggestionContent,
     suggestionVisible,
     tab,
     term,
     latestTerms,
-    searchOptions
+    searchOptions,
+    user
   });
 
 export default rootReducer;

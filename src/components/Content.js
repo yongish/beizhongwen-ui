@@ -11,14 +11,21 @@ import TextField from "@material-ui/core/TextField";
 import {VariableSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import {setChecked, toggleSuggestionVisibilty} from "../actions";
+import {
+  setChecked,
+  putSuggestion,
+  setSuggestionContent,
+  toggleSuggestionVisibilty
+} from "../actions";
 
 const GUTTER_SIZE = 5;
 
 export default function Content(props) {
   const checked = useSelector(state => state.checked);
+  const suggestionContent = useSelector(state => state.suggestionContent);
   const suggestionVisible = useSelector(state => state.suggestionVisible);
   const login = useSelector(state => state.login);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const listRef = useRef(null);
 
@@ -124,12 +131,19 @@ export default function Content(props) {
             placeholder="How will you memorize this term?"
             variant="outlined"
             style={{marginTop: 5, display: "flex"}}
+            onChange={event => {
+              dispatch(setSuggestionContent(event.target.value));
+            }}
           />
           <div style={{display: "flex", justifyContent: "space-between"}}>
             <Button
               variant="contained"
               color="primary"
               style={{alignSelf: "flex-start", margin: 5}}
+              onClick={() => {
+                console.log(user);
+                dispatch(putSuggestion(props.term, suggestionContent, user));
+              }}
             >
               Submit
             </Button>

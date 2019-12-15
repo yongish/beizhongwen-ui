@@ -107,10 +107,8 @@ export const setNewUser = newUser => dispatch => {
 
 export const login = (email, password, history) => async dispatch => {
   try {
-    await Auth.signIn(email, password);
-    // todo: May need to record username rather than just a boolean.
-    // const user = await Auth.signIn(email, password);
-    dispatch({type: LOGIN_SUCCESS});
+    const user = await Auth.signIn(email, password);
+    dispatch({type: LOGIN_SUCCESS, user});
     dispatch({type: SELECT_TAB, tab: "home"});
     history.push("/");
   } catch (e) {
@@ -188,6 +186,31 @@ export const toggleSuggestionVisibilty = () => dispatch => {
   dispatch({type: TOGGLE_SUGGESTION_VISIBILITY});
 };
 
+export const setSuggestionContent = suggestionContent => dispatch => {
+  dispatch({type: SET_SUGGESTION_CONTENT, suggestionContent});
+};
+
+export const putSuggestion = (term, suggestionContent, user) => dispatch => {
+  const fullUrl = API_ROOT + "suggestion";
+  dispatch({type: PUT_SUGGESTION_REQUEST});
+  console.log({user, term, suggestion: suggestionContent});
+  return fetch(fullUrl, {
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({user, term, suggestion: suggestionContent}),
+    method: "PUT"
+  }).then(
+    response =>
+      response.json().then(json => {
+        dispatch({type: PUT_SUGGESTION_SUCCESS, response: json});
+      }),
+    error => {
+      dispatch({type: PUT_SUGGESTION_FAILURE, error: error});
+    }
+  );
+};
+
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
 export const FIND_TERM_REQUEST: string = "FIND_TERM_REQUEST";
@@ -202,6 +225,9 @@ export const LOGIN_FAILURE: string = "LOGIN_FAILURE";
 export const LOGOUT_REQUEST: string = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS: string = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILURE: string = "LOGOUT_FAILURE";
+export const PUT_SUGGESTION_REQUEST: string = "PUT_SUGGESTION_REQUEST";
+export const PUT_SUGGESTION_SUCCESS: string = "PUT_SUGGESTION_SUCCESS";
+export const PUT_SUGGESTION_FAILURE: string = "PUT_SUGGESTION_FAILURE";
 export const SCORE_REQUEST: string = "SCORE_REQUEST";
 export const SCORE_SUCCESS: string = "SCORE_SUCCESS";
 export const SCORE_FAILURE: string = "SCORE_FAILURE";
@@ -215,6 +241,7 @@ export const SET_FIRST_NAME: string = "SET_FIRST_NAME";
 export const SET_LAST_NAME: string = "SET_LAST_NAME";
 export const SET_NEW_USER: string = "SET_NEW_USER";
 export const SET_PASSWORD: string = "SET_PASSWORD";
+export const SET_SUGGESTION_CONTENT: string = "SET_SUGGESTION_CONTENT";
 export const SET_TERM: string = "SET_TERM";
 export const SIGNUP_REQUEST: string = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";

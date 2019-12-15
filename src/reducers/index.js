@@ -4,6 +4,9 @@ import {connectRouter} from "connected-react-router";
 import {
   CONFIRM_RESET_SUCCESS,
   CONFIRM_RESET_FAILURE,
+  FIND_TERM_REQUEST,
+  FIND_TERM_SUCCESS,
+  FIND_TERM_FAILURE,
   LATEST_TERM_REQUEST,
   LATEST_TERM_SUCCESS,
   LATEST_TERM_FAILURE,
@@ -28,6 +31,20 @@ import {
   SET_TERM,
   TOGGLE_SUGGESTION_VISIBILITY
 } from "../actions";
+
+const checked = (state = {}, action: {type: string, index: number}) => {
+  switch (action.type) {
+    case SET_CHECKED:
+      if (action.index in state) {
+        state[action.index] = !state[action.index];
+      } else {
+        state[action.index] = true;
+      }
+      return state;
+    default:
+      return state;
+  }
+};
 
 const codeSent = (state = false, action: {type: string}) => {
   switch (action.type) {
@@ -128,20 +145,6 @@ const score = (state = 0, action: {type: string}) => {
   }
 };
 
-const checked = (state = {}, action: {type: string, index: number}) => {
-  switch (action.type) {
-    case SET_CHECKED:
-      if (action.index in state) {
-        state[action.index] = !state[action.index];
-      } else {
-        state[action.index] = true;
-      }
-      return state;
-    default:
-      return state;
-  }
-};
-
 const suggestionVisible = (state = false, action: {type: string}) => {
   switch (action.type) {
     case TOGGLE_SUGGESTION_VISIBILITY:
@@ -184,6 +187,23 @@ const latestTerms = (state = [], action: {type: string}) => {
   }
 };
 
+const createOption = (label: string) => ({
+  label,
+  value: label.toLowerCase().replace(/\W/g, "")
+});
+const searchOptions = (state = [], action: {type: string, term: string}) => {
+  switch (action.type) {
+    case FIND_TERM_REQUEST:
+      return state;
+    case FIND_TERM_SUCCESS:
+      return action.response.map(createOption);
+    case FIND_TERM_FAILURE:
+      return state;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = history =>
   combineReducers({
     router: connectRouter(history),
@@ -200,7 +220,8 @@ const rootReducer = history =>
     suggestionVisible,
     tab,
     term,
-    latestTerms
+    latestTerms,
+    searchOptions
   });
 
 export default rootReducer;

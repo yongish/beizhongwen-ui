@@ -18,6 +18,36 @@ export const confirm = (
   }
 };
 
+const getRequest = (
+  fullUrl,
+  dispatch,
+  request_type,
+  success_type,
+  failure_type
+) => {
+  dispatch({type: request_type});
+  return fetch(fullUrl).then(
+    response =>
+      response.json().then(json => {
+        dispatch({type: success_type, response: json});
+      }),
+    error => {
+      dispatch({type: failure_type, error: error});
+    }
+  );
+};
+
+export const findTerms = searchTerm => dispatch => {
+  const fullUrl = API_ROOT + "term/" + searchTerm;
+  return getRequest(
+    fullUrl,
+    dispatch,
+    FIND_TERM_REQUEST,
+    FIND_TERM_SUCCESS,
+    FIND_TERM_FAILURE
+  );
+};
+
 export const getLatestTerms = () => dispatch => {
   const fullUrl = API_ROOT + "term/latest";
   dispatch({type: LATEST_TERM_REQUEST});
@@ -160,6 +190,9 @@ export const toggleSuggestionVisibilty = () => dispatch => {
 
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
+export const FIND_TERM_REQUEST: string = "FIND_TERM_REQUEST";
+export const FIND_TERM_SUCCESS: string = "FIND_TERM_SUCCESS";
+export const FIND_TERM_FAILURE: string = "FIND_TERM_FAILURE";
 export const LATEST_TERM_REQUEST: string = "LATEST_TERM_REQUEST";
 export const LATEST_TERM_SUCCESS: string = "LATEST_TERM_SUCCESS";
 export const LATEST_TERM_FAILURE: string = "LATEST_TERM_FAILURE";

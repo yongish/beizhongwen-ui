@@ -5,7 +5,7 @@ import {components} from "react-select";
 import SearchIcon from "@material-ui/icons/Search";
 import Creatable from "react-select/creatable";
 
-import {getLatestTerms, setTerm} from "../actions";
+import {findTerms, setTerm} from "../actions";
 
 const validate = values => {
   const errors = {};
@@ -66,13 +66,14 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
-    term: state.term
+    term: state.term,
+    searchOptions: state.searchOptions
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getLatestTerms: () => dispatch(getLatestTerms()),
+    findTerms: term => dispatch(findTerms(term)),
     setTerm: term => dispatch(setTerm(term))
   };
 };
@@ -82,15 +83,9 @@ class SearchBar extends Component<*, State> {
     super();
     this.state = {
       isLoading: false,
-      options: defaultOptions,
       // openMenu: false, todo before release: Don't show all options by default.
       value: undefined
     };
-  }
-
-  componentDidMount() {
-    const {getLatestTerms} = this.props;
-    getLatestTerms();
   }
 
   select: ElementRef<*>;
@@ -108,7 +103,6 @@ class SearchBar extends Component<*, State> {
     setTimeout(() => {
       const {options} = this.state;
       const newOption = createOption(inputValue);
-      console.log(newOption);
       this.setState({
         isLoading: false,
         options: [...options, newOption],
@@ -118,7 +112,6 @@ class SearchBar extends Component<*, State> {
   };
   handleFocus = element => {
     if (this.state.value) {
-      console.log(this.state.value.label);
       this.select.state.inputValue = this.state.value.label;
     }
   };
@@ -126,6 +119,7 @@ class SearchBar extends Component<*, State> {
     if (action === "input-change") {
       this.setState({openMenu: true});
     }
+    this.props.findTerms(query);
     // Without this, when query is empty,
     // all queries will appear and be highlighted.
     this.setState({value: query});
@@ -144,6 +138,7 @@ class SearchBar extends Component<*, State> {
   };
 
   render() {
+    const {searchOptions} = this.props;
     const {
       isLoading,
       // openMenu,
@@ -166,13 +161,14 @@ class SearchBar extends Component<*, State> {
             isSearchable={true}
             blurInputOnSelect={true}
             components={{DropdownIndicator, ValueContainer}}
+            noOptionsMessage={() => "No options available"}
             onChange={this.handleChange}
             onCreateOption={this.handleCreate}
             onMenuClose={this.handleMenuClose}
             onFocus={this.handleFocus}
             onInputChange={this.handleInputChange}
             onInputKeyDown={this.onInputKeyDown}
-            options={options}
+            options={searchOptions}
             placeholder={"Find or create..."}
             styles={styles}
             value={value}

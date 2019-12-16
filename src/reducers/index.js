@@ -7,6 +7,9 @@ import {
   FIND_TERM_REQUEST,
   FIND_TERM_SUCCESS,
   FIND_TERM_FAILURE,
+  GET_SUGGESTION_REQUEST,
+  GET_SUGGESTION_SUCCESS,
+  GET_SUGGESTION_FAILURE,
   LATEST_TERM_REQUEST,
   LATEST_TERM_SUCCESS,
   LATEST_TERM_FAILURE,
@@ -16,6 +19,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  POST_SUGGESTION_REQUEST,
+  POST_SUGGESTION_SUCCESS,
+  POST_SUGGESTION_FAILURE,
   SCORE_REQUEST,
   SCORE_SUCCESS,
   SCORE_FAILURE,
@@ -177,6 +183,23 @@ const suggestionContent = (
   }
 };
 
+const suggestions = (state = [], action: {type: string}) => {
+  switch (action.type) {
+    case GET_SUGGESTION_REQUEST:
+    case GET_SUGGESTION_FAILURE:
+    case POST_SUGGESTION_REQUEST:
+    case POST_SUGGESTION_FAILURE:
+      return state;
+    case GET_SUGGESTION_SUCCESS:
+      console.log(action.response);
+      return action.response;
+    case POST_SUGGESTION_SUCCESS:
+      return action.response;
+    default:
+      return state;
+  }
+};
+
 const suggestionVisible = (state = false, action: {type: string}) => {
   switch (action.type) {
     case TOGGLE_SUGGESTION_VISIBILITY:
@@ -251,6 +274,7 @@ const rootReducer = history =>
     score,
     suggestionContent,
     suggestionVisible,
+    suggestions,
     tab,
     term,
     latestTerms,

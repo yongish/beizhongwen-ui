@@ -190,23 +190,46 @@ export const setSuggestionContent = suggestionContent => dispatch => {
   dispatch({type: SET_SUGGESTION_CONTENT, suggestionContent});
 };
 
-export const putSuggestion = (term, suggestionContent, user) => dispatch => {
-  const fullUrl = API_ROOT + "suggestion";
-  dispatch({type: PUT_SUGGESTION_REQUEST});
-  console.log({user, term, suggestion: suggestionContent});
+export const getSuggestions = term => dispatch => {
+  const fullUrl = API_ROOT + "suggestion/" + term;
+  dispatch({type: GET_SUGGESTION_REQUEST});
+  return fetch(fullUrl).then(
+    response =>
+      response.json().then(json => {
+        dispatch({type: GET_SUGGESTION_SUCCESS, response: json});
+      }),
+    error => {
+      dispatch({type: GET_SUGGESTION_FAILURE, error: error});
+    }
+  );
+};
+
+export const postSuggestion = (
+  term,
+  suggestionContent,
+  familyName,
+  givenName
+) => dispatch => {
+  const fullUrl = API_ROOT + "suggestion/" + term;
+  dispatch({type: POST_SUGGESTION_REQUEST});
   return fetch(fullUrl, {
+    method: "POST",
     headers: {
       "content-type": "application/json"
     },
-    body: JSON.stringify({user, term, suggestion: suggestionContent}),
-    method: "PUT"
+    body: JSON.stringify({
+      content: suggestionContent,
+      familyName: familyName,
+      givenName: givenName
+    })
   }).then(
     response =>
       response.json().then(json => {
-        dispatch({type: PUT_SUGGESTION_SUCCESS, response: json});
+        console.log(json);
+        dispatch({type: POST_SUGGESTION_SUCCESS, response: json});
       }),
     error => {
-      dispatch({type: PUT_SUGGESTION_FAILURE, error: error});
+      dispatch({type: POST_SUGGESTION_FAILURE, error: error});
     }
   );
 };
@@ -216,6 +239,9 @@ export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
 export const FIND_TERM_REQUEST: string = "FIND_TERM_REQUEST";
 export const FIND_TERM_SUCCESS: string = "FIND_TERM_SUCCESS";
 export const FIND_TERM_FAILURE: string = "FIND_TERM_FAILURE";
+export const GET_SUGGESTION_REQUEST: string = "GET_SUGGESTION_REQUEST";
+export const GET_SUGGESTION_SUCCESS: string = "GET_SUGGESTION_SUCCESS";
+export const GET_SUGGESTION_FAILURE: string = "GET_SUGGESTION_FAILURE";
 export const LATEST_TERM_REQUEST: string = "LATEST_TERM_REQUEST";
 export const LATEST_TERM_SUCCESS: string = "LATEST_TERM_SUCCESS";
 export const LATEST_TERM_FAILURE: string = "LATEST_TERM_FAILURE";
@@ -225,9 +251,9 @@ export const LOGIN_FAILURE: string = "LOGIN_FAILURE";
 export const LOGOUT_REQUEST: string = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS: string = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILURE: string = "LOGOUT_FAILURE";
-export const PUT_SUGGESTION_REQUEST: string = "PUT_SUGGESTION_REQUEST";
-export const PUT_SUGGESTION_SUCCESS: string = "PUT_SUGGESTION_SUCCESS";
-export const PUT_SUGGESTION_FAILURE: string = "PUT_SUGGESTION_FAILURE";
+export const POST_SUGGESTION_REQUEST: string = "POST_SUGGESTION_REQUEST";
+export const POST_SUGGESTION_SUCCESS: string = "POST_SUGGESTION_SUCCESS";
+export const POST_SUGGESTION_FAILURE: string = "POST_SUGGESTION_FAILURE";
 export const SCORE_REQUEST: string = "SCORE_REQUEST";
 export const SCORE_SUCCESS: string = "SCORE_SUCCESS";
 export const SCORE_FAILURE: string = "SCORE_FAILURE";

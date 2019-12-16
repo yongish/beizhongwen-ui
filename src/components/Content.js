@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -12,8 +12,9 @@ import {VariableSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
 import {
+  getSuggestions,
   setChecked,
-  putSuggestion,
+  postSuggestion,
   setSuggestionContent,
   toggleSuggestionVisibilty
 } from "../actions";
@@ -22,6 +23,7 @@ const GUTTER_SIZE = 5;
 
 export default function Content(props) {
   const checked = useSelector(state => state.checked);
+  const suggestions = useSelector(state => state.suggestions);
   const suggestionContent = useSelector(state => state.suggestionContent);
   const suggestionVisible = useSelector(state => state.suggestionVisible);
   const login = useSelector(state => state.login);
@@ -59,20 +61,7 @@ export default function Content(props) {
     >
       <CardContent>
         <Collapse in={checked[index]} collapsedHeight={"50px"} timeout={0}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          pharetra, lorem sit amet feugiat faucibus, ipsum lacus varius velit,
-          nec commodo mauris nisl non neque. Sed at neque egestas, interdum leo
-          eget, dictum dolor. Nam quis eleifend eros. Nulla id accumsan libero,
-          et bibendum arcu. Nunc sed sollicitudin diam, eget euismod felis.
-          Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-          per inceptos himenaeos. Morbi eget pellentesque lorem, a egestas mi.
-          Nunc feugiat rutrum ultrices. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Donec ullamcorper vitae erat dictum pharetra. Morbi
-          dictum vehicula tellus id consectetur. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia Curae; Donec placerat
-          euismod mi, vel gravida purus faucibus ac. Ut non volutpat metus, sed
-          rhoncus nulla. Pellentesque ullamcorper nibh nisi, eget iaculis massa
-          suscipit in. Maecenas quis hendrerit libero.
+          <div>{suggestions[index].content}</div>
         </Collapse>
         <Button
           variant="contained"
@@ -86,6 +75,10 @@ export default function Content(props) {
       </CardContent>
     </Card>
   );
+
+  useEffect(() => {
+    dispatch(getSuggestions(props.term));
+  }, []);
 
   return (
     <div
@@ -142,7 +135,14 @@ export default function Content(props) {
               style={{alignSelf: "flex-start", margin: 5}}
               onClick={() => {
                 console.log(user);
-                dispatch(putSuggestion(props.term, suggestionContent, user));
+                dispatch(
+                  postSuggestion(
+                    props.term,
+                    suggestionContent,
+                    user.familyName,
+                    user.givenName
+                  )
+                );
               }}
             >
               Submit
@@ -179,22 +179,27 @@ export default function Content(props) {
         </div>
       )}
 
-      <div style={{flexGrow: 1}}>
-        <AutoSizer>
-          {({height, width}) => (
-            <List
-              ref={listRef}
-              className="List"
-              height={height}
-              itemCount={50}
-              itemSize={getSize}
-              width={width}
-            >
-              {Row}
-            </List>
-          )}
-        </AutoSizer>
-      </div>
+      {suggestions.length > 0 && !suggestionVisible && (
+        <div style={{flexGrow: 1}}>
+          <AutoSizer>
+            {({height, width}) => (
+              <List
+                ref={listRef}
+                className="List"
+                height={height}
+                itemCount={suggestions.length}
+                itemSize={getSize}
+                width={width}
+              >
+                {Row}
+              </List>
+            )}
+          </AutoSizer>
+        </div>
+      )}
+      {suggestions.length === 0 && !suggestionVisible && (
+        <p style={{marginLeft: 5}}>No suggestions yet. Add the first one!</p>
+      )}
     </div>
   );
 }

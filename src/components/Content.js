@@ -5,8 +5,11 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
+import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import PropTypes from 'prop-types';
 import {VariableSizeList as List} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -20,6 +23,33 @@ import {
 } from "../actions";
 
 const GUTTER_SIZE = 5;
+
+const timeConverter = UNIX_timestamp => {
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes() < 10 ? "0" + a.getMinutes() : a.getMinutes();
+  var sec = a.getSeconds() < 10 ? "0" + a.getSeconds() : a.getSeconds();
+  var time =
+    date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
+  return time;
+};
 
 export default function Content(props) {
   const checked = useSelector(state => state.checked);
@@ -63,15 +93,27 @@ export default function Content(props) {
         <Collapse in={checked[index]} collapsedHeight={"50px"} timeout={0}>
           <div>{suggestions[index].content}</div>
         </Collapse>
-        <Button
-          variant="contained"
-          style={{marginTop: 5}}
-          onClick={() => {
-            toggleSize(index);
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between"
           }}
         >
-          Toggle
-        </Button>
+          <IconButton
+            variant="contained"
+            onClick={() => {
+              toggleSize(index);
+            }}
+          >
+            <ExpandMoreIcon fontSize="large" />
+            <ExpandLessIcon fontSize="large" />
+          </IconButton>
+          <p>
+            {suggestions[index].givenName} {suggestions[index].familyName}
+            {", "}
+            {timeConverter(suggestions[index].createdAt)}
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

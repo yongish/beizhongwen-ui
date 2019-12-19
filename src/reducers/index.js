@@ -191,8 +191,15 @@ const suggestions = (state = [], action: {type: string}) => {
     case POST_SUGGESTION_FAILURE:
       return state;
     case GET_SUGGESTION_SUCCESS:
-      console.log(action.response);
-      return action.response;
+      const suggestions = action.response;
+      console.log(
+        suggestions.map(suggestion => {
+          suggestion.height = 42;
+          return suggestion;
+        })
+      );
+
+      return suggestions;
     case POST_SUGGESTION_SUCCESS:
       return action.response;
     default:

@@ -59,7 +59,19 @@ export default function Content(props) {
   const login = useSelector(state => state.login);
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const [suggestionHeights, setSuggestionHeights] = useState({});
   const listRef = useRef(null);
+  const suggestionsRef = useRef([]);
+
+  useEffect(() => {
+    dispatch(getSuggestions(props.term));
+  }, []);
+  useEffect(() => {
+    setSuggestionHeights(suggestionsRef.current);
+  });
+  // useEffect(() => {
+  //   setSuggestionHeights(suggestionsRef.current.clientHeight);
+  // }, []);
 
   const [rowSizes, setRowSizes] = useState(
     new Array(50).fill(true).reduce((acc, item, i) => {
@@ -70,7 +82,8 @@ export default function Content(props) {
 
   const toggleSize = i => {
     dispatch(setChecked(i));
-    rowSizes[i] = rowSizes[i] === 120 ? 300 : 120;
+    rowSizes[i] =
+      rowSizes[i] === 120 ? suggestionsRef.current[i].clientHeight + 88 : 120;
     setRowSizes(rowSizes);
     if (listRef.current) {
       listRef.current.resetAfterIndex(i);
@@ -91,7 +104,9 @@ export default function Content(props) {
     >
       <CardContent>
         <Collapse in={checked[index]} collapsedHeight={"50px"} timeout={0}>
-          <div>{suggestions[index].content}</div>
+          <div ref={e => (suggestionsRef.current[index] = e)}>
+            {suggestions[index].content}
+          </div>
         </Collapse>
         <div
           style={{
@@ -117,10 +132,6 @@ export default function Content(props) {
       </CardContent>
     </Card>
   );
-
-  useEffect(() => {
-    dispatch(getSuggestions(props.term));
-  }, []);
 
   return (
     <div

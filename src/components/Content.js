@@ -114,20 +114,27 @@ export default function Content(props) {
             justifyContent: "space-between"
           }}
         >
-          <IconButton
-            variant="contained"
-            onClick={() => {
-              toggleSize(index);
-            }}
-          >
-            <ExpandMoreIcon fontSize="large" />
-            <ExpandLessIcon fontSize="large" />
-          </IconButton>
           <p>
             {suggestions[index].givenName} {suggestions[index].familyName}
             {", "}
             {timeConverter(suggestions[index].createdAt)}
           </p>
+          {suggestionsRef.current[index] &&
+            suggestionsRef.current[index].clientHeight > 42 && (
+              <IconButton
+                variant="contained"
+                onClick={() => {
+                  toggleSize(index);
+                }}
+              >
+                {(!checked[index] || checked[index] === false) && (
+                  <ExpandMoreIcon fontSize="large" />
+                )}
+                {checked[index] && checked[index] === true && (
+                  <ExpandLessIcon fontSize="large" />
+                )}
+              </IconButton>
+            )}
         </div>
       </CardContent>
     </Card>

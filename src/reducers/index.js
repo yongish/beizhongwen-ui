@@ -33,9 +33,11 @@ import {
   SET_FIRST_NAME,
   SET_LAST_NAME,
   SET_NEW_USER,
+  SET_ORIGINAL_SUGGESTION,
   SET_PASSWORD,
   SET_SUGGESTION_CONTENT,
   SET_TERM,
+  TOGGLE_EDIT,
   TOGGLE_SUGGESTION_VISIBILITY
 } from "../actions";
 
@@ -59,6 +61,15 @@ const codeSent = (state = false, action: {type: string}) => {
       return true;
     case SEND_CODE_FAILURE:
       return false;
+    default:
+      return state;
+  }
+};
+
+const edit = (state = false, action: {type: string, edit: boolean}) => {
+  switch (action.type) {
+    case TOGGLE_EDIT:
+      return !action.edit;
     default:
       return state;
   }
@@ -148,6 +159,20 @@ const user = (state = {}, action: {type: string}) => {
   }
 };
 
+const originalSuggestion = (
+  state = "",
+  action: {type: string, suggestionContent: string}
+) => {
+  switch (action.type) {
+    case SET_ORIGINAL_SUGGESTION:
+      return action.suggestionContent;
+    case POST_SUGGESTION_SUCCESS:
+      return "";
+    default:
+      return state;
+  }
+};
+
 const resetConfirmed = (state = false, action: {type: string}) => {
   switch (action.type) {
     case CONFIRM_RESET_SUCCESS:
@@ -212,6 +237,8 @@ const suggestionVisible = (state = false, action: {type: string}) => {
   switch (action.type) {
     case TOGGLE_SUGGESTION_VISIBILITY:
       return !state;
+    case POST_SUGGESTION_REQUEST:
+      return false;
     default:
       return state;
   }
@@ -272,6 +299,7 @@ const rootReducer = history =>
     router: connectRouter(history),
     checked,
     codeSent,
+    edit,
     resetConfirmed,
     email,
     password,
@@ -279,6 +307,7 @@ const rootReducer = history =>
     lastName,
     newUser,
     login,
+    originalSuggestion,
     score,
     suggestionContent,
     suggestionVisible,

@@ -17,9 +17,11 @@ import AutoSizer from "react-virtualized-auto-sizer";
 
 import {
   getSuggestions,
-  setChecked,
   postSuggestion,
+  setChecked,
+  setOriginalSuggestion,
   setSuggestionContent,
+  toggleEdit,
   toggleSuggestionVisibilty
 } from "../actions";
 
@@ -54,6 +56,8 @@ const timeConverter = UNIX_timestamp => {
 
 export default function Content(props) {
   const checked = useSelector(state => state.checked);
+  const edit = useSelector(state => state.edit);
+  const originalSuggestion = useSelector(state => state.originalSuggestion);
   const suggestions = useSelector(state => state.suggestions);
   const suggestionContent = useSelector(state => state.suggestionContent);
   const suggestionVisible = useSelector(state => state.suggestionVisible);
@@ -125,6 +129,9 @@ export default function Content(props) {
               <IconButton
                 variant="contained"
                 onClick={() => {
+                  dispatch(toggleEdit(true));
+                  dispatch(setOriginalSuggestion(suggestions[index].content));
+                  dispatch(setSuggestionContent(suggestions[index].content));
                   dispatch(toggleSuggestionVisibilty());
                 }}
               >
@@ -194,6 +201,7 @@ export default function Content(props) {
             label="Add a suggestion"
             multiline
             rows="4"
+            defaultValue={suggestionContent}
             placeholder="How will you memorize this term?"
             variant="outlined"
             style={{marginTop: 5, display: "flex"}}
@@ -205,13 +213,15 @@ export default function Content(props) {
             <Button
               variant="contained"
               color="primary"
+              disabled={originalSuggestion === suggestionContent}
               style={{alignSelf: "flex-start", margin: 5}}
               onClick={() => {
-                console.log(user);
                 dispatch(
                   postSuggestion(
+                    edit,
                     props.term,
                     suggestionContent,
+                    user.userId,
                     user.familyName,
                     user.givenName
                   )
@@ -225,6 +235,9 @@ export default function Content(props) {
               color="primary"
               style={{alignSelf: "flex-start", margin: 5}}
               onClick={() => {
+                dispatch(toggleEdit(false));
+                dispatch(setOriginalSuggestion(""));
+                dispatch(setSuggestionContent(""));
                 dispatch(toggleSuggestionVisibilty());
               }}
             >

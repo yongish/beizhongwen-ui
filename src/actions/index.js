@@ -186,6 +186,10 @@ export const toggleSuggestionVisibilty = () => dispatch => {
   dispatch({type: TOGGLE_SUGGESTION_VISIBILITY});
 };
 
+export const setOriginalSuggestion = suggestionContent => dispatch => {
+  dispatch({type: SET_ORIGINAL_SUGGESTION, suggestionContent});
+};
+
 export const setSuggestionContent = suggestionContent => dispatch => {
   dispatch({type: SET_SUGGESTION_CONTENT, suggestionContent});
 };
@@ -204,13 +208,27 @@ export const getSuggestions = term => dispatch => {
   );
 };
 
+export const toggleEdit = edit => dispatch => {
+  dispatch({type: TOGGLE_EDIT, edit});
+};
+
 export const postSuggestion = (
+  edit,
   term,
   suggestionContent,
+  userId,
   familyName,
   givenName
 ) => dispatch => {
-  const fullUrl = API_ROOT + "suggestion/" + term;
+  // const createOrUpdate = edit === true ? "create" : "update";
+  // const fullUrl = API_ROOT + "suggestion/" + term + "/" + createOrUpdate;
+  const fullUrl =
+    API_ROOT +
+    "suggestion/" +
+    term +
+    "/" +
+    (edit === true ? "create" : "update");
+  console.log(fullUrl);
   dispatch({type: POST_SUGGESTION_REQUEST});
   return fetch(fullUrl, {
     method: "POST",
@@ -219,13 +237,13 @@ export const postSuggestion = (
     },
     body: JSON.stringify({
       content: suggestionContent,
-      familyName: familyName,
-      givenName: givenName
+      userId,
+      familyName,
+      givenName
     })
   }).then(
     response =>
       response.json().then(json => {
-        console.log(json);
         dispatch({type: POST_SUGGESTION_SUCCESS, response: json});
       }),
     error => {
@@ -234,6 +252,7 @@ export const postSuggestion = (
   );
 };
 
+export const CLEAR_SUGGESTION: string = "CLEAR_SUGGESTION";
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
 export const FIND_TERM_REQUEST: string = "FIND_TERM_REQUEST";
@@ -266,11 +285,13 @@ export const SET_EMAIL: string = "SET_EMAIL";
 export const SET_FIRST_NAME: string = "SET_FIRST_NAME";
 export const SET_LAST_NAME: string = "SET_LAST_NAME";
 export const SET_NEW_USER: string = "SET_NEW_USER";
+export const SET_ORIGINAL_SUGGESTION: string = "SET_ORIGINAL_SUGGESTION";
 export const SET_PASSWORD: string = "SET_PASSWORD";
 export const SET_SUGGESTION_CONTENT: string = "SET_SUGGESTION_CONTENT";
 export const SET_TERM: string = "SET_TERM";
 export const SIGNUP_REQUEST: string = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE: string = "SIGNUP_FAILURE";
+export const TOGGLE_EDIT: string = "TOGGLE_EDIT";
 export const TOGGLE_SUGGESTION_VISIBILITY: string =
   "TOGGLE_SUGGESTION_VISIBILITY";

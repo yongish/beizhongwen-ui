@@ -5,6 +5,7 @@ import {Route, Switch} from "react-router"; // react-router v4/v5
 import {BrowserRouter as Router} from "react-router-dom";
 import {ConnectedRouter} from "connected-react-router";
 import Amplify from "aws-amplify";
+import throttle from "lodash/throttle";
 
 import "./styles/index.css";
 import config from "./config";
@@ -16,10 +17,34 @@ import * as serviceWorker from "./serviceWorker";
 
 import configureStore, {history} from "./configureStore";
 
-const store = configureStore();
-store.subscribe(() => {
-  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
-});
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem("state");
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+const saveState = state => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem("state", serializedState);
+  } catch {
+    // ignore write errors
+  }
+};
+const persistedState = loadState();
+const store = configureStore(persistedState);
+store.subscribe(
+  throttle(() => {
+    saveState({
+      user: store.getState().user
+    });
+  }, 1000)
+);
 
 const fakeAuth = {
   isAuthenticated: false,

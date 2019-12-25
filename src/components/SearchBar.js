@@ -160,7 +160,7 @@ class SearchBar extends Component<*, State> {
             isSearchable={true}
             blurInputOnSelect={true}
             components={{DropdownIndicator, ValueContainer}}
-            noOptionsMessage={() => "No options available"}
+            noOptionsMessage={() => "Type to search"}
             onChange={this.handleChange}
             onCreateOption={this.handleCreate}
             onMenuClose={this.handleMenuClose}

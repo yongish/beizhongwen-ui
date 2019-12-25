@@ -8,6 +8,7 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
+import EditIcon from "@material-ui/icons/Edit";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import PropTypes from 'prop-types';
@@ -114,11 +115,23 @@ export default function Content(props) {
             justifyContent: "space-between"
           }}
         >
-          <p>
-            {suggestions[index].givenName} {suggestions[index].familyName}
-            {", "}
-            {timeConverter(suggestions[index].createdAt)}
-          </p>
+          <div style={{display: "flex", alignItems: "center"}}>
+            <p>
+              {suggestions[index].givenName} {suggestions[index].familyName}
+              {", "}
+              {timeConverter(suggestions[index].createdAt)}
+            </p>
+            {suggestions[index].userId === user.userId && (
+              <IconButton
+                variant="contained"
+                onClick={() => {
+                  dispatch(toggleSuggestionVisibilty());
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+            )}
+          </div>
           {suggestionsRef.current[index] &&
             suggestionsRef.current[index].clientHeight > 42 && (
               <IconButton

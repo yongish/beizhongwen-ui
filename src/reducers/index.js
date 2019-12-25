@@ -133,6 +133,7 @@ const user = (state = {}, action: {type: string}) => {
     case LOGIN_SUCCESS:
       const attributes = action.user.attributes;
       return {
+        userId: attributes.sub,
         givenName: attributes.given_name,
         familyName: attributes.family_name
       };

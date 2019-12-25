@@ -64,8 +64,8 @@ export default function HeaderBar() {
               dispatch(selectTab("profile"));
             }}
           >
-            <Avatar className={classes.avatar}>H</Avatar>
-            <div style={{marginLeft: 10}}>SCORE</div>
+            <Avatar className={classes.avatar}>{user.givenName[0]}</Avatar>
+            {/*<div style={{marginLeft: 10}}>SCORE</div>*/}
           </div>
         )}
         {!user.userId && (

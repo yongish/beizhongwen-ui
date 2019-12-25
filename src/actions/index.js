@@ -228,7 +228,6 @@ export const postSuggestion = (
     term +
     "/" +
     (edit === true ? "create" : "update");
-  console.log(fullUrl);
   dispatch({type: POST_SUGGESTION_REQUEST});
   return fetch(fullUrl, {
     method: "POST",

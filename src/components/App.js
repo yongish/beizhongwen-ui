@@ -12,7 +12,7 @@ import NavigationColumn from "./NavigationColumn";
 import Profile from "./Profile";
 import Related from "./Related";
 
-import {setTerm} from "../actions";
+import {selectTab, setTerm} from "../actions";
 
 import "../styles/App.css";
 import "../styles/_home.scss";
@@ -21,7 +21,9 @@ export default function App(props) {
   const term = props.match.params.term;
   if (term && term.length > 0) {
     setTerm(term);
+    selectTab("term");
   }
+  const termExists = term && term.length > 0;
   const tab = useSelector(state => state.tab);
   return (
     <div className="flexGrowOne flexDisplayRow">
@@ -30,20 +32,20 @@ export default function App(props) {
         <HeaderBar />
         <div className="flexGrowOne flexDisplayRow">
           <NavigationColumn />
-          {term && term.length > 0 && (
+          {(termExists || tab === "term") && (
             <div className="flexGrowOne flexDisplayRow">
               <Content term={props.match.params.term} />
               <Related />
             </div>
           )}
-          {tab === "about" && <About />}
-          {(!term || term.length === 0) && tab === "home" && (
+          {!termExists && tab === "about" && <About />}
+          {!termExists && tab === "home" && (
             <div className="flexGrowOne flexDisplayRow">
               <Home />
               <HomeRight />
             </div>
           )}
-          {tab === "profile" && <Profile />}
+          {!termExists && tab === "profile" && <Profile />}
         </div>
       </div>
       <BlankRight />

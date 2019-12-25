@@ -197,13 +197,6 @@ const suggestions = (state = [], action: {type: string}) => {
       return state;
     case GET_SUGGESTION_SUCCESS:
       const suggestions = action.response;
-      console.log(
-        suggestions.map(suggestion => {
-          suggestion.height = 42;
-          return suggestion;
-        })
-      );
-
       return suggestions;
     case POST_SUGGESTION_SUCCESS:
       return action.response;
@@ -227,8 +220,6 @@ const tab = (state = "home", action: {type: string, tab: string}) => {
   switch (action.type) {
     case SELECT_TAB:
       return action.tab;
-    case SET_TERM:
-      return "term";
     default:
       return state;
   }

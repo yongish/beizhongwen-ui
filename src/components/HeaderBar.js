@@ -39,8 +39,8 @@ export default function HeaderBar() {
     <div className="headerBar flexDisplayRowAlign" style={{marginLeft: 20}}>
       <div
         onClick={() => {
-          dispatch(selectTab("home"));
           history.push("/");
+          dispatch(selectTab("home"));
         }}
         style={{cursor: "pointer"}}
       >
@@ -59,7 +59,10 @@ export default function HeaderBar() {
               marginLeft: "auto",
               marginRight: 20
             }}
-            onClick={() => dispatch(selectTab("profile"))}
+            onClick={() => {
+              history.push("/");
+              dispatch(selectTab("profile"));
+            }}
           >
             <Avatar className={classes.avatar}>H</Avatar>
             <div style={{marginLeft: 10}}>SCORE</div>

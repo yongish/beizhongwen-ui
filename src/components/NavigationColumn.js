@@ -1,5 +1,6 @@
 import React from "react";
 import {useSelector, useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
 import {selectTab} from "../actions";
@@ -8,17 +9,24 @@ import {selectTab} from "../actions";
 export default function NavigationColumn() {
   const tab = useSelector(state => state.tab);
   const dispatch = useDispatch();
+  const history = useHistory();
   return (
     <div style={{padding: 20}} className="navigationColumn flexDisplayColumn">
       <Link
-        onClick={() => dispatch(selectTab("home"))}
+        onClick={() => {
+          history.push("/");
+          dispatch(selectTab("home"));
+        }}
         className={tab === "home" ? "tileSelectedMarker" : ""}
         style={{padding: 10, cursor: "pointer"}}
       >
         Home
       </Link>
       <Link
-        onClick={() => dispatch(selectTab("about"))}
+        onClick={() => {
+          history.push("/");
+          dispatch(selectTab("about"));
+        }}
         className={tab === "about" ? "tileSelectedMarker" : ""}
         style={{padding: 10, cursor: "pointer"}}
       >

@@ -132,6 +132,8 @@ class SearchBar extends Component<*, State> {
       case 13: // ENTER
         event.preventDefault();
         break;
+      default:
+        return;
     }
   };
 

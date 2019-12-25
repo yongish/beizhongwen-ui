@@ -61,7 +61,6 @@ export default function Content(props) {
   const suggestions = useSelector(state => state.suggestions);
   const suggestionContent = useSelector(state => state.suggestionContent);
   const suggestionVisible = useSelector(state => state.suggestionVisible);
-  const login = useSelector(state => state.login);
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const [suggestionHeights, setSuggestionHeights] = useState({});
@@ -194,7 +193,7 @@ export default function Content(props) {
           Add a suggestion
         </Button>
       )}
-      {suggestionVisible && login && (
+      {suggestionVisible && user.userId && (
         <div>
           <TextField
             id="outlined-multiline-static"
@@ -246,7 +245,7 @@ export default function Content(props) {
           </div>
         </div>
       )}
-      {suggestionVisible && !login && (
+      {suggestionVisible && !user.userId && (
         <div>
           <p style={{marginLeft: 10}}>
             To add a suggestion, <Link href="/login">log in</Link> or{" "}

@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function HeaderBar() {
-  const login = useSelector(state => state.login);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -50,7 +50,7 @@ export default function HeaderBar() {
       <SearchBar />
 
       <div style={{marginLeft: "auto", marginRight: 20}}>
-        {login === true && (
+        {user.userId && (
           <div
             className="flexDisplayRowAlign"
             style={{
@@ -65,7 +65,7 @@ export default function HeaderBar() {
             <div style={{marginLeft: 10}}>SCORE</div>
           </div>
         )}
-        {login === false && (
+        {!user.userId && (
           <div className="flexDisplayRowAlign">
             <Link href="/login">Log in</Link>
             <Button

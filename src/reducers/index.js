@@ -13,10 +13,8 @@ import {
   LATEST_TERM_REQUEST,
   LATEST_TERM_SUCCESS,
   LATEST_TERM_FAILURE,
-  LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   POST_SUGGESTION_REQUEST,
@@ -115,25 +113,6 @@ const newUser = (state = null, action: {type: string, newUser: string}) => {
   switch (action.type) {
     case SET_NEW_USER:
       return action.newUser;
-    default:
-      return state;
-  }
-};
-
-const login = (state = false, action: {type: string}) => {
-  switch (action.type) {
-    case LOGIN_REQUEST:
-      return state;
-    case LOGIN_SUCCESS:
-      return true;
-    case LOGIN_FAILURE:
-      return false;
-    case LOGOUT_REQUEST:
-      return state;
-    case LOGOUT_SUCCESS:
-      return false;
-    case LOGOUT_FAILURE:
-      return state;
     default:
       return state;
   }
@@ -306,7 +285,6 @@ const rootReducer = history =>
     firstName,
     lastName,
     newUser,
-    login,
     originalSuggestion,
     score,
     suggestionContent,

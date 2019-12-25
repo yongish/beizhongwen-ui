@@ -22,11 +22,7 @@ export default function App(props) {
   if (term && term.length > 0) {
     setTerm(term);
   }
-  // const selectorTab = useSelector(state => state.tab);
   const tab = useSelector(state => state.tab);
-  // const tab = term && term.length > 0 ? "term" : selectorTab;
-  // const tab = term && term.length > 0 ? "term" : selectorTab;
-  // console.log(tab);
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />
@@ -34,14 +30,14 @@ export default function App(props) {
         <HeaderBar />
         <div className="flexGrowOne flexDisplayRow">
           <NavigationColumn />
-          {tab === "term" && (
+          {term && term.length > 0 && (
             <div className="flexGrowOne flexDisplayRow">
               <Content term={props.match.params.term} />
               <Related />
             </div>
           )}
           {tab === "about" && <About />}
-          {tab === "home" && (
+          {(!term || term.length === 0) && tab === "home" && (
             <div className="flexGrowOne flexDisplayRow">
               <Home />
               <HomeRight />

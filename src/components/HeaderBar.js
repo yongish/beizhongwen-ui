@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1)
   },
   avatar: {
-    margin: 10
+    margin: 10,
+    cursor: "pointer"
   },
   orangeAvatar: {
     margin: 10,

@@ -187,6 +187,7 @@ export default function Content(props) {
           }}
           display="none"
           onClick={() => {
+            toggleEdit(false);
             dispatch(toggleSuggestionVisibilty());
           }}
         >

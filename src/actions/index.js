@@ -46,7 +46,6 @@ export const postTerm = (term, userId, familyName, givenName) => dispatch => {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      term,
       userId,
       familyName,
       givenName
@@ -252,7 +251,8 @@ export const postSuggestion = (
     "suggestion/" +
     term +
     "/" +
-    (edit === true ? "create" : "update");
+    (edit === true ? "update" : "create");
+  console.log(fullUrl);
   dispatch({type: POST_SUGGESTION_REQUEST});
   return fetch(fullUrl, {
     method: "POST",

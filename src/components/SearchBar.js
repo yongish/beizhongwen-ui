@@ -82,7 +82,6 @@ class SearchBar extends Component<*, State> {
     super();
     this.state = {
       isLoading: false,
-      // openMenu: false, todo before release: Don't show all options by default.
       value: undefined
     };
   }
@@ -112,9 +111,6 @@ class SearchBar extends Component<*, State> {
     }
   };
   handleInputChange = (query, {action}) => {
-    if (action === "input-change") {
-      this.setState({openMenu: true});
-    }
     if (query.length > 0) {
       this.props.findTerms(query);
     }
@@ -139,11 +135,7 @@ class SearchBar extends Component<*, State> {
 
   render() {
     const {searchOptions} = this.props;
-    const {
-      isLoading,
-      // openMenu,
-      value
-    } = this.state;
+    const {isLoading, value} = this.state;
 
     return (
       <div>

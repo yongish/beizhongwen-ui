@@ -7,24 +7,10 @@ import Creatable from "react-select/creatable";
 
 import {findTerms, postTerm, setTerm} from "../actions";
 
-const validate = values => {
-  const errors = {};
-  if (!values.search) {
-    errors.search = "Required";
-  }
-  // todo: Validate that input is only Chinese characters.
-  return errors;
-};
-
 type State = {
   options: [{[string]: string}],
   value: string | void
 };
-
-const createOption = (label: string) => ({
-  label,
-  value: label.toLowerCase().replace(/\W/g, "")
-});
 
 const ValueContainer = ({children, ...props}) => {
   return (
@@ -46,6 +32,18 @@ const DropdownIndicator = props => {
     )
   );
 };
+
+// https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode
+const matchCJK = text =>
+  text.match(/[\u3400-\u9FFF]/) ||
+  text.match(/[\u3400-\u9FFF]/) ||
+  text.match(/[\u20000-\u2A6DF]/) ||
+  text.match(/[\u2A700–\u2B73F]/) ||
+  text.match(/[\u2B740–\u2B81F]/) ||
+  text.match(/[\u3400-\u9FFF]/) ||
+  text.match(/[\u2B820–\u2CEAF]/) ||
+  text.match(/[\uF900-\uFAFF]/) ||
+  text.match(/[\u2F800-\u2FA1F]/);
 
 const styles = {
   container: base => ({
@@ -95,6 +93,9 @@ class SearchBar extends Component<*, State> {
     this.setState({value: newValue});
   };
   handleCreate = (inputValue: string) => {
+    if (inputValue.length > 255 || !matchCJK(inputValue)) {
+      return;
+    }
     this.setState({isLoading: true});
     console.log("Option created");
     console.log("Wait a moment...");
@@ -132,6 +133,15 @@ class SearchBar extends Component<*, State> {
         return;
     }
   };
+  validateCreate = text => {
+    if (text.length > 255) {
+      return "CANNOT EXCEED 255 CHARACTERS!!!";
+    }
+    if (!matchCJK(text)) {
+      return "Error: No Chinese characters detected.";
+    }
+    return "Add " + text;
+  };
 
   render() {
     const {searchOptions} = this.props;
@@ -152,7 +162,8 @@ class SearchBar extends Component<*, State> {
             isSearchable={true}
             blurInputOnSelect={true}
             components={{DropdownIndicator, ValueContainer}}
-            noOptionsMessage={() => "Type to search"}
+            formatCreateLabel={this.validateCreate}
+            noOptionsMessage={() => "Type to find or create..."}
             onChange={this.handleChange}
             onCreateOption={this.handleCreate}
             onMenuClose={this.handleMenuClose}

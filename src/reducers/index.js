@@ -265,6 +265,7 @@ const searchOptions = (state = [], action: {type: string, term: string}) => {
       if (Array.isArray(action.response)) {
         return action.response.map(createOption);
       }
+      break;
     case FIND_TERM_FAILURE:
     case POST_TERM_FAILURE:
       return state;

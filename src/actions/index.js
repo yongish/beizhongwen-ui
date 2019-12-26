@@ -37,6 +37,31 @@ const getRequest = (
   );
 };
 
+export const postTerm = (term, userId, familyName, givenName) => dispatch => {
+  const fullUrl = API_ROOT + "term/" + term;
+  dispatch({type: POST_TERM_REQUEST});
+  return fetch(fullUrl, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      term,
+      userId,
+      familyName,
+      givenName
+    })
+  }).then(
+    response =>
+      response.json().then(json => {
+        dispatch({type: POST_TERM_SUCCESS, response: json});
+      }),
+    error => {
+      dispatch({type: POST_TERM_FAILURE, error: error});
+    }
+  );
+};
+
 export const findTerms = searchTerm => dispatch => {
   const fullUrl = API_ROOT + "term/" + searchTerm;
   return getRequest(
@@ -270,6 +295,9 @@ export const LOGOUT_FAILURE: string = "LOGOUT_FAILURE";
 export const POST_SUGGESTION_REQUEST: string = "POST_SUGGESTION_REQUEST";
 export const POST_SUGGESTION_SUCCESS: string = "POST_SUGGESTION_SUCCESS";
 export const POST_SUGGESTION_FAILURE: string = "POST_SUGGESTION_FAILURE";
+export const POST_TERM_REQUEST: string = "POST_TERM_REQUEST";
+export const POST_TERM_SUCCESS: string = "POST_TERM_SUCCESS";
+export const POST_TERM_FAILURE: string = "POST_TERM_FAILURE";
 export const SCORE_REQUEST: string = "SCORE_REQUEST";
 export const SCORE_SUCCESS: string = "SCORE_SUCCESS";
 export const SCORE_FAILURE: string = "SCORE_FAILURE";

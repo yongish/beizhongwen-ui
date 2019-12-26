@@ -5,7 +5,7 @@ import {components} from "react-select";
 import SearchIcon from "@material-ui/icons/Search";
 import Creatable from "react-select/creatable";
 
-import {findTerms, setTerm} from "../actions";
+import {findTerms, postTerm, setTerm} from "../actions";
 
 const validate = values => {
   const errors = {};
@@ -62,14 +62,17 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
+    searchOptions: state.searchOptions,
     term: state.term,
-    searchOptions: state.searchOptions
+    user: state.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     findTerms: term => dispatch(findTerms(term)),
+    postTerm: (term, userId, familyName, givenName) =>
+      dispatch(postTerm(term, userId, familyName, givenName)),
     setTerm: term => dispatch(setTerm(term))
   };
 };
@@ -97,13 +100,10 @@ class SearchBar extends Component<*, State> {
     console.log("Option created");
     console.log("Wait a moment...");
     setTimeout(() => {
-      const {options} = this.state;
-      const newOption = createOption(inputValue);
-      this.setState({
-        isLoading: false,
-        options: [...options, newOption],
-        value: newOption
-      });
+      const {user, history, postTerm} = this.props;
+      postTerm(inputValue, user.userId, user.familyName, user.givenName);
+      history.push("/term/" + inputValue);
+      this.setState({isLoading: false});
     }, 1000);
   };
   handleFocus = element => {

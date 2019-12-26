@@ -232,6 +232,8 @@ const term = (state = null, action: {type: string, term: string}) => {
   switch (action.type) {
     case SET_TERM:
       return action.term;
+    case POST_TERM_SUCCESS:
+      return action.term;
     default:
       return state;
   }
@@ -257,10 +259,14 @@ const createOption = (label: string) => ({
 const searchOptions = (state = [], action: {type: string, term: string}) => {
   switch (action.type) {
     case FIND_TERM_REQUEST:
+    case POST_TERM_REQUEST:
       return state;
     case FIND_TERM_SUCCESS:
-      return action.response.map(createOption);
+      if (Array.isArray(action.response)) {
+        return action.response.map(createOption);
+      }
     case FIND_TERM_FAILURE:
+    case POST_TERM_FAILURE:
       return state;
     default:
       return state;

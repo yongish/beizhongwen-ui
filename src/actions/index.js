@@ -54,7 +54,7 @@ export const postTerm = (term, userId, familyName, givenName) => dispatch => {
   }).then(
     response =>
       response.json().then(json => {
-        dispatch({type: POST_TERM_SUCCESS, response: json});
+        dispatch({type: POST_TERM_SUCCESS, term});
       }),
     error => {
       dispatch({type: POST_TERM_FAILURE, error: error});

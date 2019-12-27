@@ -244,6 +244,7 @@ export const postSuggestion = (
   familyName,
   givenName
 ) => dispatch => {
+  console.log(edit);
   const fullUrl =
     API_ROOT +
     "suggestion/" +

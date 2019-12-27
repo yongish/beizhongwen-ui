@@ -73,7 +73,7 @@ const codeSent = (state = false, action: {type: string}) => {
 const edit = (state = false, action: {type: string, edit: boolean}) => {
   switch (action.type) {
     case TOGGLE_EDIT:
-      return !action.edit;
+      return action.edit;
     default:
       return state;
   }

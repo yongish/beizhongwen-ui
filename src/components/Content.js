@@ -216,6 +216,9 @@ export default function Content(props) {
             margin: 5
           }}
           display="none"
+          disabled={suggestions
+            .map(suggestion => suggestion.userId)
+            .includes(user.userId)}
           onClick={() => {
             toggleEdit(false);
             dispatch(toggleSuggestionVisibilty());

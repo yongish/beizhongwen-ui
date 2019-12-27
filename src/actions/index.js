@@ -206,6 +206,10 @@ export const setTerm = term => dispatch => {
   dispatch({type: SET_TERM, term});
 };
 
+export const toggleEdit = edit => dispatch => {
+  dispatch({type: TOGGLE_EDIT, edit});
+};
+
 export const toggleSuggestionVisibilty = () => dispatch => {
   dispatch({type: TOGGLE_SUGGESTION_VISIBILITY});
 };
@@ -232,10 +236,6 @@ export const getSuggestions = term => dispatch => {
   );
 };
 
-export const toggleEdit = edit => dispatch => {
-  dispatch({type: TOGGLE_EDIT, edit});
-};
-
 export const postSuggestion = (
   edit,
   term,
@@ -244,15 +244,12 @@ export const postSuggestion = (
   familyName,
   givenName
 ) => dispatch => {
-  // const createOrUpdate = edit === true ? "create" : "update";
-  // const fullUrl = API_ROOT + "suggestion/" + term + "/" + createOrUpdate;
   const fullUrl =
     API_ROOT +
     "suggestion/" +
     term +
     "/" +
     (edit === true ? "update" : "create");
-  console.log(fullUrl);
   dispatch({type: POST_SUGGESTION_REQUEST});
   return fetch(fullUrl, {
     method: "POST",
@@ -276,9 +273,37 @@ export const postSuggestion = (
   );
 };
 
+export const deleteSuggestion = (term, suggestionContent) => dispatch => {
+  const fullUrl = API_ROOT + "suggestion/" + term;
+  dispatch({type: DELETE_SUGGESTION_REQUEST});
+  return fetch(fullUrl, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      content: suggestionContent,
+      userId: "",
+      familyName: "",
+      givenName: ""
+    })
+  }).then(
+    response =>
+      response.json().then(json => {
+        dispatch({type: DELETE_SUGGESTION_SUCCESS, response: json});
+      }),
+    error => {
+      dispatch({type: DELETE_SUGGESTION_FAILURE, error: error});
+    }
+  );
+};
+
 export const CLEAR_SUGGESTION: string = "CLEAR_SUGGESTION";
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
+export const DELETE_SUGGESTION_REQUEST: string = "DELETE_SUGGESTION_REQUEST";
+export const DELETE_SUGGESTION_SUCCESS: string = "DELETE_SUGGESTION_SUCCESS";
+export const DELETE_SUGGESTION_FAILURE: string = "DELETE_SUGGESTION_FAILURE";
 export const FIND_TERM_REQUEST: string = "FIND_TERM_REQUEST";
 export const FIND_TERM_SUCCESS: string = "FIND_TERM_SUCCESS";
 export const FIND_TERM_FAILURE: string = "FIND_TERM_FAILURE";

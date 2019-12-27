@@ -5,10 +5,16 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 // import PropTypes from 'prop-types';
@@ -66,6 +72,19 @@ export default function Content(props) {
   const [suggestionHeights, setSuggestionHeights] = useState({});
   const listRef = useRef(null);
   const suggestionsRef = useRef([]);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const deleteSuggestion = () => {
+    handleClose();
+  };
 
   useEffect(() => {
     dispatch(getSuggestions(props.term));
@@ -127,35 +146,39 @@ export default function Content(props) {
               {timeConverter(suggestions[index].createdAt)}
             </p>
             {suggestions[index].userId === user.userId && (
-              <IconButton
-                variant="contained"
-                onClick={() => {
-                  dispatch(toggleEdit(true));
-                  dispatch(setOriginalSuggestion(suggestions[index].content));
-                  dispatch(setSuggestionContent(suggestions[index].content));
-                  dispatch(toggleSuggestionVisibilty());
-                }}
-              >
-                <EditIcon />
-              </IconButton>
+              <div style={{display: "flex", alignItems: "center"}}>
+                <IconButton
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(toggleEdit(true));
+                    dispatch(setOriginalSuggestion(suggestions[index].content));
+                    dispatch(setSuggestionContent(suggestions[index].content));
+                    dispatch(toggleSuggestionVisibilty());
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton variant="contained" onClick={handleClickOpen}>
+                  <DeleteIcon />
+                </IconButton>
+              </div>
             )}
           </div>
-          {suggestionsRef.current[index] &&
-            suggestionsRef.current[index].clientHeight > 42 && (
-              <IconButton
-                variant="contained"
-                onClick={() => {
-                  toggleSize(index);
-                }}
-              >
-                {(!checked[index] || checked[index] === false) && (
-                  <ExpandMoreIcon fontSize="large" />
-                )}
-                {checked[index] && checked[index] === true && (
-                  <ExpandLessIcon fontSize="large" />
-                )}
-              </IconButton>
-            )}
+          {suggestionHeights[index] && suggestionHeights[index] > 42 && (
+            <IconButton
+              variant="contained"
+              onClick={() => {
+                toggleSize(index);
+              }}
+            >
+              {(!checked[index] || checked[index] === false) && (
+                <ExpandMoreIcon fontSize="large" />
+              )}
+              {checked[index] && checked[index] === true && (
+                <ExpandLessIcon fontSize="large" />
+              )}
+            </IconButton>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -266,6 +289,23 @@ export default function Content(props) {
           </Button>
         </div>
       )}
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            No
+          </Button>
+          <Button onClick={deleteSuggestion} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {suggestions.length > 0 && !suggestionVisible && (
         <div style={{flexGrow: 1}}>

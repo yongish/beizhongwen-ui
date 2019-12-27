@@ -24,6 +24,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import {
   getSuggestions,
   postSuggestion,
+  deleteSuggestion,
   setChecked,
   setOriginalSuggestion,
   setSuggestionContent,
@@ -73,8 +74,10 @@ export default function Content(props) {
   const listRef = useRef(null);
   const suggestionsRef = useRef([]);
   const [open, setOpen] = useState(false);
+  const [contentToDelete, setContentToDelete] = useState("");
 
-  const handleClickOpen = () => {
+  const handleClickOpen = content => {
+    setContentToDelete(content);
     setOpen(true);
   };
 
@@ -82,8 +85,9 @@ export default function Content(props) {
     setOpen(false);
   };
 
-  const deleteSuggestion = () => {
-    handleClose();
+  const delSuggestion = () => {
+    dispatch(deleteSuggestion(props.term, contentToDelete));
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -158,7 +162,10 @@ export default function Content(props) {
                 >
                   <EditIcon />
                 </IconButton>
-                <IconButton variant="contained" onClick={handleClickOpen}>
+                <IconButton
+                  variant="contained"
+                  onClick={e => handleClickOpen(suggestions[index].content)}
+                >
                   <DeleteIcon />
                 </IconButton>
               </div>
@@ -301,7 +308,7 @@ export default function Content(props) {
           <Button onClick={handleClose} color="primary">
             No
           </Button>
-          <Button onClick={deleteSuggestion} color="primary" autoFocus>
+          <Button onClick={delSuggestion} color="primary" autoFocus>
             Yes
           </Button>
         </DialogActions>

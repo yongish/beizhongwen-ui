@@ -4,6 +4,9 @@ import {connectRouter} from "connected-react-router";
 import {
   CONFIRM_RESET_SUCCESS,
   CONFIRM_RESET_FAILURE,
+  DELETE_SUGGESTION_REQUEST,
+  DELETE_SUGGESTION_SUCCESS,
+  DELETE_SUGGESTION_FAILURE,
   FIND_TERM_REQUEST,
   FIND_TERM_SUCCESS,
   FIND_TERM_FAILURE,
@@ -197,8 +200,11 @@ const suggestions = (state = [], action: {type: string}) => {
     case GET_SUGGESTION_FAILURE:
     case POST_SUGGESTION_REQUEST:
     case POST_SUGGESTION_FAILURE:
+    case DELETE_SUGGESTION_REQUEST:
+    case DELETE_SUGGESTION_FAILURE:
       return state;
     case GET_SUGGESTION_SUCCESS:
+    case DELETE_SUGGESTION_SUCCESS:
       const suggestions = action.response;
       return suggestions;
     case POST_SUGGESTION_SUCCESS:

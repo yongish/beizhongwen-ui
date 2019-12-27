@@ -229,6 +229,8 @@ const tab = (state = "home", action: {type: string, tab: string}) => {
   switch (action.type) {
     case SELECT_TAB:
       return action.tab;
+    case LOGOUT_SUCCESS:
+      return "home";
     default:
       return state;
   }
@@ -240,6 +242,8 @@ const term = (state = null, action: {type: string, term: string}) => {
       return action.term;
     case POST_TERM_SUCCESS:
       return action.term;
+    case LOGOUT_SUCCESS:
+      return null;
     default:
       return state;
   }

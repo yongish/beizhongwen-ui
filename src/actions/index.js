@@ -145,7 +145,6 @@ export const logout = () => async dispatch => {
   try {
     await Auth.signOut();
     dispatch({type: LOGOUT_SUCCESS});
-    dispatch({type: SELECT_TAB, tab: "term"});
   } catch (e) {
     dispatch({type: LOGOUT_FAILURE});
   }

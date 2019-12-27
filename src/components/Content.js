@@ -71,8 +71,10 @@ export default function Content(props) {
     dispatch(getSuggestions(props.term));
   }, []);
   useEffect(() => {
-    setSuggestionHeights(suggestionsRef.current);
-  });
+    if (Object.keys(suggestionHeights).length === 0) {
+      setSuggestionHeights(suggestionsRef.current.map(x => x.clientHeight));
+    }
+  }, [suggestionHeights]);
   // useEffect(() => {
   //   setSuggestionHeights(suggestionsRef.current.clientHeight);
   // }, []);

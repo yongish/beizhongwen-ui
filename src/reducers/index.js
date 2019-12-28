@@ -135,7 +135,8 @@ const user = (state = {}, action: {type: string}) => {
       return {
         email: attributes.email,
         givenName: attributes.given_name,
-        familyName: attributes.family_name
+        familyName: attributes.family_name,
+        provider: "email"
       };
     case LOGIN_FAILURE:
       return state;
@@ -143,7 +144,8 @@ const user = (state = {}, action: {type: string}) => {
       return {
         email: action.email,
         givenName: action.first_name,
-        familyName: action.last_name
+        familyName: action.last_name,
+        provider: "facebook"
       };
     case COGNITO_FB_FAILURE:
       return state;
@@ -151,7 +153,8 @@ const user = (state = {}, action: {type: string}) => {
       return {
         email: action.email,
         givenName: action.givenName,
-        familyName: action.familyName
+        familyName: action.familyName,
+        provider: "google"
       };
     case COGNITO_GOOGLE_FAILURE:
       return state;

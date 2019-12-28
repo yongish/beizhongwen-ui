@@ -40,23 +40,14 @@ export default function App(props) {
               <Related />
             </div>
           )}
-<<<<<<< Updated upstream
           {!termExists && tab === "about" && <About />}
           {!termExists && tab === "home" && (
-=======
-          {tab === "about" && <About />}
-          {(!term || term.length === 0) && (
->>>>>>> Stashed changes
             <div className="flexGrowOne flexDisplayRow">
               <Home />
               <HomeRight />
             </div>
           )}
-<<<<<<< Updated upstream
           {!termExists && tab === "profile" && <Profile />}
-=======
-          {(!term || term.length === 0) && <Profile />}
->>>>>>> Stashed changes
         </div>
       </div>
       <BlankRight />

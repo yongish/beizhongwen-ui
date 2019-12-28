@@ -41,7 +41,8 @@ const store = configureStore(persistedState);
 store.subscribe(
   throttle(() => {
     saveState({
-      user: store.getState().user
+      user: store.getState().user,
+      term: store.getState().term
     });
   }, 1000)
 );

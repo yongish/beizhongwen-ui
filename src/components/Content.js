@@ -289,16 +289,8 @@ export default function Content(props) {
       {suggestionVisible && !user.email && (
         <div>
           <p style={{marginLeft: 10}}>
-            To add a suggestion,{" "}
-            <Link
-              href="/login"
-              onClick={() => {
-                console.log("hi");
-              }}
-            >
-              log in
-            </Link>{" "}
-            or <Link href="/signup">sign up</Link>.
+            To add a suggestion, <Link href="/login">log in</Link> or{" "}
+            <Link href="/signup">sign up</Link>.
           </p>
           <Button
             variant="contained"

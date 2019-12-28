@@ -67,6 +67,7 @@ export default function SignUp() {
   const email = useSelector(state => state.email);
   const password = useSelector(state => state.password);
   const newUser = useSelector(state => state.newUser);
+  const term = useSelector(state => state.term);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -108,7 +109,9 @@ export default function SignUp() {
               disabled={!validateConfirmationForm()}
               onClick={event => {
                 event.preventDefault();
-                dispatch(confirm(email, password, confirmationCode, history));
+                dispatch(
+                  confirm(email, password, confirmationCode, history, term)
+                );
               }}
             >
               Verify
@@ -130,11 +133,12 @@ export default function SignUp() {
           <div className={classes.paper}>
             <FacebookLogin
               appId="1500181530138959"
-              callback={response => dispatch(cognitoFB(response, history))}
-              onClick={() => console.log("hhhhhhhhhh")}
+              callback={response =>
+                dispatch(cognitoFB(response, history, term))
+              }
               render={renderProps => (
                 <button
-                  class="loginBtn loginBtn--facebook"
+                  className="loginBtn loginBtn--facebook"
                   onClick={renderProps.onClick}
                 >
                   Continue with Facebook
@@ -148,13 +152,15 @@ export default function SignUp() {
                 <button
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
-                  class="loginBtn loginBtn--google"
+                  className="loginBtn loginBtn--google"
                 >
                   Continue with Google
                 </button>
               )}
               buttonText="Login"
-              onSuccess={response => dispatch(cognitoGoogle(response, history))}
+              onSuccess={response =>
+                dispatch(cognitoGoogle(response, history, term))
+              }
               onFailure={response => alert(response.details)}
               cookiePolicy={"single_host_origin"}
             />

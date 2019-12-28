@@ -8,7 +8,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {deepOrange, deepPurple} from "@material-ui/core/colors";
 import SearchBar from "./SearchBar";
 
-import {selectTab} from "../actions";
+import {selectTab, setTerm} from "../actions";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -71,12 +71,15 @@ export default function HeaderBar() {
         )}
         {!user.email && (
           <div className="flexDisplayRowAlign">
-            <Link href="/login">Log in</Link>
+            <Link href="/login" onClick={() => dispatch(setTerm(""))}>
+              Log in
+            </Link>
             <Button
               variant="contained"
               color="primary"
               className={classes.button}
               href="/signup"
+              onClick={() => dispatch(setTerm(""))}
             >
               Try free
             </Button>

@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
-import FacebookLogin from "react-facebook-login";
+// import FacebookLogin from "react-facebook-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+
 import GoogleLogin from "react-google-login";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -23,7 +25,8 @@ import {
   setEmail,
   setFirstName,
   setLastName,
-  setPassword
+  setPassword,
+  setReferral
 } from "../actions";
 
 const useStyles = makeStyles(theme => ({
@@ -127,15 +130,31 @@ export default function SignUp() {
           <div className={classes.paper}>
             <FacebookLogin
               appId="1500181530138959"
-              fields="first_name,last_name,email,picture"
-              onClick={componentClicked}
-              callback={response => dispatch(cognitoFB(response))}
+              callback={response => dispatch(cognitoFB(response, history))}
+              onClick={() => console.log("hhhhhhhhhh")}
+              render={renderProps => (
+                <button
+                  class="loginBtn loginBtn--facebook"
+                  onClick={renderProps.onClick}
+                >
+                  Continue with Facebook
+                </button>
+              )}
             />
             <br />
             <GoogleLogin
               clientId="962985476906-k3ckglb9t5bo0boc2vrvsp9i3ksaat7f.apps.googleusercontent.com"
+              render={renderProps => (
+                <button
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  class="loginBtn loginBtn--google"
+                >
+                  Continue with Google
+                </button>
+              )}
               buttonText="Login"
-              onSuccess={response => dispatch(cognitoGoogle(response))}
+              onSuccess={response => dispatch(cognitoGoogle(response, history))}
               onFailure={response => alert(response.details)}
               cookiePolicy={"single_host_origin"}
             />

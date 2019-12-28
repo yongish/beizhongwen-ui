@@ -25,6 +25,8 @@ export default function App(props) {
   }
   const termExists = term && term.length > 0;
   const tab = useSelector(state => state.tab);
+  // const tab = term && term.length > 0 ? "term" : selectorTab;
+  // console.log(term);
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />
@@ -38,14 +40,23 @@ export default function App(props) {
               <Related />
             </div>
           )}
+<<<<<<< Updated upstream
           {!termExists && tab === "about" && <About />}
           {!termExists && tab === "home" && (
+=======
+          {tab === "about" && <About />}
+          {(!term || term.length === 0) && (
+>>>>>>> Stashed changes
             <div className="flexGrowOne flexDisplayRow">
               <Home />
               <HomeRight />
             </div>
           )}
+<<<<<<< Updated upstream
           {!termExists && tab === "profile" && <Profile />}
+=======
+          {(!term || term.length === 0) && <Profile />}
+>>>>>>> Stashed changes
         </div>
       </div>
       <BlankRight />

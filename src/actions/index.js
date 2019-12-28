@@ -177,7 +177,7 @@ export const signup = (
   }
 };
 
-export const cognitoFB = data => async dispatch => {
+export const cognitoFB = (data, history) => async dispatch => {
   const {first_name, last_name, email, accessToken: token, expiresIn} = data;
   const expires_at = expiresIn * 1000 + new Date().getTime();
   dispatch({type: COGNITO_FB_REQUEST});
@@ -191,13 +191,14 @@ export const cognitoFB = data => async dispatch => {
       first_name,
       last_name
     });
+    history.push("/");
   } catch (e) {
     alert(e.message);
     dispatch({type: COGNITO_FB_FAILURE});
   }
 };
 
-export const cognitoGoogle = data => async dispatch => {
+export const cognitoGoogle = (data, history) => async dispatch => {
   const {
     profileObj: {givenName, familyName, email},
     tokenId: token,
@@ -215,6 +216,7 @@ export const cognitoGoogle = data => async dispatch => {
       givenName,
       familyName
     });
+    history.push("/");
   } catch (e) {
     alert(e.message);
     dispatch({type: COGNITO_GOOGLE_FAILURE});
@@ -341,6 +343,10 @@ export const deleteSuggestion = (term, suggestionContent) => dispatch => {
   );
 };
 
+export const setReferral = referral => dispatch => {
+  dispatch({type: SET_REFERRAL, referral});
+};
+
 export const CLEAR_SUGGESTION: string = "CLEAR_SUGGESTION";
 export const COGNITO_FB_REQUEST: string = "COGNITO_FB_REQUEST";
 export const COGNITO_FB_SUCCESS: string = "COGNITO_FB_SUCCESS";
@@ -387,6 +393,7 @@ export const SET_NEW_USER: string = "SET_NEW_USER";
 export const SET_ORIGINAL_SUGGESTION: string = "SET_ORIGINAL_SUGGESTION";
 export const SET_PASSWORD: string = "SET_PASSWORD";
 export const SET_SUGGESTION_CONTENT: string = "SET_SUGGESTION_CONTENT";
+export const SET_REFERRAL: string = "SET_REFERRAL";
 export const SET_TERM: string = "SET_TERM";
 export const SIGNUP_REQUEST: string = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS: string = "SIGNUP_SUCCESS";

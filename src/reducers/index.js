@@ -44,6 +44,7 @@ import {
   SET_ORIGINAL_SUGGESTION,
   SET_PASSWORD,
   SET_SUGGESTION_CONTENT,
+  SET_REFERRAL,
   SET_TERM,
   TOGGLE_EDIT,
   TOGGLE_SUGGESTION_VISIBILITY
@@ -123,6 +124,15 @@ const newUser = (state = null, action: {type: string, newUser: string}) => {
   switch (action.type) {
     case SET_NEW_USER:
       return action.newUser;
+    default:
+      return state;
+  }
+};
+
+const referral = (state = "", action: {type: string, referral: string}) => {
+  switch (action.type) {
+    case SET_REFERRAL:
+      return action.referral;
     default:
       return state;
   }
@@ -325,7 +335,8 @@ const rootReducer = history =>
     term,
     latestTerms,
     searchOptions,
-    user
+    user,
+    referral
   });
 
 export default rootReducer;

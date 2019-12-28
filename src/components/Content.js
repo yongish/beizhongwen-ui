@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Collapse from "@material-ui/core/Collapse";
 import Dialog from "@material-ui/core/Dialog";
@@ -90,12 +89,12 @@ export default function Content(props) {
 
   useEffect(() => {
     dispatch(getSuggestions(props.term));
-  }, [dispatch, props.term]);
+  }, []);
   useEffect(() => {
     if (Object.keys(suggestionHeights).length === 0) {
       setSuggestionHeights(suggestionsRef.current.map(x => x.clientHeight));
     }
-  }, [suggestionHeights]);
+  }, []);
   // useEffect(() => {
   //   setSuggestionHeights(suggestionsRef.current.clientHeight);
   // }, []);
@@ -290,8 +289,16 @@ export default function Content(props) {
       {suggestionVisible && !user.email && (
         <div>
           <p style={{marginLeft: 10}}>
-            To add a suggestion, <Link href="/login">log in</Link> or{" "}
-            <Link href="/signup">sign up</Link>.
+            To add a suggestion,{" "}
+            <Link
+              href="/login"
+              onClick={() => {
+                console.log("hi");
+              }}
+            >
+              log in
+            </Link>{" "}
+            or <Link href="/signup">sign up</Link>.
           </p>
           <Button
             variant="contained"

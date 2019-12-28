@@ -25,8 +25,7 @@ import {
   setEmail,
   setFirstName,
   setLastName,
-  setPassword,
-  setReferral
+  setPassword
 } from "../actions";
 
 const useStyles = makeStyles(theme => ({
@@ -124,7 +123,6 @@ export default function SignUp() {
       </Container>
     );
   };
-  const componentClicked = () => {};
   const renderForm = () => {
     return (
       <div>

@@ -69,8 +69,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     findTerms: term => dispatch(findTerms(term)),
-    postTerm: (term, userId, familyName, givenName) =>
-      dispatch(postTerm(term, userId, familyName, givenName)),
+    postTerm: (term, email, familyName, givenName) =>
+      dispatch(postTerm(term, email, familyName, givenName)),
     setTerm: term => dispatch(setTerm(term))
   };
 };
@@ -101,7 +101,7 @@ class SearchBar extends Component<*, State> {
     console.log("Wait a moment...");
     setTimeout(() => {
       const {user, history, postTerm} = this.props;
-      postTerm(inputValue, user.userId, user.familyName, user.givenName);
+      postTerm(inputValue, user.email, user.familyName, user.givenName);
       history.push("/term/" + inputValue);
       this.setState({isLoading: false});
     }, 1000);

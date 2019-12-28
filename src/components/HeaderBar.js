@@ -51,7 +51,7 @@ export default function HeaderBar() {
       <SearchBar />
 
       <div style={{marginLeft: "auto", marginRight: 20}}>
-        {user.userId && (
+        {user.email && (
           <div
             className="flexDisplayRowAlign"
             style={{
@@ -69,7 +69,7 @@ export default function HeaderBar() {
             {/*<div style={{marginLeft: 10}}>SCORE</div>*/}
           </div>
         )}
-        {!user.userId && (
+        {!user.email && (
           <div className="flexDisplayRowAlign">
             <Link href="/login">Log in</Link>
             <Button

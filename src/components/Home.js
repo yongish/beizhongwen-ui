@@ -80,7 +80,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getLatestTerms());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={[classes.root, "homeColumn"].join(" ")}>

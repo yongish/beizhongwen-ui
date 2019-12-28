@@ -90,7 +90,7 @@ export default function Content(props) {
 
   useEffect(() => {
     dispatch(getSuggestions(props.term));
-  }, []);
+  }, [dispatch, props.term]);
   useEffect(() => {
     if (Object.keys(suggestionHeights).length === 0) {
       setSuggestionHeights(suggestionsRef.current.map(x => x.clientHeight));
@@ -147,7 +147,7 @@ export default function Content(props) {
               {", "}
               {timeConverter(suggestions[index].createdAt)}
             </p>
-            {suggestions[index].userId === user.userId && (
+            {suggestions[index].email === user.email && (
               <div style={{display: "flex", alignItems: "center"}}>
                 <IconButton
                   variant="contained"
@@ -217,8 +217,8 @@ export default function Content(props) {
           }}
           display="none"
           disabled={suggestions
-            .map(suggestion => suggestion.userId)
-            .includes(user.userId)}
+            .map(suggestion => suggestion.email)
+            .includes(user.email)}
           onClick={() => {
             toggleEdit(false);
             dispatch(toggleSuggestionVisibilty());
@@ -227,7 +227,7 @@ export default function Content(props) {
           Add a suggestion
         </Button>
       )}
-      {suggestionVisible && user.userId && (
+      {suggestionVisible && user.email && (
         <div>
           <TextField
             id="outlined-multiline-static"
@@ -254,7 +254,7 @@ export default function Content(props) {
                     edit,
                     props.term,
                     suggestionContent,
-                    user.userId,
+                    user.email,
                     user.familyName,
                     user.givenName
                   )
@@ -279,7 +279,7 @@ export default function Content(props) {
           </div>
         </div>
       )}
-      {suggestionVisible && !user.userId && (
+      {suggestionVisible && !user.email && (
         <div>
           <p style={{marginLeft: 10}}>
             To add a suggestion, <Link href="/login">log in</Link> or{" "}

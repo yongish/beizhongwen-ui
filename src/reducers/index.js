@@ -130,15 +130,21 @@ const user = (state = {}, action: {type: string}) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       const attributes = action.user.attributes;
+      console.log(attributes);
       return {
-        userId: attributes.sub,
+        email: attributes.email,
         givenName: attributes.given_name,
         familyName: attributes.family_name
       };
     case LOGIN_FAILURE:
       return state;
     case COGNITO_FB_SUCCESS:
-      return {name: action.name};
+      console.log(action);
+      return {
+        email: action.email,
+        givenName: action.first_name,
+        familyName: action.last_name
+      };
     case COGNITO_FB_FAILURE:
       return state;
     case LOGOUT_SUCCESS:

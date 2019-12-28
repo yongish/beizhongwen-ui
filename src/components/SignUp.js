@@ -127,7 +127,7 @@ export default function SignUp() {
             <FacebookLogin
               appId="1500181530138959"
               autoLoad={true}
-              fields="name,email,picture"
+              fields="first_name,last_name,email,picture"
               onClick={componentClicked}
               callback={response => dispatch(cognitoFB(response))}
             />

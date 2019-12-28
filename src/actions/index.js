@@ -37,7 +37,7 @@ const getRequest = (
   );
 };
 
-export const postTerm = (term, userId, familyName, givenName) => dispatch => {
+export const postTerm = (term, email, firstName, lastName) => dispatch => {
   const fullUrl = API_ROOT + "term/" + term;
   dispatch({type: POST_TERM_REQUEST});
   return fetch(fullUrl, {
@@ -46,9 +46,9 @@ export const postTerm = (term, userId, familyName, givenName) => dispatch => {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      userId,
-      familyName,
-      givenName
+      email,
+      firstName,
+      lastName
     })
   }).then(
     response =>
@@ -178,17 +178,27 @@ export const signup = (
 };
 
 export const cognitoFB = data => async dispatch => {
-  const {name, email, accessToken: token, expiresIn} = data;
-  const expires_at = expiresIn * 1000 + new Date().getTime();
-  const user = {email};
+  const {
+    first_name,
+    last_name,
+    email
+    // accessToken: token, expiresIn
+  } = data;
+  // const expires_at = expiresIn * 1000 + new Date().getTime();
   dispatch({type: COGNITO_FB_REQUEST});
   try {
-    const response = await Auth.federatedSignIn(
-      "facebook",
-      {token, expires_at},
-      user
-    );
-    dispatch({type: COGNITO_FB_SUCCESS}, name);
+    // todo: Do OAuth2 verification with this in future.
+    // const response = await Auth.federatedSignIn(
+    //   "facebook",
+    //   {token, expires_at},
+    //   user
+    // );
+    dispatch({
+      type: COGNITO_FB_SUCCESS,
+      email,
+      first_name,
+      last_name
+    });
   } catch (e) {
     alert(e.message);
     dispatch({type: COGNITO_FB_FAILURE});
@@ -257,7 +267,7 @@ export const postSuggestion = (
   edit,
   term,
   suggestionContent,
-  userId,
+  email,
   familyName,
   givenName
 ) => dispatch => {
@@ -275,7 +285,7 @@ export const postSuggestion = (
     },
     body: JSON.stringify({
       content: suggestionContent,
-      userId,
+      email,
       familyName,
       givenName
     })
@@ -300,9 +310,9 @@ export const deleteSuggestion = (term, suggestionContent) => dispatch => {
     },
     body: JSON.stringify({
       content: suggestionContent,
-      userId: "",
-      familyName: "",
-      givenName: ""
+      email: "",
+      firstName: "",
+      lastName: ""
     })
   }).then(
     response =>

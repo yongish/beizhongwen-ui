@@ -178,21 +178,13 @@ export const signup = (
 };
 
 export const cognitoFB = data => async dispatch => {
-  const {
-    first_name,
-    last_name,
-    email
-    // accessToken: token, expiresIn
-  } = data;
-  // const expires_at = expiresIn * 1000 + new Date().getTime();
+  const {first_name, last_name, email, accessToken: token, expiresIn} = data;
+  const expires_at = expiresIn * 1000 + new Date().getTime();
   dispatch({type: COGNITO_FB_REQUEST});
   try {
     // todo: Do OAuth2 verification with this in future.
-    // const response = await Auth.federatedSignIn(
-    //   "facebook",
-    //   {token, expires_at},
-    //   user
-    // );
+    // const response =
+    await Auth.federatedSignIn("facebook", {token, expires_at}, {email});
     dispatch({
       type: COGNITO_FB_SUCCESS,
       email,
@@ -202,6 +194,30 @@ export const cognitoFB = data => async dispatch => {
   } catch (e) {
     alert(e.message);
     dispatch({type: COGNITO_FB_FAILURE});
+  }
+};
+
+export const cognitoGoogle = data => async dispatch => {
+  const {
+    profileObj: {givenName, familyName, email},
+    tokenId: token,
+    expires_in
+  } = data;
+  const expires_at = expires_in * 1000 + new Date().getTime();
+  dispatch({type: COGNITO_GOOGLE_REQUEST});
+  try {
+    // todo: Do OAuth2 verification with this in future.
+    // const response =
+    await Auth.federatedSignIn("google", {token, expires_at}, {email});
+    dispatch({
+      type: COGNITO_GOOGLE_SUCCESS,
+      email,
+      givenName,
+      familyName
+    });
+  } catch (e) {
+    alert(e.message);
+    dispatch({type: COGNITO_GOOGLE_FAILURE});
   }
 };
 
@@ -329,6 +345,9 @@ export const CLEAR_SUGGESTION: string = "CLEAR_SUGGESTION";
 export const COGNITO_FB_REQUEST: string = "COGNITO_FB_REQUEST";
 export const COGNITO_FB_SUCCESS: string = "COGNITO_FB_SUCCESS";
 export const COGNITO_FB_FAILURE: string = "COGNITO_FB_FAILURE";
+export const COGNITO_GOOGLE_REQUEST: string = "COGNITO_GOOGLE_REQUEST";
+export const COGNITO_GOOGLE_SUCCESS: string = "COGNITO_GOOGLE_SUCCESS";
+export const COGNITO_GOOGLE_FAILURE: string = "COGNITO_GOOGLE_FAILURE";
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
 export const DELETE_SUGGESTION_REQUEST: string = "DELETE_SUGGESTION_REQUEST";

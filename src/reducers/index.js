@@ -4,6 +4,8 @@ import {connectRouter} from "connected-react-router";
 import {
   COGNITO_FB_SUCCESS,
   COGNITO_FB_FAILURE,
+  COGNITO_GOOGLE_SUCCESS,
+  COGNITO_GOOGLE_FAILURE,
   CONFIRM_RESET_SUCCESS,
   CONFIRM_RESET_FAILURE,
   DELETE_SUGGESTION_REQUEST,
@@ -130,7 +132,6 @@ const user = (state = {}, action: {type: string}) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       const attributes = action.user.attributes;
-      console.log(attributes);
       return {
         email: attributes.email,
         givenName: attributes.given_name,
@@ -139,13 +140,20 @@ const user = (state = {}, action: {type: string}) => {
     case LOGIN_FAILURE:
       return state;
     case COGNITO_FB_SUCCESS:
-      console.log(action);
       return {
         email: action.email,
         givenName: action.first_name,
         familyName: action.last_name
       };
     case COGNITO_FB_FAILURE:
+      return state;
+    case COGNITO_GOOGLE_SUCCESS:
+      return {
+        email: action.email,
+        givenName: action.givenName,
+        familyName: action.familyName
+      };
+    case COGNITO_GOOGLE_FAILURE:
       return state;
     case LOGOUT_SUCCESS:
       return {};

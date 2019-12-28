@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import FacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -16,6 +17,7 @@ import Copyright from "./Copyright";
 
 import {
   cognitoFB,
+  cognitoGoogle,
   confirm,
   signup,
   setEmail,
@@ -116,7 +118,6 @@ export default function SignUp() {
       </Container>
     );
   };
-
   const componentClicked = () => {};
   const renderForm = () => {
     return (
@@ -126,10 +127,17 @@ export default function SignUp() {
           <div className={classes.paper}>
             <FacebookLogin
               appId="1500181530138959"
-              autoLoad={true}
               fields="first_name,last_name,email,picture"
               onClick={componentClicked}
               callback={response => dispatch(cognitoFB(response))}
+            />
+            <br />
+            <GoogleLogin
+              clientId="962985476906-k3ckglb9t5bo0boc2vrvsp9i3ksaat7f.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={response => dispatch(cognitoGoogle(response))}
+              onFailure={response => alert(response.details)}
+              cookiePolicy={"single_host_origin"}
             />
             <form className={classes.form} noValidate>
               <Grid container spacing={2}>

@@ -243,26 +243,34 @@ export default function Content(props) {
             }}
           />
           <div style={{display: "flex", justifyContent: "space-between"}}>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={originalSuggestion === suggestionContent}
-              style={{alignSelf: "flex-start", margin: 5}}
-              onClick={() => {
-                dispatch(
-                  postSuggestion(
-                    edit,
-                    props.term,
-                    suggestionContent,
-                    user.email,
-                    user.familyName,
-                    user.givenName
-                  )
-                );
-              }}
-            >
-              Submit
-            </Button>
+            <div style={{display: "flex"}}>
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={
+                  originalSuggestion === suggestionContent ||
+                  suggestionContent.length > 10000
+                }
+                style={{alignSelf: "flex-start", margin: 5}}
+                onClick={() => {
+                  dispatch(
+                    postSuggestion(
+                      edit,
+                      props.term,
+                      suggestionContent,
+                      user.email,
+                      user.familyName,
+                      user.givenName
+                    )
+                  );
+                }}
+              >
+                Submit
+              </Button>
+              {suggestionContent.length > 10000 && (
+                <p style={{color: "red"}}>Max 10000 characters.</p>
+              )}
+            </div>
             <Button
               variant="contained"
               color="primary"

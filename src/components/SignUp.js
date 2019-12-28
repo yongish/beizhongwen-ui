@@ -1,10 +1,6 @@
 import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
-// import FacebookLogin from "react-facebook-login";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-
-import GoogleLogin from "react-google-login";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -16,10 +12,9 @@ import Container from "@material-ui/core/Container";
 
 import {dontMatch, failPasswordRequirements} from "../common/Utils";
 import Copyright from "./Copyright";
+import SocialLogin from "./SocialLogin";
 
 import {
-  cognitoFB,
-  cognitoGoogle,
   confirm,
   signup,
   setEmail,
@@ -129,39 +124,7 @@ export default function SignUp() {
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
-            <FacebookLogin
-              appId="1500181530138959"
-              callback={response =>
-                dispatch(cognitoFB(response, history, term))
-              }
-              render={renderProps => (
-                <button
-                  className="loginBtn loginBtn--facebook"
-                  onClick={renderProps.onClick}
-                >
-                  Continue with Facebook
-                </button>
-              )}
-            />
-            <br />
-            <GoogleLogin
-              clientId="962985476906-k3ckglb9t5bo0boc2vrvsp9i3ksaat7f.apps.googleusercontent.com"
-              render={renderProps => (
-                <button
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                  className="loginBtn loginBtn--google"
-                >
-                  Continue with Google
-                </button>
-              )}
-              buttonText="Login"
-              onSuccess={response =>
-                dispatch(cognitoGoogle(response, history, term))
-              }
-              onFailure={response => alert(response.details)}
-              cookiePolicy={"single_host_origin"}
-            />
+            <SocialLogin />
             <form className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>

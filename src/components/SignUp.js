@@ -1,15 +1,13 @@
 import React, {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
+import FacebookLogin from "react-facebook-login";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
@@ -17,6 +15,7 @@ import {dontMatch, failPasswordRequirements} from "../common/Utils";
 import Copyright from "./Copyright";
 
 import {
+  cognitoFB,
   confirm,
   signup,
   setEmail,
@@ -28,7 +27,7 @@ import {
 const useStyles = makeStyles(theme => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white
+      backgroundColor: "lightgray"
     }
   },
   paper: {
@@ -43,6 +42,9 @@ const useStyles = makeStyles(theme => ({
   },
   form: {
     width: "100%", // Fix IE 11 issue.
+    background: "white",
+    padding: 20,
+    borderRadius: 25,
     marginTop: theme.spacing(3)
   },
   submit: {
@@ -115,120 +117,126 @@ export default function SignUp() {
     );
   };
 
+  const componentClicked = () => {};
   const renderForm = () => {
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <form className={classes.form} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                  defaultValue={firstName}
-                  onChange={e => dispatch(setFirstName(e.target.value))}
-                />
+      <div>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <FacebookLogin
+              appId="1500181530138959"
+              autoLoad={true}
+              fields="name,email,picture"
+              onClick={componentClicked}
+              callback={response => dispatch(cognitoFB(response))}
+            />
+            <form className={classes.form} noValidate>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="fname"
+                    name="firstName"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                    defaultValue={firstName}
+                    onChange={e => dispatch(setFirstName(e.target.value))}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="lname"
+                    defaultValue={lastName}
+                    onChange={e => dispatch(setLastName(e.target.value))}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    defaultValue={email}
+                    onChange={event => dispatch(setEmail(event.target.value))}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={event =>
+                      dispatch(setPassword(event.target.value))
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    type="password"
+                    id="confirmPassword"
+                    autoComplete="current-password"
+                    onChange={event => setConfirmPassword(event.target.value)}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
-                  defaultValue={lastName}
-                  onChange={e => dispatch(setLastName(e.target.value))}
-                />
+              {dontMatch(password, confirmPassword)}
+              {failPasswordRequirements(password)}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                disabled={validateForm()}
+                className={classes.submit}
+                onClick={event => {
+                  event.preventDefault();
+                  dispatch(signup(firstName, lastName, email, password));
+                }}
+              >
+                Sign Up
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="/" variant="body2">
+                    Go back to Home
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/login" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  defaultValue={email}
-                  onChange={event => dispatch(setEmail(event.target.value))}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={event => dispatch(setPassword(event.target.value))}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  type="password"
-                  id="confirmPassword"
-                  autoComplete="current-password"
-                  onChange={event => setConfirmPassword(event.target.value)}
-                />
-              </Grid>
-            </Grid>
-            {dontMatch(password, confirmPassword)}
-            {failPasswordRequirements(password)}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              disabled={validateForm()}
-              className={classes.submit}
-              onClick={event => {
-                event.preventDefault();
-                dispatch(signup(firstName, lastName, email, password));
-              }}
-            >
-              Sign Up
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/" variant="body2">
-                  Go back to Home
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
-      </Container>
+            </form>
+          </div>
+          <Box mt={5}>
+            <Copyright />
+          </Box>
+        </Container>
+      </div>
     );
   };
 

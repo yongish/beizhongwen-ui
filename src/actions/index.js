@@ -177,6 +177,24 @@ export const signup = (
   }
 };
 
+export const cognitoFB = data => async dispatch => {
+  const {name, email, accessToken: token, expiresIn} = data;
+  const expires_at = expiresIn * 1000 + new Date().getTime();
+  const user = {email};
+  dispatch({type: COGNITO_FB_REQUEST});
+  try {
+    const response = await Auth.federatedSignIn(
+      "facebook",
+      {token, expires_at},
+      user
+    );
+    dispatch({type: COGNITO_FB_SUCCESS}, name);
+  } catch (e) {
+    alert(e.message);
+    dispatch({type: COGNITO_FB_FAILURE});
+  }
+};
+
 export const sendCode = email => async dispatch => {
   try {
     await Auth.forgotPassword(email);
@@ -243,7 +261,6 @@ export const postSuggestion = (
   familyName,
   givenName
 ) => dispatch => {
-  console.log(edit);
   const fullUrl =
     API_ROOT +
     "suggestion/" +
@@ -299,6 +316,9 @@ export const deleteSuggestion = (term, suggestionContent) => dispatch => {
 };
 
 export const CLEAR_SUGGESTION: string = "CLEAR_SUGGESTION";
+export const COGNITO_FB_REQUEST: string = "COGNITO_FB_REQUEST";
+export const COGNITO_FB_SUCCESS: string = "COGNITO_FB_SUCCESS";
+export const COGNITO_FB_FAILURE: string = "COGNITO_FB_FAILURE";
 export const CONFIRM_RESET_SUCCESS: string = "CONFIRM_RESET_SUCCESS";
 export const CONFIRM_RESET_FAILURE: string = "CONFIRM_RESET_FAILURE";
 export const DELETE_SUGGESTION_REQUEST: string = "DELETE_SUGGESTION_REQUEST";

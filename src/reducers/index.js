@@ -2,6 +2,8 @@ import {combineReducers} from "redux";
 import {connectRouter} from "connected-react-router";
 
 import {
+  COGNITO_FB_SUCCESS,
+  COGNITO_FB_FAILURE,
   CONFIRM_RESET_SUCCESS,
   CONFIRM_RESET_FAILURE,
   DELETE_SUGGESTION_REQUEST,
@@ -134,6 +136,10 @@ const user = (state = {}, action: {type: string}) => {
         familyName: attributes.family_name
       };
     case LOGIN_FAILURE:
+      return state;
+    case COGNITO_FB_SUCCESS:
+      return {name: action.name};
+    case COGNITO_FB_FAILURE:
       return state;
     case LOGOUT_SUCCESS:
       return {};

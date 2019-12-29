@@ -22,7 +22,11 @@ export default function SocialLogin() {
     >
       <FacebookLogin
         appId="1500181530138959"
-        callback={response => dispatch(cognitoFB(response, history, term))}
+        fields="first_name,last_name,email"
+        callback={response => {
+          console.log(response);
+          dispatch(cognitoFB(response, history, term));
+        }}
         render={renderProps => (
           <button
             className="loginBtn loginBtn--facebook"

@@ -1,7 +1,7 @@
 // import store from "../index";
 import {Auth} from "aws-amplify";
 
-const API_ROOT = "http://localhost:8080/";
+const API_ROOT = process.env.REACT_APP_API_URL;
 
 export const confirm = (
   email,

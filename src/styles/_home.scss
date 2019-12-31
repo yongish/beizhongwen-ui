@@ -120,7 +120,7 @@ and (min-width: 1450px) {
 
 @media screen
 and (max-width: 1450px)
-and (min-width: 1150px) {
+and (min-width: 768px) {
   .blankLeftColumn{
     width: 10%
   }
@@ -151,33 +151,7 @@ and (min-width: 1150px) {
   }
 }
 
-// @media screen
-// and (min-width: 641px) and (max-width: 1150px) {
-//   .navigationColumn {
-//     width: 15%
-//   }
-//   .homeColumn {
-//     width: 65%
-//   }
-//   .homeRightColumn {
-//     width: 20%
-//   }
-//   .contentColumn {
-//     width: 65%
-//   }
-//   .relatedColumn {
-//     width: 30%
-//   }
-// }
-
-// @media screen and (min-width: 481px) {
-// }
-//
-// @media screen and (min-width: 321px) and (max-width: 480px) {
-// }
-
-@media screen and (max-width: 1150px) {
-// @media screen and (max-width: 640px) {
+@media screen and (max-width: 767px) {
   .homeColumn {
     width: 100%
   }

@@ -45,19 +45,6 @@ const matchCJK = text =>
   text.match(/[\uF900-\uFAFF]/) ||
   text.match(/[\u2F800-\u2FA1F]/);
 
-const styles = {
-  container: base => ({
-    ...base,
-    paddingLeft: 22,
-    width: 420,
-    zIndex: 2147483647
-  }),
-  valueContainer: base => ({
-    ...base,
-    paddingLeft: 30
-  })
-};
-
 const mapStateToProps = state => {
   return {
     searchOptions: state.searchOptions,
@@ -80,9 +67,38 @@ class SearchBar extends Component<*, State> {
     super();
     this.state = {
       isLoading: false,
-      value: undefined
+      value: undefined,
+      width: 0,
+      height: 0
     };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    this.setState({width: window.innerWidth, height: window.innerHeight});
+  }
+
+  styles = {
+    container: base => ({
+      ...base,
+      paddingLeft: 22,
+      width: this.state.width < 768 ? 300 : 420,
+      zIndex: 2147483647
+    }),
+    valueContainer: base => ({
+      ...base,
+      paddingLeft: 30
+    })
+  };
 
   select: ElementRef<*>;
   handleChange = (newValue: any, actionMeta: any) => {
@@ -172,7 +188,7 @@ class SearchBar extends Component<*, State> {
             onInputKeyDown={this.onInputKeyDown}
             options={searchOptions}
             placeholder={"Find or create..."}
-            styles={styles}
+            styles={this.styles}
             value={value}
           />
         </div>

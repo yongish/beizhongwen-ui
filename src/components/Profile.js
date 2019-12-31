@@ -62,13 +62,14 @@ export default function Profile() {
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <Tab label="Recently viewed" {...a11yProps(0)} />
+          {/* todo: Add these tabs in the future.
+            <Tab label="Recently viewed" {...a11yProps(0)} />
           <Tab label="Created terms" {...a11yProps(1)} />
-          <Tab label="Answers" {...a11yProps(2)} />
+          <Tab label="Answers" {...a11yProps(2)} />*/}
           <Tab label="Settings" {...a11yProps(3)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      {/*<TabPanel value={value} index={0}>
         Item One
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -76,8 +77,8 @@ export default function Profile() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
+      </TabPanel>*/}
+      <TabPanel value={value} index={0}>
         <Settings />
       </TabPanel>
     </div>

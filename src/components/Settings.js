@@ -32,8 +32,9 @@ export default function Settings() {
           className={classes.button}
           onClick={() => {
             dispatch(logout());
-            console.log(window);
-            window.FB.logout();
+            if (window.FB) {
+              window.FB.logout();
+            }
           }}
         >
           Log out

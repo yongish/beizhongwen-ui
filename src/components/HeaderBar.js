@@ -7,6 +7,7 @@ import Link from "@material-ui/core/Link";
 import {makeStyles} from "@material-ui/core/styles";
 import {deepOrange, deepPurple} from "@material-ui/core/colors";
 import SearchBar from "./SearchBar";
+import useWindowDimensions from "./UseWindowDimensions";
 
 import {selectTab, setTerm} from "../actions";
 
@@ -35,6 +36,7 @@ export default function HeaderBar() {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const {width} = useWindowDimensions();
 
   return (
     <div className="headerBar flexDisplayRowAlign" style={{marginLeft: 20}}>
@@ -43,10 +45,17 @@ export default function HeaderBar() {
           history.push("/");
           dispatch(selectTab("home"));
         }}
-        style={{cursor: "pointer"}}
+        style={{
+          cursor: "pointer",
+          display: "flex",
+          flexDirection: width < 767 ? "row" : "column",
+          alignItems: width < 767 ? "center" : "left"
+        }}
       >
-        <div style={{fontSize: 21}}>背中文</div>
-        <div>Memorize Chinese creatively</div>
+        <div style={{fontSize: width < 767 ? 15 : 21}}>背中文</div>
+        <div style={{fontSize: width < 767 ? 12 : 16}}>
+          Memorize Chinese creatively
+        </div>
       </div>
       <SearchBar />
 

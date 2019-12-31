@@ -2,6 +2,7 @@ import React from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import useWindowDimensions from "./UseWindowDimensions";
 
 import {selectTab} from "../actions";
 
@@ -10,8 +11,12 @@ export default function NavigationColumn() {
   const tab = useSelector(state => state.tab);
   const dispatch = useDispatch();
   const history = useHistory();
+  const {width} = useWindowDimensions();
   return (
-    <div style={{padding: 20}} className="navigationColumn flexDisplayColumn">
+    <div
+      style={{padding: width < 1150 ? 0 : 20}}
+      className="navigationColumn flexDisplayColumn"
+    >
       <Link
         onClick={() => {
           history.push("/");

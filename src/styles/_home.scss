@@ -80,6 +80,11 @@ body,
 
 }
 
+@viewport {
+  width: device-width ;
+  zoom: 1.0 ;
+}
+
 // Different column widths for various screen sizes.
 @media screen
 and (min-width: 1450px) {
@@ -146,21 +151,34 @@ and (min-width: 1150px) {
   }
 }
 
-@media screen
-and (max-width: 1150px) {
-  .navigationColumn {
-    width: 15%
-  }
+// @media screen
+// and (min-width: 641px) and (max-width: 1150px) {
+//   .navigationColumn {
+//     width: 15%
+//   }
+//   .homeColumn {
+//     width: 65%
+//   }
+//   .homeRightColumn {
+//     width: 20%
+//   }
+//   .contentColumn {
+//     width: 65%
+//   }
+//   .relatedColumn {
+//     width: 30%
+//   }
+// }
+
+// @media screen and (min-width: 481px) {
+// }
+//
+// @media screen and (min-width: 321px) and (max-width: 480px) {
+// }
+
+@media screen and (max-width: 1150px) {
+// @media screen and (max-width: 640px) {
   .homeColumn {
-    width: 65%
-  }
-  .homeRightColumn {
-    width: 20%
-  }
-  .contentColumn {
-    width: 65%
-  }
-  .relatedColumn {
-    width: 30%
+    width: 100%
   }
 }

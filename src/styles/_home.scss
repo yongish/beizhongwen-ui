@@ -127,6 +127,14 @@ and (min-width: 1450px) {
   .blankRightColumn{
     width: 10%
   }
+
+  .about {
+    margin-left: 20px;
+  }
+
+  .titleAndSearch {
+    display: flex;
+  }
 }
 
 @media screen
@@ -170,6 +178,10 @@ and (min-width: 768px) {
 
   .blankRightColumn{
     width: 5%
+  }
+
+  .about {
+    margin-left: 20px;
   }
 
   .titleAndSearch {

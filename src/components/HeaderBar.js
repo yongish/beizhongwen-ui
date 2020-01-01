@@ -39,25 +39,30 @@ export default function HeaderBar() {
   const {width} = useWindowDimensions();
 
   return (
-    <div className="headerBar flexDisplayRowAlign" style={{marginLeft: 20}}>
-      <div
-        onClick={() => {
-          history.push("/");
-          dispatch(selectTab("home"));
-        }}
-        style={{
-          cursor: "pointer",
-          display: "flex",
-          flexDirection: width < 767 ? "row" : "column",
-          alignItems: width < 767 ? "center" : "left"
-        }}
-      >
-        <div style={{fontSize: width < 767 ? 15 : 21}}>背中文</div>
-        <div style={{fontSize: width < 767 ? 12 : 16}}>
-          Memorize Chinese creatively
+    <div
+      className="headerBar flexDisplayRowAlign"
+      style={{marginLeft: width <= 640 ? 5 : 20}}
+    >
+      <div className="titleAndSearch">
+        <div
+          onClick={() => {
+            history.push("/");
+            dispatch(selectTab("home"));
+          }}
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: width < 767 ? "center" : "left"
+          }}
+        >
+          <div style={{fontSize: width < 767 ? 15 : 21}}>背中文</div>
+          <div style={{fontSize: width < 767 ? 12 : 16}}>
+            Memorize Chinese creatively
+          </div>
         </div>
+        <SearchBar />
       </div>
-      <SearchBar />
 
       <div style={{marginLeft: "auto", marginRight: 20}}>
         {user.email && (

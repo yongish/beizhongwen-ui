@@ -88,6 +88,17 @@ body,
 // Different column widths for various screen sizes.
 @media screen
 and (min-width: 1450px) {
+  .mainTwo {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .navigationColumn {
+    display: flex;
+    flex-direction: column
+  }
+
   .blankLeftColumn{
     width: 10%
   }
@@ -121,6 +132,17 @@ and (min-width: 1450px) {
 @media screen
 and (max-width: 1450px)
 and (min-width: 768px) {
+  .mainTwo {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .navigationColumn {
+    display: flex;
+    flex-direction: column
+  }
+
   .blankLeftColumn{
     width: 10%
   }
@@ -149,10 +171,74 @@ and (min-width: 768px) {
   .blankRightColumn{
     width: 5%
   }
+
+  .titleAndSearch {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 767px) {
+  .mainTwo {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blankLeftColumn{
+    width: 0%
+  }
+
+  .navigationColumn {
+    display: flex;
+    flex-direction: row
+  }
+
+  .blankLeftColumn{
+    width: 0%
+  }
+
+  .navigationColumn {
+    width: 100%
+  }
+
+  .headerBar {
+    width: 80%
+  }
   .homeColumn {
     width: 100%
+  }
+  .contentColumn {
+    width: 100%
+  }
+
+  .relatedColumn {
+    width: 0%
+  }
+  .homeRightColumn {
+    width: 0%
+  }
+
+  .blankRightColumn{
+    width: 0%
+  }
+
+  .about {
+    width: 90%;
+    margin-left: 10px;
+  }
+
+  .titleAndSearch {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about {
+    margin-left: 10px;
+  }
+
+  .titleAndSearch {
+    display: flex;
+    flex-direction: column;
   }
 }

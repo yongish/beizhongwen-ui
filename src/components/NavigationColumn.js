@@ -13,10 +13,7 @@ export default function NavigationColumn() {
   const history = useHistory();
   const {width} = useWindowDimensions();
   return (
-    <div
-      style={{padding: width < 1150 ? 0 : 20}}
-      className="navigationColumn flexDisplayColumn"
-    >
+    <div style={{padding: width < 1150 ? 0 : 20}} className="navigationColumn">
       <Link
         onClick={() => {
           history.push("/");

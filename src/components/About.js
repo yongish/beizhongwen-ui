@@ -3,15 +3,15 @@ import Link from "@material-ui/core/Link";
 
 export default function About() {
   return (
-    <div style={{marginLeft: 20}}>
+    <div className="about">
       <h1>About Us</h1>
       <p>Applying 21st century techniques to learning Chinese.</p>
-      <p>
+      <div>
         Possibly the most challenging aspect of learning to read or write a
         Chinese word is that there often is no obvious way to memorize it. A
         common trick is to spot certain smaller characters inside a character,
         but this does not work for many words.
-      </p>
+      </div>
       <p>
         背中文 is crowdsourced learning to memorize Chinese, using 21st century
         technology to learn Chinese. It is a forum where you can contribute your

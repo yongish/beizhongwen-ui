@@ -89,10 +89,12 @@ export default function Home() {
           value={value}
           onChange={handleChange}
           aria-label="simple tabs example"
+          variant="fullWidth"
         >
-          <Tab label="Latest Words" {...a11yProps(0)} />
+          <Tab label="Latest Words" wrapped {...a11yProps(0)} />
           <Tab
             label="Most Views (coming soon)"
+            wrapped
             disabled={true}
             {...a11yProps(1)}
           />

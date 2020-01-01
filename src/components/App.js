@@ -13,6 +13,7 @@ import Profile from "./Profile";
 import Related from "./Related";
 
 import {selectTab, setTerm} from "../actions";
+import useWindowDimensions from "./UseWindowDimensions";
 
 import "../styles/App.css";
 import "../styles/_home.scss";
@@ -25,6 +26,7 @@ export default function App(props) {
   }
   const termExists = term && term.length > 0;
   const tab = useSelector(state => state.tab);
+  const {width} = useWindowDimensions();
   // const tab = term && term.length > 0 ? "term" : selectorTab;
   // console.log(term);
   return (
@@ -32,7 +34,7 @@ export default function App(props) {
       <BlankLeft />
       <div className="flexGrowOne flexDisplayColumn">
         <HeaderBar />
-        <div className="flexGrowOne flexDisplayRow">
+        <div className="mainTwo">
           <NavigationColumn />
           {(termExists || tab === "term") && (
             <div className="flexGrowOne flexDisplayRow">

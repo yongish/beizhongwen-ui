@@ -37,7 +37,7 @@ export default function SocialLogin() {
         )}
       />
       <GoogleLogin
-        clientId="962985476906-k3ckglb9t5bo0boc2vrvsp9i3ksaat7f.apps.googleusercontent.com"
+        clientId="962985476906-csuu6ls66lbh7s4n8pce07sid6m1obh3.apps.googleusercontent.com"
         render={renderProps => (
           <button
             onClick={renderProps.onClick}

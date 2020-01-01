@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useRef} from "react";
 import {useSelector, useDispatch} from "react-redux";
+import {useHistory} from "react-router";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -71,6 +72,14 @@ export default function Content(props) {
   const suggestionsRef = useRef([]);
   const [open, setOpen] = useState(false);
   const [contentToDelete, setContentToDelete] = useState("");
+
+  const history = useHistory();
+  history.listen(location => {
+    const pathname = location.pathname;
+    if (pathname.includes("term")) {
+      dispatch(getSuggestions(pathname.substring(1).split("/")[1]));
+    }
+  });
 
   const handleClickOpen = content => {
     setContentToDelete(content);

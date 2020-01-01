@@ -34,16 +34,17 @@ const DropdownIndicator = props => {
 };
 
 // https://stackoverflow.com/questions/1366068/whats-the-complete-range-for-chinese-characters-in-unicode
+// const matchCJK = text => text.match(/[\u3400-\u9FFF]/);
 const matchCJK = text =>
-  text.match(/[\u3400-\u9FFF]/) ||
-  text.match(/[\u3400-\u9FFF]/) ||
-  text.match(/[\u20000-\u2A6DF]/) ||
-  text.match(/[\u2A700–\u2B73F]/) ||
-  text.match(/[\u2B740–\u2B81F]/) ||
-  text.match(/[\u3400-\u9FFF]/) ||
-  text.match(/[\u2B820–\u2CEAF]/) ||
-  text.match(/[\uF900-\uFAFF]/) ||
-  text.match(/[\u2F800-\u2FA1F]/);
+  text.match(/[\u4E00-\u9FFF]/) !== null ||
+  text.match(/[\u3400-\u4DBF]/) !== null ||
+  // text.match(/[\u20000-\u2A6DF]/) !== null;
+  text.match(/[\u2A700–\u2B73F]/) !== null ||
+  text.match(/[\u2B740–\u2B81F]/) !== null ||
+  text.match(/[\u3400-\u9FFF]/) !== null ||
+  text.match(/[\u2B820–\u2CEAF]/) !== null ||
+  text.match(/[\uF900-\uFAFF]/) !== null;
+// text.match(/[\u2F800-\u2FA1F]/) !== null;
 
 const mapStateToProps = state => {
   return {
@@ -153,10 +154,10 @@ class SearchBar extends Component<*, State> {
     if (text.length > 255) {
       return "CANNOT EXCEED 255 CHARACTERS!!!";
     }
-    if (!matchCJK(text)) {
-      return "Error: No Chinese characters detected.";
+    if (matchCJK(text)) {
+      return "Add " + text;
     }
-    return "Add " + text;
+    return "Error: No Chinese characters detected.";
   };
 
   render() {

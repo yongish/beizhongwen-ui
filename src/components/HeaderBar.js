@@ -80,7 +80,11 @@ export default function HeaderBar() {
         )}
         {!user.email && (
           <div className="flexDisplayRowAlign">
-            <Link href="/login" onClick={() => dispatch(setTerm(""))}>
+            <Link
+              href="/login"
+              onClick={() => dispatch(setTerm(""))}
+              style={{paddingLeft: 5}}
+            >
               Log in
             </Link>
             <Button

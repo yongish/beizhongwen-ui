@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div style={{marginLeft: 20}}>
       <h1>About Us</h1>
-      <p>applying 21st century techniques to learning Chinese.</p>
+      <p>Applying 21st century techniques to learning Chinese.</p>
       <p>
         Possibly the most challenging aspect of learning to read or write a
         Chinese word is that there often is no obvious way to memorize it. A
@@ -32,7 +32,7 @@ export default function About() {
         memorize this character.
       </p>
       <p>
-        We are excited to see what your creativity is capable of. Follow us on
+        We are excited to see what your creativity is capable of. Follow us on{" "}
         <Link href="https://www.facebook.com/%E5%90%AC%E5%86%99-295524347790755/">
           Facebook
         </Link>

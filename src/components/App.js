@@ -1,5 +1,6 @@
 import React from "react";
 import {useSelector} from "react-redux";
+import ReactGA from "react-ga";
 
 import About from "./About";
 import Content from "./Content";
@@ -13,7 +14,6 @@ import Profile from "./Profile";
 import Related from "./Related";
 
 import {selectTab, setTerm} from "../actions";
-import useWindowDimensions from "./UseWindowDimensions";
 
 import "../styles/App.css";
 import "../styles/_home.scss";
@@ -26,9 +26,12 @@ export default function App(props) {
   }
   const termExists = term && term.length > 0;
   const tab = useSelector(state => state.tab);
-  const {width} = useWindowDimensions();
   // const tab = term && term.length > 0 ? "term" : selectorTab;
   // console.log(term);
+
+  ReactGA.initialize("UA-000000-01");
+  ReactGA.pageview(window.location.pathname + window.location.search);
+
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />

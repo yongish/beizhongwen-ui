@@ -80,7 +80,7 @@ export const findTerms = searchTerm => dispatch => {
 export const getLatestTerms = () => dispatch => {
   const fullUrl = API_ROOT + "term/latest";
   dispatch({type: LATEST_TERM_REQUEST});
-  return fetch(fullUrl).then(
+  return fetch(fullUrl, {mode: "cors"}).then(
     response =>
       response.json().then(json => {
         dispatch({type: LATEST_TERM_SUCCESS, response: json});

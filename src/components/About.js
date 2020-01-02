@@ -46,6 +46,15 @@ export default function About() {
         . Feel free to leave comments and feedback. Let's work together in our
         Chinese proficiency!
       </p>
+      <p>
+        One more thing: Check out our Android app{" "}
+        <Link href="https://play.google.com/store/apps/details?id=com.zhiyong.tingxie">
+          听写
+        </Link>
+        , for preparing for Chinese spelling quizzes. With your feedback and
+        suggestions guiding the way, we have big plans to introduce features
+        from 背中文 and 听写 to each other. Let us know what you want!
+      </p>
     </div>
   );
 }

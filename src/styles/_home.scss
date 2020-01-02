@@ -189,7 +189,7 @@ and (min-width: 768px) {
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 321px) and (max-width: 767px) {
   .mainTwo {
     flex-grow: 1;
     display: flex;
@@ -245,7 +245,52 @@ and (min-width: 768px) {
 }
 
 @media screen and (max-width: 320px) {
+  .mainTwo {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blankLeftColumn{
+    width: 0%
+  }
+
+  .navigationColumn {
+    display: flex;
+    flex-direction: row
+  }
+
+  .blankLeftColumn{
+    width: 0%
+  }
+
+  .navigationColumn {
+    width: 100%
+  }
+
+  .headerBar {
+    width: 100%
+  }
+  .homeColumn {
+    width: 100%
+  }
+  .contentColumn {
+    width: 100%
+  }
+
+  .relatedColumn {
+    width: 0%
+  }
+  .homeRightColumn {
+    width: 0%
+  }
+
+  .blankRightColumn{
+    width: 0%
+  }
+
   .about {
+    width: 90%;
     margin-left: 10px;
   }
 

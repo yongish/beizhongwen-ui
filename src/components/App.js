@@ -42,7 +42,7 @@ export default function App(props) {
           {(termExists || tab === "term") && (
             <div className="flexGrowOne flexDisplayRow">
               <Content term={props.match.params.term} />
-              <Related />
+              {/*<Related />*/}
             </div>
           )}
           {!termExists && tab === "about" && <About />}

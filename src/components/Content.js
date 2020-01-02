@@ -132,7 +132,7 @@ export default function Content(props) {
     paddingRight: 10,
     paddingTop: 10,
     paddingBottom: 0,
-    "&:last-child": {
+    "&:lastChild": {
       paddingBottom: 0
     }
   };

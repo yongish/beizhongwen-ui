@@ -19,17 +19,24 @@ export default function About() {
         creative.
       </p>
       <p>
-        For example, the term "庄严 (zhuāng yuán)" means "solemn". "庄" has few
-        strokes, but is not a common character, so it may be difficult to
-        memorize. 1 trick is to think of the more common character "装", and
-        that "庄严" can be remembered as "pretending to be solemn".
+        For example, the term "
+        <Link href="https://www.beizhongwen.com/term/%E5%BA%84%E4%B8%A5">
+          庄严
+        </Link>{" "}
+        (zhuāng yuán)" means "solemn". "庄" has few strokes, but is not a common
+        character, so it may be difficult to memorize. 1 trick is to think of
+        the more common character "装", and that "庄严" can be remembered as
+        "pretending to be solemn".
       </p>
       <p>
-        Another example is the word "吼叫 (hǒu jiào)", which means "yell". "吼"
-        is not a common word. You can think of laughing "ho ho" when you see it,
-        which may make it easier to remember even though the term means yelling
-        and not laughing. It's inaccurate, but just a trick to remember how to
-        memorize this character.
+        Another example is the word "
+        <Link href="https://www.beizhongwen.com/term/%E5%90%BC%E5%8F%AB">
+          吼叫
+        </Link>{" "}
+        (hǒu jiào)", which means "yell". "吼" is not a common word. You can
+        think of laughing "ho ho" when you see it, which may make it easier to
+        remember even though the term means yelling and not laughing. It's
+        inaccurate, but just a trick to remember how to memorize this character.
       </p>
       <p>
         We are excited to see what your creativity is capable of. Follow us on{" "}

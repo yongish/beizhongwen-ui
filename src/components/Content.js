@@ -127,6 +127,15 @@ export default function Content(props) {
   const getSize = i => {
     return rowSizes[i];
   };
+  const styles = {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 0,
+    "&:last-child": {
+      paddingBottom: 0
+    }
+  };
 
   const Row = ({index, style}) => (
     <Card
@@ -176,21 +185,19 @@ export default function Content(props) {
               </div>
             )}
           </div>
-          {suggestionHeights[index] && suggestionHeights[index] > 42 && (
-            <IconButton
-              variant="contained"
-              onClick={() => {
-                toggleSize(index);
-              }}
-            >
-              {(!checked[index] || checked[index] === false) && (
-                <ExpandMoreIcon fontSize="large" />
-              )}
-              {checked[index] && checked[index] === true && (
-                <ExpandLessIcon fontSize="large" />
-              )}
-            </IconButton>
-          )}
+          <IconButton
+            variant="contained"
+            onClick={() => {
+              toggleSize(index);
+            }}
+          >
+            {(!checked[index] || checked[index] === false) && (
+              <ExpandMoreIcon fontSize="large" />
+            )}
+            {checked[index] && checked[index] === true && (
+              <ExpandLessIcon fontSize="large" />
+            )}
+          </IconButton>
         </div>
       </CardContent>
     </Card>
@@ -312,7 +319,6 @@ export default function Content(props) {
           </Button>
         </div>
       )}
-
       <Dialog
         open={open}
         onClose={handleClose}
@@ -330,6 +336,44 @@ export default function Content(props) {
         </DialogActions>
       </Dialog>
 
+      {suggestions.map((suggestion, i) => {
+        return (
+          <Card style={{margin: 5}} key={i}>
+            <CardContent style={styles}>
+              <div>{suggestion.content}</div>
+              <div style={{display: "flex", alignItems: "center"}}>
+                <p>
+                  {suggestion.givenName} {suggestion.familyName}
+                  {", "}
+                  {timeConverter(suggestion.createdAt)}
+                </p>
+                {suggestion.email === user.email && (
+                  <div style={{display: "flex", alignItems: "center"}}>
+                    <IconButton
+                      variant="contained"
+                      onClick={() => {
+                        dispatch(toggleEdit(true));
+                        dispatch(setOriginalSuggestion(suggestion.content));
+                        dispatch(setSuggestionContent(suggestion.content));
+                        dispatch(toggleSuggestionVisibilty());
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      variant="contained"
+                      onClick={e => handleClickOpen(suggestion.content)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })}
+      {/*
       {suggestions.length > 0 && !suggestionVisible && (
         <div style={{flexGrow: 1}}>
           <AutoSizer>
@@ -348,6 +392,7 @@ export default function Content(props) {
           </AutoSizer>
         </div>
       )}
+      */}
       {suggestions.length === 0 && !suggestionVisible && (
         <p style={{marginLeft: 5}}>No suggestions yet. Add the first one!</p>
       )}

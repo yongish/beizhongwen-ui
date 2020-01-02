@@ -58,7 +58,7 @@ export default function HeaderBar() {
         >
           <div style={{fontSize: width < 767 ? 15 : 21}}>背中文</div>
           <div style={{fontSize: width < 767 ? 12 : 16}}>
-            Memorize Chinese creatively
+            Memorize creatively
           </div>
         </div>
         <SearchBar />

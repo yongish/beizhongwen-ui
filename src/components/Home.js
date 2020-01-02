@@ -49,7 +49,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    flexGrow: 1,
     backgroundColor: theme.palette.background.paper
   }
 }));

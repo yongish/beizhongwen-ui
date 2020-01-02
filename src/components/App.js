@@ -35,21 +35,20 @@ export default function App(props) {
   return (
     <div className="flexGrowOne flexDisplayRow">
       <BlankLeft />
-      <div className="flexGrowOne flexDisplayColumn">
+      <div className="flexDisplayColumn" style={{width: "100%"}}>
         <HeaderBar />
         <div className="mainTwo">
           <NavigationColumn />
           {(termExists || tab === "term") && (
-            <div className="flexGrowOne flexDisplayRow">
+            <div className="flexDisplayRow" style={{width: "100%"}}>
               <Content term={props.match.params.term} />
               {/*<Related />*/}
             </div>
           )}
           {!termExists && tab === "about" && <About />}
           {!termExists && tab === "home" && (
-            <div className="flexGrowOne flexDisplayRow">
+            <div className="flexDisplayRow" style={{width: "100%"}}>
               <Home />
-              <HomeRight />
             </div>
           )}
           {!termExists && tab === "profile" && <Profile />}

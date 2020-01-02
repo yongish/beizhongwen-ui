@@ -92,7 +92,8 @@ class SearchBar extends Component<*, State> {
     container: base => ({
       ...base,
       paddingLeft: this.state.width <= 320 ? 0 : 10,
-      width: this.state.width < 768 ? 190 : 420,
+      width:
+        this.state.width < 768 ? (this.state.width < 357 ? 150 : 190) : 420,
       zIndex: 2147483647
     }),
     valueContainer: base => ({

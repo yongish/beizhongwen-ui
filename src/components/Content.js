@@ -205,10 +205,10 @@ export default function Content(props) {
 
   return (
     <div
+      className="contentColumn"
       style={{
         display: "flex",
-        flexDirection: "column",
-        flex: "1 1 700px"
+        flexDirection: "column"
       }}
     >
       <div

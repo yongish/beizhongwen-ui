@@ -42,7 +42,7 @@ const getRequest = (
   );
 };
 
-export const postTerm = (term, email, firstName, lastName) => dispatch => {
+export const postTerm = (term, email, givenName, familyName) => dispatch => {
   const fullUrl = API_ROOT + "term/" + term;
   dispatch({type: POST_TERM_REQUEST});
   return fetch(fullUrl, {
@@ -52,8 +52,8 @@ export const postTerm = (term, email, firstName, lastName) => dispatch => {
     },
     body: JSON.stringify({
       email,
-      firstName,
-      lastName
+      familyName,
+      givenName
     })
   }).then(
     response =>
@@ -342,8 +342,8 @@ export const deleteSuggestion = (term, suggestionContent) => dispatch => {
     body: JSON.stringify({
       content: suggestionContent,
       email: "",
-      firstName: "",
-      lastName: ""
+      givenName: "",
+      familyName: ""
     })
   }).then(
     response =>

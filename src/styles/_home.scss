@@ -196,13 +196,9 @@ and (min-width: 768px) {
     flex-direction: column;
   }
 
-  .blankLeftColumn{
-    width: 0%
-  }
-
   .navigationColumn {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
   }
 
   .blankLeftColumn{

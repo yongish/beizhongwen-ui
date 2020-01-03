@@ -11,6 +11,7 @@ import "./styles/index.css";
 import config from "./config";
 import App from "./components/App";
 import Login from "./components/Login";
+import Privacy from "./components/Privacy";
 import ResetPassword from "./components/ResetPassword";
 import SignUp from "./components/SignUp";
 import * as serviceWorker from "./serviceWorker";
@@ -85,6 +86,7 @@ ReactDOM.render(
           <Route path="/login/reset" component={ResetPassword} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/privacy" component={Privacy} />
           <Route path="/term/:term" component={App} />
           <Route path="/" exact component={App} />
           <Route component={NoMatch} />

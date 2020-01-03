@@ -1,6 +1,7 @@
 import React from "react";
 import {useSelector, useDispatch} from "react-redux";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 import {makeStyles} from "@material-ui/core/styles";
 import {GoogleLogout} from "react-google-login";
 
@@ -40,6 +41,13 @@ export default function Settings() {
           Log out
         </Button>
       )}
+      <br />
+      <Link
+        style={{position: "absolute", bottom: 10}}
+        href="https://app.termly.io/document/privacy-policy/8c9df9e2-f50d-42bb-93b8-107e897034d1"
+      >
+        Privacy policy
+      </Link>
     </div>
   );
 }

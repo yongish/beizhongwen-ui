@@ -64,7 +64,7 @@ export default function Content(props) {
   const history = useHistory();
   history.listen(location => {
     const pathname = location.pathname;
-    if (pathname.includes("term")) {
+    if (pathname.includes("term") && suggestions.length === 0) {
       dispatch(getSuggestions(pathname.substring(1).split("/")[1]));
     }
   });

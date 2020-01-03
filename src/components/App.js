@@ -45,7 +45,7 @@ export default function App(props) {
           )}
           {!termExists && tab === "about" && <About />}
           {!termExists && tab === "home" && (
-            <div className="flexDisplayRow" style={{width: "100%"}}>
+            <div className="flexDisplayRow flexGrowOne">
               <Home />
             </div>
           )}

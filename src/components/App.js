@@ -6,12 +6,10 @@ import About from "./About";
 import Content from "./Content";
 import HeaderBar from "./HeaderBar";
 import Home from "./Home";
-import HomeRight from "./HomeRight";
 import BlankLeft from "./BlankLeft";
 import BlankRight from "./BlankRight";
 import NavigationColumn from "./NavigationColumn";
 import Profile from "./Profile";
-import Related from "./Related";
 
 import {selectTab, setTerm} from "../actions";
 

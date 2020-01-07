@@ -212,6 +212,8 @@ const suggestionContent = (
   switch (action.type) {
     case SET_SUGGESTION_CONTENT:
       return action.suggestionContent;
+    case POST_SUGGESTION_SUCCESS:
+      return "";
     default:
       return state;
   }

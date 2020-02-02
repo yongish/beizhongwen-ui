@@ -61,13 +61,13 @@ export default function Content(props) {
   const [open, setOpen] = useState(false);
   const [contentToDelete, setContentToDelete] = useState("");
 
-  const history = useHistory();
-  history.listen(location => {
-    const pathname = location.pathname;
-    if (pathname.includes("term") && suggestions.length === 0) {
-      dispatch(getSuggestions(pathname.substring(1).split("/")[1]));
-    }
-  });
+  // const history = useHistory();
+  // history.listen(location => {
+  //   const pathname = location.pathname;
+  //   if (pathname.includes("term") && suggestions.length === 0) {
+  //     dispatch(getSuggestions(pathname.substring(1).split("/")[1]));
+  //   }
+  // });
 
   const handleClickOpen = content => {
     setContentToDelete(content);

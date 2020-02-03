@@ -139,7 +139,7 @@ export const login = (email, password, history) => async dispatch => {
     const user = await Auth.signIn(email, password);
     dispatch({ type: LOGIN_SUCCESS, user });
     dispatch({ type: SELECT_TAB, tab: "home" });
-    history.push(url);
+    history.push("/");
   } catch (e) {
     alert("Login failed. Invalid email or password.");
     dispatch({ type: LOGIN_FAILURE });

@@ -12,8 +12,11 @@ export const confirm = (
 ) => async dispatch => {
   try {
     await Auth.confirmSignUp(email, confirmationCode);
-    console.log(email, password);
-    login(email, password, history, term && term.length > 0 ? "/term/" + term : "/");
+    const user = await Auth.signIn(email, password);
+    console.log(user.email);
+    dispatch({ type: LOGIN_SUCCESS, user });
+    dispatch({ type: SELECT_TAB, tab: "home" });
+    history.push(term && term.length > 0 ? "/term/" + term : "/");
   } catch (e) {
     alert(e.message);
   }
@@ -130,7 +133,7 @@ export const setNewUser = newUser => dispatch => {
   dispatch({ type: SET_NEW_USER, newUser });
 };
 
-export const login = (email, password, history, url = "/") => async dispatch => {
+export const login = (email, password, history) => async dispatch => {
   try {
     console.log(email, password);
     const user = await Auth.signIn(email, password);

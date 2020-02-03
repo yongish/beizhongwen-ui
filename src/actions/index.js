@@ -1,5 +1,5 @@
 // import store from "../index";
-import {Auth} from "aws-amplify";
+import { Auth } from "aws-amplify";
 
 const API_ROOT = process.env.REACT_APP_API_URL;
 
@@ -12,12 +12,7 @@ export const confirm = (
 ) => async dispatch => {
   try {
     await Auth.confirmSignUp(email, confirmationCode);
-    await Auth.signIn(email, password);
-    if (term && term.length > 0) {
-      history.push("/term/" + term);
-    } else {
-      history.push("/");
-    }
+    login(email, password, history, term && term.length > 0 ? "/term/" + term : "/");
   } catch (e) {
     alert(e.message);
   }
@@ -30,21 +25,21 @@ const getRequest = (
   success_type,
   failure_type
 ) => {
-  dispatch({type: request_type});
+  dispatch({ type: request_type });
   return fetch(fullUrl).then(
     response =>
       response.json().then(json => {
-        dispatch({type: success_type, response: json});
+        dispatch({ type: success_type, response: json });
       }),
     error => {
-      dispatch({type: failure_type, error: error});
+      dispatch({ type: failure_type, error: error });
     }
   );
 };
 
 export const postTerm = (term, email, givenName, familyName) => dispatch => {
   const fullUrl = API_ROOT + "term/" + term;
-  dispatch({type: POST_TERM_REQUEST});
+  dispatch({ type: POST_TERM_REQUEST });
   return fetch(fullUrl, {
     method: "POST",
     headers: {
@@ -58,10 +53,10 @@ export const postTerm = (term, email, givenName, familyName) => dispatch => {
   }).then(
     response =>
       response.json().then(json => {
-        dispatch({type: POST_TERM_SUCCESS, term});
+        dispatch({ type: POST_TERM_SUCCESS, term });
       }),
     error => {
-      dispatch({type: POST_TERM_FAILURE, error: error});
+      dispatch({ type: POST_TERM_FAILURE, error: error });
     }
   );
 };
@@ -79,14 +74,14 @@ export const findTerms = searchTerm => dispatch => {
 
 export const getLatestTerms = () => dispatch => {
   const fullUrl = API_ROOT + "term/latest";
-  dispatch({type: LATEST_TERM_REQUEST});
-  return fetch(fullUrl, {mode: "cors"}).then(
+  dispatch({ type: LATEST_TERM_REQUEST });
+  return fetch(fullUrl, { mode: "cors" }).then(
     response =>
       response.json().then(json => {
-        dispatch({type: LATEST_TERM_SUCCESS, response: json});
+        dispatch({ type: LATEST_TERM_SUCCESS, response: json });
       }),
     error => {
-      dispatch({type: LATEST_TERM_FAILURE, error: error});
+      dispatch({ type: LATEST_TERM_FAILURE, error: error });
     }
   );
 };
@@ -94,7 +89,7 @@ export const getLatestTerms = () => dispatch => {
 // todo: refresh token if fail. in middleware
 export const getScore = (uid, token) => dispatch => {
   const fullUrl = API_ROOT + "score/" + uid;
-  dispatch({type: SCORE_REQUEST});
+  dispatch({ type: SCORE_REQUEST });
   return fetch(fullUrl, {
     headers: {
       Authorization: "Bearer " + token
@@ -102,56 +97,56 @@ export const getScore = (uid, token) => dispatch => {
   }).then(
     response =>
       response.json().then(json => {
-        dispatch({type: SCORE_SUCCESS, response: json});
+        dispatch({ type: SCORE_SUCCESS, response: json });
       }),
     error => {
-      dispatch({type: SCORE_FAILURE, error: error});
+      dispatch({ type: SCORE_FAILURE, error: error });
     }
   );
 };
 
 export const setChecked = index => dispatch => {
-  dispatch({type: SET_CHECKED, index});
+  dispatch({ type: SET_CHECKED, index });
 };
 
 export const setEmail = email => dispatch => {
-  dispatch({type: SET_EMAIL, email});
+  dispatch({ type: SET_EMAIL, email });
 };
 
 export const setFirstName = firstName => dispatch => {
-  dispatch({type: SET_FIRST_NAME, firstName});
+  dispatch({ type: SET_FIRST_NAME, firstName });
 };
 
 export const setLastName = lastName => dispatch => {
-  dispatch({type: SET_LAST_NAME, lastName});
+  dispatch({ type: SET_LAST_NAME, lastName });
 };
 
 export const setPassword = password => dispatch => {
-  dispatch({type: SET_PASSWORD, password});
+  dispatch({ type: SET_PASSWORD, password });
 };
 
 export const setNewUser = newUser => dispatch => {
-  dispatch({type: SET_NEW_USER, newUser});
+  dispatch({ type: SET_NEW_USER, newUser });
 };
 
-export const login = (email, password, history) => async dispatch => {
+export const login = (email, password, history, url = "/") => async dispatch => {
   try {
     const user = await Auth.signIn(email, password);
-    dispatch({type: LOGIN_SUCCESS, user});
-    dispatch({type: SELECT_TAB, tab: "home"});
-    history.push("/");
+    dispatch({ type: LOGIN_SUCCESS, user });
+    dispatch({ type: SELECT_TAB, tab: "home" });
+    history.push(url);
   } catch (e) {
     alert("Login failed. Invalid email or password.");
-    dispatch({type: LOGIN_FAILURE});
+    dispatch({ type: LOGIN_FAILURE });
   }
 };
 
 export const logout = () => async dispatch => {
   try {
     await Auth.signOut();
-    dispatch({type: LOGOUT_SUCCESS});
+    dispatch({ type: LOGOUT_SUCCESS });
   } catch (e) {
-    dispatch({type: LOGOUT_FAILURE});
+    dispatch({ type: LOGOUT_FAILURE });
   }
 };
 
@@ -170,26 +165,26 @@ export const signup = (
         given_name: firstName
       }
     });
-    dispatch({type: SIGNUP_SUCCESS});
-    dispatch({type: SET_NEW_USER, newUser: true});
+    dispatch({ type: SIGNUP_SUCCESS });
+    dispatch({ type: SET_NEW_USER, newUser: true });
   } catch (e) {
     if (e.name.toLowerCase().includes("usernameexistsexception")) {
-      dispatch({type: SET_NEW_USER, newUser: false});
+      dispatch({ type: SET_NEW_USER, newUser: false });
     } else {
       alert(e.message);
-      dispatch({type: SIGNUP_FAILURE});
+      dispatch({ type: SIGNUP_FAILURE });
     }
   }
 };
 
 export const cognitoFB = (data, history, term) => async dispatch => {
-  const {first_name, last_name, email, accessToken: token, expiresIn} = data;
+  const { first_name, last_name, email, accessToken: token, expiresIn } = data;
   const expires_at = expiresIn * 1000 + new Date().getTime();
-  dispatch({type: COGNITO_FB_REQUEST});
+  dispatch({ type: COGNITO_FB_REQUEST });
   try {
     // todo: Do OAuth2 verification with this in future.
     // const response =
-    await Auth.federatedSignIn("facebook", {token, expires_at}, {email});
+    await Auth.federatedSignIn("facebook", { token, expires_at }, { email });
     dispatch({
       type: COGNITO_FB_SUCCESS,
       email,
@@ -203,22 +198,22 @@ export const cognitoFB = (data, history, term) => async dispatch => {
     }
   } catch (e) {
     alert(e.message);
-    dispatch({type: COGNITO_FB_FAILURE});
+    dispatch({ type: COGNITO_FB_FAILURE });
   }
 };
 
 export const cognitoGoogle = (data, history, term) => async dispatch => {
   const {
-    profileObj: {givenName, familyName, email},
+    profileObj: { givenName, familyName, email },
     tokenId: token,
     expires_in
   } = data;
   const expires_at = expires_in * 1000 + new Date().getTime();
-  dispatch({type: COGNITO_GOOGLE_REQUEST});
+  dispatch({ type: COGNITO_GOOGLE_REQUEST });
   try {
     // todo: Do OAuth2 verification with this in future.
     // const response =
-    await Auth.federatedSignIn("google", {token, expires_at}, {email});
+    await Auth.federatedSignIn("google", { token, expires_at }, { email });
     dispatch({
       type: COGNITO_GOOGLE_SUCCESS,
       email,
@@ -232,64 +227,64 @@ export const cognitoGoogle = (data, history, term) => async dispatch => {
     }
   } catch (e) {
     alert(e.message);
-    dispatch({type: COGNITO_GOOGLE_FAILURE});
+    dispatch({ type: COGNITO_GOOGLE_FAILURE });
   }
 };
 
 export const sendCode = email => async dispatch => {
   try {
     await Auth.forgotPassword(email);
-    dispatch({type: SEND_CODE_SUCCESS});
+    dispatch({ type: SEND_CODE_SUCCESS });
   } catch (e) {
     alert(e.message);
-    dispatch({type: SEND_CODE_FAILURE});
+    dispatch({ type: SEND_CODE_FAILURE });
   }
 };
 
 export const confirmReset = (email, code, password) => async dispatch => {
   try {
     await Auth.forgotPasswordSubmit(email, code, password);
-    dispatch({type: CONFIRM_RESET_SUCCESS});
+    dispatch({ type: CONFIRM_RESET_SUCCESS });
   } catch (e) {
     alert(e.message);
-    dispatch({type: CONFIRM_RESET_FAILURE});
+    dispatch({ type: CONFIRM_RESET_FAILURE });
   }
 };
 
 export const selectTab = tab => dispatch => {
-  dispatch({type: SELECT_TAB, tab});
+  dispatch({ type: SELECT_TAB, tab });
 };
 
 export const setTerm = term => dispatch => {
-  dispatch({type: SET_TERM, term});
+  dispatch({ type: SET_TERM, term });
 };
 
 export const toggleEdit = edit => dispatch => {
-  dispatch({type: TOGGLE_EDIT, edit});
+  dispatch({ type: TOGGLE_EDIT, edit });
 };
 
 export const toggleSuggestionVisibilty = () => dispatch => {
-  dispatch({type: TOGGLE_SUGGESTION_VISIBILITY});
+  dispatch({ type: TOGGLE_SUGGESTION_VISIBILITY });
 };
 
 export const setOriginalSuggestion = suggestionContent => dispatch => {
-  dispatch({type: SET_ORIGINAL_SUGGESTION, suggestionContent});
+  dispatch({ type: SET_ORIGINAL_SUGGESTION, suggestionContent });
 };
 
 export const setSuggestionContent = suggestionContent => dispatch => {
-  dispatch({type: SET_SUGGESTION_CONTENT, suggestionContent});
+  dispatch({ type: SET_SUGGESTION_CONTENT, suggestionContent });
 };
 
 export const getSuggestions = term => dispatch => {
   const fullUrl = API_ROOT + "suggestion/" + term;
-  dispatch({type: GET_SUGGESTION_REQUEST});
+  dispatch({ type: GET_SUGGESTION_REQUEST });
   return fetch(fullUrl).then(
     response =>
       response.json().then(json => {
-        dispatch({type: GET_SUGGESTION_SUCCESS, response: json});
+        dispatch({ type: GET_SUGGESTION_SUCCESS, response: json });
       }),
     error => {
-      dispatch({type: GET_SUGGESTION_FAILURE, error: error});
+      dispatch({ type: GET_SUGGESTION_FAILURE, error: error });
     }
   );
 };
@@ -308,7 +303,7 @@ export const postSuggestion = (
     term +
     "/" +
     (edit === true ? "update" : "create");
-  dispatch({type: POST_SUGGESTION_REQUEST});
+  dispatch({ type: POST_SUGGESTION_REQUEST });
   return fetch(fullUrl, {
     method: "POST",
     headers: {
@@ -323,17 +318,17 @@ export const postSuggestion = (
   }).then(
     response =>
       response.json().then(json => {
-        dispatch({type: POST_SUGGESTION_SUCCESS, response: json});
+        dispatch({ type: POST_SUGGESTION_SUCCESS, response: json });
       }),
     error => {
-      dispatch({type: POST_SUGGESTION_FAILURE, error: error});
+      dispatch({ type: POST_SUGGESTION_FAILURE, error: error });
     }
   );
 };
 
 export const deleteSuggestion = (term, suggestionContent) => dispatch => {
   const fullUrl = API_ROOT + "suggestion/" + term;
-  dispatch({type: DELETE_SUGGESTION_REQUEST});
+  dispatch({ type: DELETE_SUGGESTION_REQUEST });
   return fetch(fullUrl, {
     method: "DELETE",
     headers: {
@@ -348,10 +343,10 @@ export const deleteSuggestion = (term, suggestionContent) => dispatch => {
   }).then(
     response =>
       response.json().then(json => {
-        dispatch({type: DELETE_SUGGESTION_SUCCESS, response: json});
+        dispatch({ type: DELETE_SUGGESTION_SUCCESS, response: json });
       }),
     error => {
-      dispatch({type: DELETE_SUGGESTION_FAILURE, error: error});
+      dispatch({ type: DELETE_SUGGESTION_FAILURE, error: error });
     }
   );
 };
